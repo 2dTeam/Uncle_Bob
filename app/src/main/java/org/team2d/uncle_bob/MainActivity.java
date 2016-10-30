@@ -1,13 +1,16 @@
 package org.team2d.uncle_bob;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+    private final int  PERMISSION_REQUEST_PHONE_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,21 +88,50 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        Log.d(TAG,"code is " + grantResults );
+        if (requestCode == PERMISSION_REQUEST_PHONE_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+               callUncleBob(null);
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
     public void callUncleBob(MenuItem view) {
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse("tel:" +  getString(R.string.pizza_shop_tel)));
         callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+            showExplanation("Permission Needed", "Rationale", Manifest.permission.CALL_PHONE, PERMISSION_REQUEST_PHONE_CODE);
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CALL_PHONE},
+                    PERMISSION_REQUEST_PHONE_CODE);
             return;
         }
         startActivity(callIntent);
+    }
+
+    private void showExplanation(String title,
+                                 String message,
+                                 final String permission,
+                                 final int permissionRequestCode) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        requestPermission(permission, permissionRequestCode);
+                    }
+                });
+        builder.create().show();
+    }
+
+    private void requestPermission(String permissionName, int permissionRequestCode) {
+        ActivityCompat.requestPermissions(this,
+                new String[]{permissionName}, permissionRequestCode);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
