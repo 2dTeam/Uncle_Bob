@@ -24,13 +24,13 @@
             android:title="@string/navigation_drawer_option_account" />
     </group>
 
-    <item android:title="@string/pizza_shop_contacts">
+    <item android:title="@string/navigation_drawer_contacts">
         <menu>
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_call"
-                android:onClick="callToUncleBob"
-                android:title="@string/pizza_shop_call_now" />
+                android:onClick="callUncleBob"
+                android:title="@string/navigation_drawer_option_call" />
             <item
                 android:id="@+id/nav_about"
                 android:icon="@drawable/ic_info"
