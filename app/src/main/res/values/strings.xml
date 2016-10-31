@@ -36,4 +36,13 @@
     <string name="item_details_sauces">Соусы</string>
     <string name="item_details_buy">Купить!</string>
     <string name="item_details_contains">Состав</string>
+
+    <string name="category_pizza">Пицца</string>
+    <string name="category_pizza_cat1">Рекомендованные</string>
+    <string name="category_pizza_cat2">Новинки</string>
+    <string name="category_pizza_cat3">С грибами</string>
+    <string name="category_pizza_cat4">Закрытые</string>
+    <string name="category_refreshments">Закуски</string>
+    <string name="category_salads">Салаты</string>
+    <string name="category_drinks">Напитки</string>
 </resources>
