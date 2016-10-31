@@ -25,4 +25,15 @@
 
     <string name="pizza_placeholder_title">Неополитано классик нео (с грибами) (закрытая)</string>
     <string name="pizza_placeholder_price">до 1 000 000 ₽</string>
+    <string name="pizza_placeholder_contains">Ветчина, охотничьи колбаски, грибы шампиньоны, помидоры, маслины, сыр, соус.</string>
+    <string name="pizza_placeholder_sauce1">масло на базилике (20 ₽)</string>
+    <string name="pizza_placeholder_sauce2">масло на тимьяне и чесноке (20 ₽)</string>
+    <string name="pizza_placeholder_sauce3">масло на чесноке и красн. перце (20 ₽)</string>
+    <string name="pizza_placeholder_weight1">440 г / 280 ₽</string>
+    <string name="pizza_placeholder_weight2">665 г / 400 ₽</string>
+
+    <string name="item_details_weight">Вес</string>
+    <string name="item_details_sauces">Соусы</string>
+    <string name="item_details_buy">Купить!</string>
+    <string name="item_details_contains">Состав</string>
 </resources>
