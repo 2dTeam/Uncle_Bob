@@ -20,7 +20,9 @@
     <string name="navigation_drawer_option_history">История заказов</string>
     <string name="navigation_drawer_option_about">О компании</string>
     <string name="navigation_drawer_option_call">Позвонить нам</string>
-
 	
     <string name="action_settings">Settings</string>
+
+    <string name="pizza_placeholder_title">Неополитано классик нео (с грибами) (закрытая)</string>
+    <string name="pizza_placeholder_price">до 1 000 000 ₽</string>
 </resources>
