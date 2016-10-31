@@ -33,7 +33,8 @@
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin">
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:baselineAligned="false">
 
             <TextView
                 android:text="@string/item_details_weight"
@@ -85,13 +86,58 @@
                     android:checked="true"/>
             </LinearLayout>
 
-            <TextView
-                android:text="@string/pizza_placeholder_price"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/activity_horizontal_margin"
-                android:id="@+id/item_details_price"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                android:orientation="horizontal">
+                <TextView
+                    android:text="@string/pizza_placeholder_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/item_details_price"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:layout_weight="2"/>
+
+                    <!-- For the first time -->
+            <!--    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="@string/item_details_buy"
+                        android:background="@color/colorAccent"
+                        android:id="@+id/item_details_buy"/>    -->
+
+                    <!-- After user has pressed "Buy!" button -->
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_weight="4"
+                        android:text="-"
+                        android:background="@color/colorAccent"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:id="@+id/item_details_quantity_decrease"/>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4"
+                        android:text="99"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:inputType="number"
+                        android:background="#FFFFFF"
+                        android:id="@+id/item_details_quantity"/>
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_weight="4"
+                        android:text="+"
+                        android:background="@color/colorAccent"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                        android:id="@+id/item_details_quantity_increase"/>
+
+            </LinearLayout>
+
 
             <TextView
                 android:text="@string/item_details_contains"
