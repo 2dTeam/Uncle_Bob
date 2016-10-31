@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:id="@+id/app_bar_wrapper"
     tools:context="org.team2d.uncle_bob.MainActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -21,7 +22,8 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+    <!-- Include your content here via addView(1, content.inflate()) -->
+    <!-- http://stackoverflow.com/questions/4046644/android-how-to-dynamically-include-a-xml-layout -->
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
