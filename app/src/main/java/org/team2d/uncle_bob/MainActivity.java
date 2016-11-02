@@ -110,7 +110,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        Log.d(TAG,"code is " + grantResults );
         if (requestCode == PERMISSION_REQUEST_PHONE_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                callUncleBob(null);
