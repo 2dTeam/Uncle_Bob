@@ -14,5 +14,4 @@ public class DataBaseHelper extends SQLiteAssetHelper {
     public DataBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-
 }
