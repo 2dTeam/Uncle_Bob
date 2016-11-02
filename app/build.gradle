@@ -31,5 +31,8 @@ dependencies {
     compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
+    compile 'org.slf4j:slf4j-api:1.7.21'
+    compile 'com.github.tony19:logback-android-core:1.1.1-6'
+    compile 'com.github.tony19:logback-android-classic:1.1.1-6'
     testCompile 'junit:junit:4.12'
 }

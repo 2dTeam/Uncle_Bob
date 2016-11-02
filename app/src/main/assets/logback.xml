@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+    <property name="LOG_DIR" value="/data/data/org.team2d.uncle_bob/files" />
+
+    <!-- Create a logcat appender -->
+    <appender name="logcat" class="ch.qos.logback.classic.android.LogcatAppender">
+        <encoder>
+            <pattern>%date{ISO8601} %msg</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Create a file appender for TRACE-level messages -->
+    <appender name="TraceLog" class="ch.qos.logback.core.FileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>TRACE</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+
+        <file>${LOG_DIR}/trace.log</file>
+
+        <encoder>
+            <pattern>%d{ISO8601} [%thread] %-7level %logger - %msg%n</pattern>
+            <outputPatternAsHeader>true</outputPatternAsHeader>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover period -->
+            <fileNamePattern>${LOG_DIR}/trace.%d.txt</fileNamePattern>
+            <!-- keep 7 days' worth of history -->
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+
+    </appender>
+
+    <!-- Create a file appender for DEBUG-level messages -->
+    <appender name="DebugLog" class="ch.qos.logback.core.FileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+
+        <file>${LOG_DIR}/debug.log</file>
+
+        <encoder>
+            <pattern>%d{ISO8601} [%thread] %-7level %logger - %msg%n</pattern>
+            <outputPatternAsHeader>true</outputPatternAsHeader>
+        </encoder>
+    </appender>
+
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <!-- daily rollover period -->
+        <fileNamePattern>${LOG_DIR}/trace.%d.txt</fileNamePattern>
+        <!-- keep 7 days' worth of history -->
+        <maxHistory>7</maxHistory>
+    </rollingPolicy>
+
+    <!-- Write INFO (and higher-level) messages to logcat -->
+    <root level="INFO">
+        <appender-ref ref="logcat" />
+    </root>
+
+    <!-- Do we need AsyncAppender? -->
+</configuration>
