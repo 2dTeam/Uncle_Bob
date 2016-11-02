@@ -23,6 +23,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import org.team2d.uncle_bob.Database.DatabaseAccess;
 
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+    private static final Logger LOGGER = LoggerFactory.getLogger(MainActivity.class);
     private final int  PERMISSION_REQUEST_PHONE_CODE = 1;
     private ListView listView;
 
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                LOGGER.info("fab clicked");
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
