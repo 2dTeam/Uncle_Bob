@@ -21,11 +21,7 @@ public class DatabaseAccess {
     private SQLiteDatabase database;
     private static DatabaseAccess instance;
 
-    /**
-     * Private constructor to aboid object creation from outside classes.
-     *
-     * @param context
-     */
+
     private DatabaseAccess(Context context) {
         this.openHelper = new DataBaseHelper(context);
     }
@@ -64,12 +60,13 @@ public class DatabaseAccess {
      *
      * @return a List of quotes
      */
-    public List<String> getQuotes() {
+    public List<String> getPizza() {
         List<String> list = new ArrayList<>();
         Cursor cursor = database.rawQuery("SELECT * FROM pizza", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            list.add(cursor.getString(1));
+            Log.d(TAG, "data" + cursor.getString(cursor.getColumnIndex("Name")));
+            list.add(cursor.getString(cursor.getColumnIndex("Name")));
             cursor.moveToNext();
         }
         cursor.close();
