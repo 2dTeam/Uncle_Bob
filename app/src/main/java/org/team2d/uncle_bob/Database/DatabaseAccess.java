@@ -5,14 +5,16 @@ package org.team2d.uncle_bob.Database;
  */
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.nfc.Tag;
 import android.util.Log;
 
-
+import org.team2d.uncle_bob.Database.ORM.PizzaORM;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class DatabaseAccess {
@@ -60,16 +62,22 @@ public class DatabaseAccess {
      *
      * @return a List of quotes
      */
-    public List<String> getPizza() {
-        List<String> list = new ArrayList<>();
+    public HashMap<Integer, PizzaORM> getPizza() {
+        HashMap<Integer, PizzaORM> pizzaMap = new HashMap<>();
         Cursor cursor = database.rawQuery("SELECT * FROM pizza", null);
         cursor.moveToFirst();
+
         while (!cursor.isAfterLast()) {
-            Log.d(TAG, "data" + cursor.getString(cursor.getColumnIndex("Name")));
-            list.add(cursor.getString(cursor.getColumnIndex("Name")));
+            Log.d(TAG, "test" + cursor.getColumnIndex("name"));
+            String pizzaName = cursor.getString(cursor.getColumnIndex("name"));
+            String pizzaImage = cursor.getString(cursor.getColumnIndex("pizza_image"));
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            int onlineId = cursor.getInt(cursor.getColumnIndex("online_id"));
+            PizzaORM pizza = new PizzaORM(id, onlineId, pizzaName, pizzaImage);
+            pizzaMap.put(id, pizza);
             cursor.moveToNext();
         }
         cursor.close();
-        return list;
+        return pizzaMap;
     }
 }

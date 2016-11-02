@@ -27,7 +27,9 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
 import org.team2d.uncle_bob.Database.DatabaseAccess;
+import org.team2d.uncle_bob.Database.ORM.PizzaORM;
 
+import java.util.HashMap;
 import java.util.List;
 
 import static java.security.AccessController.getContext;
@@ -68,15 +70,16 @@ public class MainActivity extends AppCompatActivity
 
         //_________________//DB
 
-        this.listView = (ListView) findViewById(R.id.listView);
+//        this.listView = (ListView) findViewById(R.id.listView);
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
-        List<String> quotes = databaseAccess.getPizza();
-        Log.d(TAG, "list" + quotes);
+        HashMap<Integer, PizzaORM> pizza  = databaseAccess.getPizza();
+
+        Log.d(TAG, "list" + pizza);
         databaseAccess.close();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, quotes);
-        this.listView.setAdapter(adapter);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, quotes);
+//        this.listView.setAdapter(adapter);
     }
 
     @Override
