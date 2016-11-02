@@ -24,7 +24,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@mipmap/pizza_placeholder_image_180x180"
+            android:src="@drawable/pizza_placeholder_image_180x180"
             android:scaleType="centerCrop"/>
         <TextView
             android:layout_width="match_parent"
@@ -48,7 +48,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@mipmap/refreshment_placeholder_180x180"
+            android:src="@drawable/refreshment_placeholder_180x180"
             android:scaleType="centerCrop"/>
         <TextView
             android:layout_width="match_parent"
@@ -72,7 +72,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@mipmap/salad_placeholder_180x180"
+            android:src="@drawable/salad_placeholder_180x180"
             android:scaleType="centerCrop"/>
         <TextView
             android:layout_width="match_parent"
@@ -96,7 +96,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@mipmap/drinks_placeholder_180x180"
+            android:src="@drawable/drinks_placeholder_180x180"
             android:scaleType="centerCrop"/>
         <TextView
             android:layout_width="match_parent"

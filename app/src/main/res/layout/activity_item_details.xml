@@ -18,7 +18,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@mipmap/pizza_placeholder_image_180x180"
+            app:srcCompat="@drawable/pizza_placeholder_image_180x180"
             android:id="@+id/item_details_image" />
     </LinearLayout>
 

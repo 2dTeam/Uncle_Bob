@@ -61,12 +61,14 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
         //_________________//DB
 
         this.listView = (ListView) findViewById(R.id.listView);
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
         List<String> quotes = databaseAccess.getPizza();
+        Log.d(TAG, "list" + quotes);
         databaseAccess.close();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, quotes);
@@ -108,7 +110,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        Log.d(TAG,"code is " + grantResults );
         if (requestCode == PERMISSION_REQUEST_PHONE_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                callUncleBob(null);
