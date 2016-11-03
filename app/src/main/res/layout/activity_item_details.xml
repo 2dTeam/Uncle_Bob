@@ -17,9 +17,11 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/details_item_image_height"
             app:srcCompat="@drawable/pizza_placeholder_image_180x180"
-            android:id="@+id/item_details_image" />
+            android:id="@+id/item_details_image"
+            android:minHeight="@dimen/details_item_image_height"
+            android:maxHeight="@dimen/details_item_image_height"/>
     </LinearLayout>
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -149,7 +151,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/item_details_contains"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         </LinearLayout>

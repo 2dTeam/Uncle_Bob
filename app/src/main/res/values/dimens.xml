@@ -12,5 +12,6 @@
 
     <dimen name="category_text_size">36sp</dimen>
 
-    <dimen name="preview_item_image_height">108dp</dimen>
+    <dimen name="preview_item_image_height">128dp</dimen>
+    <dimen name="details_item_image_height">256dp</dimen>
 </resources>
