@@ -25,6 +25,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
@@ -86,13 +89,43 @@ public class MainActivity extends AppCompatActivity
         HashMap<Integer, PizzaORM> pizza  = databaseAccess.getPizza();
         for (HashMap.Entry<Integer, PizzaORM> entry : pizza.entrySet()) {
             int key = entry.getKey();
+            String name = entry.getValue().getName();
             Log.d(TAG, "Pizzas " + entry.getValue().getImagePath());
 
+            RelativeLayout relativeLayout = new RelativeLayout(this);
+
+            RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.FILL_PARENT,
+                    RelativeLayout.LayoutParams.FILL_PARENT);
+
+            TextView tv = new TextView(this);
+            tv.setText(name);
+
+            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+            lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+            lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+
+
+
+            // Setting the parameters on the TextView
+            tv.setLayoutParams(lp);
+
             ImageView image = new ImageView(MainActivity.this);
-
-
             image.setBackgroundResource(getResourceId(entry.getValue().getImagePath(), "drawable", getPackageName()));
-            linearLayout1.addView(image);
+
+            relativeLayout.addView(image);
+            image.getLayoutParams().height = 500;
+            image.getLayoutParams().width = 500;
+            image.requestLayout();
+
+            // Adding the TextView to the RelativeLayout as a child
+            relativeLayout.addView(tv);
+
+            linearLayout1.addView(relativeLayout);
+
 
         }
         databaseAccess.close();

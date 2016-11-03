@@ -24,9 +24,10 @@
                 android:id="@+id/linearLayout1"
                 android:layout_marginTop="60dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
             </LinearLayout>
+
         </ScrollView>
     </LinearLayout>
 
