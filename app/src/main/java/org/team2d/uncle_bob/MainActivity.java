@@ -23,8 +23,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.slf4j.Logger;
@@ -84,7 +82,7 @@ public class MainActivity extends AppCompatActivity
 		
 		HashMap<Integer, PizzaORM> pizza  = DatabaseService.getPizza(this);
 		for (HashMap.Entry<Integer, PizzaORM> entry : pizza.entrySet()) {
-            basket.put(Basket.ProductType.PIZZA, entry);
+            basket.put(Basket.ProductType.PIZZA, entry.getValue());
             int key = entry.getKey();
             String name = entry.getValue().getName();
             LOGGER.debug("Pizzas " + entry.getValue().getImagePath());

@@ -10,9 +10,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import org.team2d.uncle_bob.Database.ORM.PizzaORM;
+
 import java.util.HashMap;
 
-public class DatabaseAccess {
+class DatabaseAccess {
     private static final String TAG = DatabaseAccess.class.getSimpleName();
     private SQLiteOpenHelper openHelper;
     private SQLiteDatabase database;
@@ -22,7 +23,7 @@ public class DatabaseAccess {
         this.openHelper = new DataBaseHelper(context);
     }
 
-    public static DatabaseAccess getInstance(Context context) {
+    static DatabaseAccess getInstance(Context context) {
         if (instance == null) {
             instance = new DatabaseAccess(context);
         }
@@ -39,7 +40,7 @@ public class DatabaseAccess {
         }
     }
 
-    public HashMap<Integer, PizzaORM> getAllPizzaFromDb() {
+    HashMap<Integer, PizzaORM> getAllPizzaFromDb() {
         HashMap<Integer, PizzaORM> pizzaMap = new HashMap<>();
         Cursor cursor = database.rawQuery("SELECT * FROM pizza", null);
         cursor.moveToFirst();
