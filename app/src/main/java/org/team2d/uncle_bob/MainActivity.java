@@ -22,6 +22,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
@@ -33,6 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static java.security.AccessController.getContext;
+import static org.team2d.uncle_bob.R.id.image;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -40,7 +43,7 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final Logger LOGGER = LoggerFactory.getLogger(MainActivity.class);
     private final int  PERMISSION_REQUEST_PHONE_CODE = 1;
-    private ListView listView;
+    private LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,13 +71,24 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //_________________//DB
 
-//        this.listView = (ListView) findViewById(R.id.listView);
+        // load from db pizzas
+        LinearLayout linearLayout1 = (LinearLayout) findViewById(R.id.linearLayout1);
+
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
         HashMap<Integer, PizzaORM> pizza  = databaseAccess.getPizza();
+        for (HashMap.Entry<Integer, PizzaORM> entry : pizza.entrySet()) {
+            int key = entry.getKey();
+            Log.d(TAG, "Pizzas " + entry.getValue().getImagePath());
 
+            ImageView image = new ImageView(MainActivity.this);
+
+            image.setBackgroundResource(R.drawable.pizza_placeholder_image_180x180);
+            linearLayout1.addView(image);
+
+            // Adds the view to the layout
+        }
         Log.d(TAG, "list" + pizza);
         databaseAccess.close();
 

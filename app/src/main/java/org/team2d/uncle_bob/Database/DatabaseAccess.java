@@ -57,24 +57,21 @@ public class DatabaseAccess {
         }
     }
 
-    /**
-     * Read all quotes from the database.
-     *
-     * @return a List of quotes
-     */
+
     public HashMap<Integer, PizzaORM> getPizza() {
         HashMap<Integer, PizzaORM> pizzaMap = new HashMap<>();
         Cursor cursor = database.rawQuery("SELECT * FROM pizza", null);
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
-            Log.d(TAG, "test" + cursor.getColumnIndex("name"));
             String pizzaName = cursor.getString(cursor.getColumnIndex("name"));
             String pizzaImage = cursor.getString(cursor.getColumnIndex("pizza_image"));
             int id = cursor.getInt(cursor.getColumnIndex("id"));
             int onlineId = cursor.getInt(cursor.getColumnIndex("online_id"));
+
             PizzaORM pizza = new PizzaORM(id, onlineId, pizzaName, pizzaImage);
-            pizzaMap.put(id, pizza);
+            pizzaMap.put(id, pizza); // id - Pizza object
+
             cursor.moveToNext();
         }
         cursor.close();
