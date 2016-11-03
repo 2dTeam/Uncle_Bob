@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final Logger LOGGER = LoggerFactory.getLogger(MainActivity.class);
     private final int PERMISSION_REQUEST_PHONE_CODE = 1;
-    private final  HashMap<Basket.ProductType, ?> basket  = Basket.getBasket();
+    private final  HashMap<Basket.ProductType, Object> basket  = Basket.getBasket();
 
     public int getResourceId(String pVariableName, String pResourcename, String pPackageName) {
         try {
@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity
         HashMap<Integer, PizzaORM> pizza  = DatabaseService.getPizza(this);
 
         for (HashMap.Entry<Integer, PizzaORM> entry : pizza.entrySet()) {
+            basket.put(Basket.ProductType.PIZZA, entry);
             int key = entry.getKey();
             String name = entry.getValue().getName();
             Log.d(TAG, "Pizzas " + entry.getValue().getImagePath());

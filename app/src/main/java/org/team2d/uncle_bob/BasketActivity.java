@@ -1,13 +1,17 @@
 package org.team2d.uncle_bob;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.util.Log;
+
+import org.team2d.uncle_bob.Basket.Basket;
+
+import java.util.HashMap;
 
 public class BasketActivity extends AppCompatActivity {
+    private final HashMap<Basket.ProductType, Object> basket  = Basket.getBasket();
+    private static final String TAG = BasketActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,15 +19,11 @@ public class BasketActivity extends AppCompatActivity {
         setContentView(R.layout.activity_basket);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        for (HashMap.Entry<Basket.ProductType, Object> entry : basket.entrySet()) {
+            Log.d(TAG, "basket" + entry.toString());
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        }
+
     }
 
 }

@@ -14,7 +14,7 @@ public class Basket {
     }
     private static HashMap<ProductType, Object> basket = null;
 
-    public static HashMap<ProductType, ?> getBasket() {
+    public static HashMap<ProductType, Object> getBasket() {
         if (basket == null) {
             basket = new HashMap<>();
         }
