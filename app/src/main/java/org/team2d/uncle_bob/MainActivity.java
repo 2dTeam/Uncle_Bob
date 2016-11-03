@@ -29,6 +29,7 @@ import android.widget.TextView;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.team2d.uncle_bob.Basket.Basket;
 import org.team2d.uncle_bob.Database.DatabaseService;
 import org.team2d.uncle_bob.Database.ORM.PizzaORM;
 
@@ -41,8 +42,7 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final Logger LOGGER = LoggerFactory.getLogger(MainActivity.class);
     private final int PERMISSION_REQUEST_PHONE_CODE = 1;
-
-
+    private final  HashMap<Basket.ProductType, Object> basket  = Basket.getBasket();
 
     public int getResourceId(String pVariableName, String pResourcename, String pPackageName) {
         try {
@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +81,13 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         fillActivityWithPreviews();
+		
+		HashMap<Integer, PizzaORM> pizza  = DatabaseService.getPizza(this);
+		for (HashMap.Entry<Integer, PizzaORM> entry : pizza.entrySet()) {
+            basket.put(Basket.ProductType.PIZZA, entry);
+            int key = entry.getKey();
+            String name = entry.getValue().getName();
+            Log.d(TAG, "Pizzas " + entry.getValue().getImagePath());
     }
 
     private View getItemPreview(String title, String price, String imagePath, @Nullable ViewGroup parent) {
@@ -199,22 +207,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-//        if (id == R.id.nav_camera) {
-//            // Handle the camera action
-//        } else if (id == R.id.nav_gallery) {
-//
-//        } else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
+        switch (id) {
+            case R.id.nav_basket : {
+                Intent intent = new Intent(this, BasketActivity.class);
+                startActivity(intent);
+            }
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

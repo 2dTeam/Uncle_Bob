@@ -1,18 +1,18 @@
 <resources>
     <string name="app_name">Uncle Bob</string>
     <string name="menu_header_name">Пицерия Uncle Bob</string>
-	
-	
+
+
     <string name="pizza_shop_name">Uncle Bob</string>
     <string name="pizza_shop_greeting">Доставка вкусной пиццы в Казани</string>
     <string name="pizza_shop_default_city">Казань</string>
     <string name="pizza_shop_tel">89033071935</string>
 
-	
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_drawer_contacts">Контакты</string>
-	
+
     <string name="navigation_drawer_option_menu">Меню</string>
     <string name="navigation_drawer_option_sales">Акции</string>
     <string name="navigation_drawer_option_basket">Корзина</string>
@@ -20,7 +20,7 @@
     <string name="navigation_drawer_option_history">История заказов</string>
     <string name="navigation_drawer_option_about">О компании</string>
     <string name="navigation_drawer_option_call">Позвонить нам</string>
-	
+
     <string name="action_settings">Settings</string>
 
     <string name="pizza_placeholder_title">Неополитано классик нео (с грибами) (закрытая)</string>
@@ -45,4 +45,5 @@
     <string name="category_refreshments">Закуски</string>
     <string name="category_salads">Салаты</string>
     <string name="category_drinks">Напитки</string>
+    <string name="title_activity_basket">Корзина</string>
 </resources>
