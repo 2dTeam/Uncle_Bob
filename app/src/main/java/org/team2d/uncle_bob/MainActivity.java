@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final Logger LOGGER = LoggerFactory.getLogger(MainActivity.class);
     private final int PERMISSION_REQUEST_PHONE_CODE = 1;
-    HashMap<Integer, PizzaORM> pizza  = DatabaseService.getPizza(this);
+
 
 
     public int getResourceId(String pVariableName, String pResourcename, String pPackageName) {
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity
 
         // load from db pizzas
         LinearLayout linearLayout1 = (LinearLayout) findViewById(R.id.linearLayout1);
-
+        HashMap<Integer, PizzaORM> pizza  = DatabaseService.getPizza(this);
 
         for (HashMap.Entry<Integer, PizzaORM> entry : pizza.entrySet()) {
             int key = entry.getKey();
@@ -119,7 +119,6 @@ public class MainActivity extends AppCompatActivity
             linearLayout1.addView(relativeLayout);
             // Линеар > скрол > линеар > релатив (текст + имадж) лайаут - does it looks correct?!
         }
-
     }
 
     @Override
@@ -146,7 +145,6 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -222,5 +220,4 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 }

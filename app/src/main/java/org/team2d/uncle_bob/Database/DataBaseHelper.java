@@ -11,7 +11,7 @@ class DataBaseHelper extends SQLiteAssetHelper {
     private static final String DATABASE_NAME = "UncleBob.db";
     private static final int DATABASE_VERSION = 1;
 
-    DataBaseHelper(Context context) {
+   DataBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 }
