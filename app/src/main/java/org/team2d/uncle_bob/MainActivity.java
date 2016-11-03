@@ -87,7 +87,8 @@ public class MainActivity extends AppCompatActivity
             basket.put(Basket.ProductType.PIZZA, entry);
             int key = entry.getKey();
             String name = entry.getValue().getName();
-            Log.d(TAG, "Pizzas " + entry.getValue().getImagePath());
+            LOGGER.debug("Pizzas " + entry.getValue().getImagePath());
+        }
     }
 
     private View getItemPreview(String title, String price, String imagePath, @Nullable ViewGroup parent) {
