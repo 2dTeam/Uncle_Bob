@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -17,10 +18,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -78,47 +79,46 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        fillActivityWithPreviews();
+    }
 
-        // load from db pizzas
-        LinearLayout linearLayout1 = (LinearLayout) findViewById(R.id.linearLayout1);
-        HashMap<Integer, PizzaORM> pizza  = DatabaseService.getPizza(this);
+    private View getItemPreview(String title, String price, String imagePath, @Nullable ViewGroup parent) {
+        final ViewGroup previewLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.item_preview, null);
 
-        for (HashMap.Entry<Integer, PizzaORM> entry : pizza.entrySet()) {
-            int key = entry.getKey();
-            String name = entry.getValue().getName();
-            Log.d(TAG, "Pizzas " + entry.getValue().getImagePath());
+        TextView titleTextView = (TextView) previewLayout.findViewById(R.id.item_preview_title);
+        titleTextView.setText(title);
 
-            RelativeLayout relativeLayout = new RelativeLayout(this);
+        TextView priceTextView = (TextView) previewLayout.findViewById(R.id.item_preview_price);
+        priceTextView.setText(price);
 
-            RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.MATCH_PARENT,
-                    RelativeLayout.LayoutParams.MATCH_PARENT);
+        ImageView imageView = (ImageView) previewLayout.findViewById(R.id.item_preview_image);
+        imageView.setImageResource(getResourceId(imagePath, "drawable", getPackageName()));
 
-            TextView tv = new TextView(this);
-            tv.setText(name);
+        return previewLayout;
+    }
 
-            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.WRAP_CONTENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+    private void fillActivityWithPreviews() {
+        final ViewGroup contentWrapper = (ViewGroup) findViewById(R.id.app_bar_wrapper_content_container);
+        final ViewGroup previewListView = (ViewGroup) getLayoutInflater().inflate(R.layout.preview_list_content, null);
+        final ViewGroup previewListContainer = (ViewGroup) previewListView.findViewById(R.id.preview_list);
 
-            lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
-            lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        HashMap<Integer, PizzaORM> pizzas  = DatabaseService.getPizza(this);
 
-            tv.setLayoutParams(lp);
+        for (final HashMap.Entry<Integer, PizzaORM> entry : pizzas.entrySet()) {
+            final PizzaORM value = entry.getValue();
+            LOGGER.debug("Pizzas " + entry.getValue().getImagePath());
 
-            ImageView image = new ImageView(MainActivity.this);
-            image.setBackgroundResource(getResourceId(entry.getValue().getImagePath(), "drawable", getPackageName()));
-            // Хуйня - надо передалть
-            relativeLayout.addView(image);
-            image.getLayoutParams().height = 500;
-            image.getLayoutParams().width = 500;
-            image.requestLayout();
-            // закончилась хуйня
-            relativeLayout.addView(tv);
+            final View itemPreview = getItemPreview(value.getName(), "Not implemented", value.getImagePath(), null);
 
-            linearLayout1.addView(relativeLayout);
-            // Линеар > скрол > линеар > релатив (текст + имадж) лайаут - does it looks correct?!
+            // TODO: Write business logic here.
+            // TODO: remember to collect garbage! (I mean make it null onStop)
+            // Warning! Lambdas are not supported!
+            itemPreview.setOnClickListener(null);
+
+            previewListContainer.addView(itemPreview);
         }
+
+        contentWrapper.addView(previewListView);
     }
 
     @Override

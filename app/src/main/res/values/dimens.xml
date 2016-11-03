@@ -11,4 +11,6 @@
     <dimen name="nav_logo_width">98dp</dimen>
 
     <dimen name="category_text_size">36sp</dimen>
+
+    <dimen name="preview_item_image_height">108dp</dimen>
 </resources>

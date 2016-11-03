@@ -8,29 +8,6 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".MainActivity" >
-
-        <ScrollView
-            android:id="@+id/scrollView1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <LinearLayout
-                android:id="@+id/linearLayout1"
-                android:layout_marginTop="60dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-            </LinearLayout>
-
-        </ScrollView>
-    </LinearLayout>
-
     <include
         layout="@layout/app_bar_wrapper"
         android:layout_width="match_parent"

@@ -17,14 +17,16 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:id="@+id/item_preview_image"
-        android:adjustViewBounds="false"
-        android:cropToPadding="false" />
+        android:adjustViewBounds="true"
+        android:cropToPadding="false"
+        android:minHeight="@dimen/preview_item_image_height"
+        android:maxHeight="@dimen/preview_item_image_height"/>
 
     <TextView
         android:text="@string/pizza_placeholder_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView3"
+        android:id="@+id/item_preview_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
