@@ -5,7 +5,7 @@
     <!-- Create a logcat appender -->
     <appender name="logcat" class="ch.qos.logback.classic.android.LogcatAppender">
         <encoder>
-            <pattern>%date{ISO8601} %msg</pattern>
+            <pattern>%msg</pattern>
         </encoder>
     </appender>
 
