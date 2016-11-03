@@ -26,6 +26,10 @@
             android:name=".BasketActivity"
             android:label="@string/title_activity_basket"
             android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".DetailsActivity"
+            android:label="@string/title_activity_details"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

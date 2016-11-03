@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringDef;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -36,33 +37,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+public class DetailsActivity extends AppCompatActivity
+    implements NavigationView.OnNavigationItemSelectedListener {
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+    public static String EXTRA_ITEM_ID = "org.team2d.uncle_bob.EXTRA_ITEM_ID";
 
-    private static final String TAG = MainActivity.class.getSimpleName();
-    private static final Logger LOGGER = LoggerFactory.getLogger(MainActivity.class);
+    private static final String TAG = DetailsActivity.class.getSimpleName();
+    private static final Logger LOGGER = LoggerFactory.getLogger(DetailsActivity.class);
     private final int PERMISSION_REQUEST_PHONE_CODE = 1;
     private static final HashMap<Basket.ProductType, Object> BASKET = Basket.getBasket();
-
-    private final List<View> onClickSubscribers = new ArrayList<>();
-    private class ActivityChanger implements View.OnClickListener {
-        private final int iID;
-        private final Context text;
-
-        ActivityChanger(int itemID, Context context) {
-            this.iID = itemID;
-            text = context;
-        }
-
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(text, DetailsActivity.class);
-            intent.putExtra(DetailsActivity.EXTRA_ITEM_ID, iID);
-
-            startActivity(intent);
-        }
-    }
+    private int itemID = 0;
 
     public int getResourceId(String pVariableName, String pResourcename, String pPackageName) {
         try {
@@ -77,20 +61,14 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final Intent initial = getIntent();
+        if (initial != null) {
+            itemID = initial.getIntExtra(EXTRA_ITEM_ID, 0);
+        }
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        onClickSubscribers.add(fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                LOGGER.info("fab clicked");
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -101,59 +79,29 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        fillActivityWithPreviews();
-		
-		HashMap<Integer, PizzaORM> pizza  = DatabaseService.getPizza(this);
-		for (HashMap.Entry<Integer, PizzaORM> entry : pizza.entrySet()) {
-            BASKET.put(Basket.ProductType.PIZZA, entry.getValue());
-            int key = entry.getKey();
-            String name = entry.getValue().getName();
-            LOGGER.debug("Pizzas " + entry.getValue().getImagePath());
-        }
+        fillActivityWithItemDetails();
     }
 
-    private View getItemPreview(String title, String price, String imagePath, @Nullable ViewGroup parent) {
-        final ViewGroup previewLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.item_preview, null);
 
-        TextView titleTextView = (TextView) previewLayout.findViewById(R.id.item_preview_title);
-        titleTextView.setText(title);
-
-        TextView priceTextView = (TextView) previewLayout.findViewById(R.id.item_preview_price);
-        priceTextView.setText(price);
-
-        ImageView imageView = (ImageView) previewLayout.findViewById(R.id.item_preview_image);
-        imageView.setImageResource(getResourceId(imagePath, "drawable", getPackageName()));
-
-        return previewLayout;
-    }
-
-    private void fillActivityWithPreviews() {
+    private void fillActivityWithItemDetails() {
         final ViewGroup contentWrapper = (ViewGroup) findViewById(R.id.app_bar_wrapper_content_container);
-        final ViewGroup previewListView = (ViewGroup) getLayoutInflater().inflate(R.layout.preview_list_content, null);
-        final ViewGroup previewListContainer = (ViewGroup) previewListView.findViewById(R.id.preview_list);
+        final ViewGroup detailsView = (ViewGroup) getLayoutInflater().inflate(R.layout.activity_item_details, null);
 
-        HashMap<Integer, PizzaORM> pizzas  = DatabaseService.getPizza(this);
+        PizzaORM pizza = DatabaseService.getPizza(this).get(itemID);
 
-        for (final HashMap.Entry<Integer, PizzaORM> entry : pizzas.entrySet()) {
-            final PizzaORM value = entry.getValue();
-            LOGGER.info("Pizzas " + entry.getValue().getImagePath());
+        setTitle(pizza.getName());
 
-            final View itemPreview = getItemPreview(value.getName(), "Not implemented", value.getImagePath(), null);
+        TextView priceTextView = (TextView) detailsView.findViewById(R.id.item_details_price);
+        priceTextView.setText("" + pizza.getId() + ' ' + pizza.getOnlineId());
 
-            itemPreview.setOnClickListener(new ActivityChanger(value.getId(), this));
+        ImageView imageView = (ImageView) detailsView.findViewById(R.id.item_details_image);
+        imageView.setImageResource(getResourceId(pizza.getImagePath(), "drawable", getPackageName()));
 
-            previewListContainer.addView(itemPreview);
-        }
-
-        contentWrapper.addView(previewListView);
+        contentWrapper.addView(detailsView);
     }
-
     @Override
     protected void onStop() {
         super.onStop();
-
-        for (View subscriber : onClickSubscribers)
-            subscriber.setOnClickListener(null);
     }
 
     @Override
