@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
 import org.team2d.uncle_bob.Database.DatabaseAccess;
+import org.team2d.uncle_bob.Database.DatabaseService;
 import org.team2d.uncle_bob.Database.ORM.PizzaORM;
 
 import java.util.HashMap;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final Logger LOGGER = LoggerFactory.getLogger(MainActivity.class);
     private final int  PERMISSION_REQUEST_PHONE_CODE = 1;
+
 
     public  int getResourceId(String pVariableName, String pResourcename, String pPackageName)
     {
@@ -84,9 +86,8 @@ public class MainActivity extends AppCompatActivity
         // load from db pizzas
         LinearLayout linearLayout1 = (LinearLayout) findViewById(R.id.linearLayout1);
 
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
-        databaseAccess.open();
-        HashMap<Integer, PizzaORM> pizza  = databaseAccess.getPizza();
+        HashMap<Integer, PizzaORM> pizza  = DatabaseService.getPizza(this);
+
         for (HashMap.Entry<Integer, PizzaORM> entry : pizza.entrySet()) {
             int key = entry.getKey();
             String name = entry.getValue().getName();
@@ -95,8 +96,8 @@ public class MainActivity extends AppCompatActivity
             RelativeLayout relativeLayout = new RelativeLayout(this);
 
             RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.FILL_PARENT,
-                    RelativeLayout.LayoutParams.FILL_PARENT);
+                    RelativeLayout.LayoutParams.MATCH_PARENT,
+                    RelativeLayout.LayoutParams.MATCH_PARENT);
 
             TextView tv = new TextView(this);
             tv.setText(name);
@@ -110,25 +111,21 @@ public class MainActivity extends AppCompatActivity
 
 
 
-            // Setting the parameters on the TextView
             tv.setLayoutParams(lp);
 
             ImageView image = new ImageView(MainActivity.this);
             image.setBackgroundResource(getResourceId(entry.getValue().getImagePath(), "drawable", getPackageName()));
-
+            // Хуйня - надо передалть
             relativeLayout.addView(image);
             image.getLayoutParams().height = 500;
             image.getLayoutParams().width = 500;
             image.requestLayout();
-
-            // Adding the TextView to the RelativeLayout as a child
+            // закончилась хуйня
             relativeLayout.addView(tv);
 
             linearLayout1.addView(relativeLayout);
-
-
+            // Линеар > скрол > линеар > релатив (текст + имадж) лайаут - does it looks correct?!
         }
-        databaseAccess.close();
 
     }
 
