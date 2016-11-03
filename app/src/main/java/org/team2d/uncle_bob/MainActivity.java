@@ -32,10 +32,7 @@ import org.team2d.uncle_bob.Database.DatabaseAccess;
 import org.team2d.uncle_bob.Database.ORM.PizzaORM;
 
 import java.util.HashMap;
-import java.util.List;
 
-import static java.security.AccessController.getContext;
-import static org.team2d.uncle_bob.R.id.image;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -43,7 +40,16 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final Logger LOGGER = LoggerFactory.getLogger(MainActivity.class);
     private final int  PERMISSION_REQUEST_PHONE_CODE = 1;
-    private LinearLayout linearLayout;
+
+    public  int getResourceId(String pVariableName, String pResourcename, String pPackageName)
+    {
+        try {
+            return getResources().getIdentifier(pVariableName, pResourcename, pPackageName);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,16 +90,13 @@ public class MainActivity extends AppCompatActivity
 
             ImageView image = new ImageView(MainActivity.this);
 
-            image.setBackgroundResource(R.drawable.pizza_placeholder_image_180x180);
+
+            image.setBackgroundResource(getResourceId(entry.getValue().getImagePath(), "drawable", getPackageName()));
             linearLayout1.addView(image);
 
-            // Adds the view to the layout
         }
-        Log.d(TAG, "list" + pizza);
         databaseAccess.close();
 
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, quotes);
-//        this.listView.setAdapter(adapter);
     }
 
     @Override
