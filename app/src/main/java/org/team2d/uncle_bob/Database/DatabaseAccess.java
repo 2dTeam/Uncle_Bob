@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import org.team2d.uncle_bob.Database.ORM.PizzaORM;
 
 import java.util.HashMap;
+import java.util.List;
 
 class DatabaseAccess {
     private static final String TAG = DatabaseAccess.class.getSimpleName();
@@ -42,18 +43,35 @@ class DatabaseAccess {
 
     HashMap<Integer, PizzaORM> getAllPizzaFromDb() {
         HashMap<Integer, PizzaORM> pizzaMap = new HashMap<>();
-        Cursor cursor = database.rawQuery("SELECT * FROM pizza", null);
+        Cursor cursor = database.rawQuery("SELECT * FROM pizza JOIN pizza_cost ON pizza.id = pizza_cost.id", null);
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
-            String pizzaName = cursor.getString(cursor.getColumnIndex("name"));
-            String pizzaImage = cursor.getString(cursor.getColumnIndex("pizza_image"));
             int id = cursor.getInt(cursor.getColumnIndex("id"));
-            int onlineId = cursor.getInt(cursor.getColumnIndex("online_id"));
+            if (pizzaMap.containsKey(id)) {
+                Float weight = cursor.getFloat(cursor.getColumnIndex("weight"));
+                Float cost = cursor.getFloat(cursor.getColumnIndex("cost"));
 
-            PizzaORM pizza = new PizzaORM(id, onlineId, pizzaName, pizzaImage);
-            pizzaMap.put(id, pizza); // id - Pizza object
+                HashMap<String, String> weightCosts = new HashMap<>();
+                weightCosts.put(weight.toString(), cost.toString());
+                PizzaORM pizza = pizzaMap.get(id);
 
+                List<HashMap<String, String>> objPizzaList =  pizza.getCostParams();
+                objPizzaList.add(weightCosts);
+
+            } else {
+                String pizzaName = cursor.getString(cursor.getColumnIndex("name"));
+                String pizzaImage = cursor.getString(cursor.getColumnIndex("pizza_image"));
+                int onlineId = cursor.getInt(cursor.getColumnIndex("online_id"));
+                Float weight = cursor.getFloat(cursor.getColumnIndex("weight"));
+                Float cost = cursor.getFloat(cursor.getColumnIndex("cost"));
+
+                HashMap<String, String> weightCosts = new HashMap<>();
+                weightCosts.put(weight.toString(), cost.toString());
+
+                PizzaORM pizza = new PizzaORM(id, onlineId, pizzaName, pizzaImage, weightCosts);
+                pizzaMap.put(id, pizza); // id - Pizza object
+            }
             cursor.moveToNext();
         }
         cursor.close();

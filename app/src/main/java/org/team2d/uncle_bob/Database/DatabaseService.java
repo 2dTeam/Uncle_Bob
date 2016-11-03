@@ -19,7 +19,6 @@ public class DatabaseService {
             databaseAccess.open();
             pizza = databaseAccess.getAllPizzaFromDb();
         }
-
         return pizza;
     }
 
