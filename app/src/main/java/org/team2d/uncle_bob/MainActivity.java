@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.team2d.uncle_bob.Basket.Basket;
 import org.team2d.uncle_bob.Database.DatabaseService;
 import org.team2d.uncle_bob.Database.ORM.PizzaORM;
 
@@ -40,8 +41,7 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final Logger LOGGER = LoggerFactory.getLogger(MainActivity.class);
     private final int PERMISSION_REQUEST_PHONE_CODE = 1;
-
-
+    private final  HashMap<Basket.ProductType, ?> basket  = Basket.getBasket();
 
     public int getResourceId(String pVariableName, String pResourcename, String pPackageName) {
         try {
@@ -199,7 +199,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
         switch (id) {
             case R.id.nav_basket : {
@@ -207,7 +206,6 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         }
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 public class BasketActivityFragment extends Fragment {
 
     public BasketActivityFragment() {
+
     }
 
     @Override
