@@ -12,6 +12,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -21,6 +22,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +34,18 @@ public class MainActivity extends AppCompatActivity
     // TODO: make some proper logging?
     private static final Logger LOGGER = LoggerFactory.getLogger(MainActivityOld.class);
     private final int PERMISSION_REQUEST_PHONE_CODE = 1;
+    private Fragment currentContent = null;
+
+    // TODO: Consider moving into utility class
+    // Oops! How to move non-static AppCompatActivity.getResources() method?
+    public int getResourceId(String VariableName, String Resourcename, String PackageName) {
+        try {
+            return getResources().getIdentifier(VariableName, Resourcename, PackageName);
+        } catch (final Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +56,20 @@ public class MainActivity extends AppCompatActivity
         setupFAB();
         setupDrawer();
 
+        setContent(FragmentFactory.getDefaultFragment());
 
+    }
 
+    private void setContent(Fragment content) {
+        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
+        if (currentContent != null)
+            transaction.remove(currentContent);
 
+        transaction.add(R.id.app_bar_wrapper_content_container, content);
+        // TODO: change title, etc according to new content and backstack.
+
+        transaction.addToBackStack(null).commit();
     }
 
     private void setupFAB() {
@@ -130,7 +154,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+        final int id = item.getItemId();
 
         if (id == R.id.action_settings) {
             return true;
@@ -141,17 +165,28 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+
         final int id = item.getItemId();
         switch (id) {
             case R.id.nav_basket : {
-                // TODO: rewrite to use "finite state machine".
-                final Intent intent = new Intent(this, BasketActivity.class);
-                startActivity(intent);
+                setContent(FragmentFactory.getBasketFragment());
+            }
+            case R.id.nav_sales  : {
+                setContent(FragmentFactory.getSalesFragment());
+            }
+            case R.id.nav_account : {
+                setContent(FragmentFactory.getAccountFragment());
+            }
+            case R.id.nav_history : {
+                setContent(FragmentFactory.getHistoryFragment());
+            }
+            case R.id.nav_menu : {
+                setContent(FragmentFactory.getCategoryListFragment());
             }
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        
         return true;
     }
 
@@ -166,6 +201,8 @@ public class MainActivity extends AppCompatActivity
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
+    // TODO: Consider moving into utility class
+    // Again, without breaking Activity.startActivity()...
     public void callUncleBob() {
         final Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse("tel:" +  getString(R.string.pizza_shop_tel)));
@@ -182,6 +219,8 @@ public class MainActivity extends AppCompatActivity
         startActivity(callIntent);
     }
 
+    // TODO: Consider moving into utility class
+    // Maybe inner class?
     private void showExplanation(CharSequence title, CharSequence message, final String permission, final int permissionRequestCode) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
