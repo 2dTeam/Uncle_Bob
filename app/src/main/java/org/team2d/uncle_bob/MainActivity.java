@@ -33,8 +33,8 @@ import org.team2d.uncle_bob.Database.DatabaseService;
 import org.team2d.uncle_bob.Database.ORM.PizzaORM;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final Logger LOGGER = LoggerFactory.getLogger(MainActivity.class);
     private final int PERMISSION_REQUEST_PHONE_CODE = 1;
-    private static final HashMap<Basket.ProductType, Object> BASKET = Basket.getBasket();
+    private final Map<Basket.ProductType, Object> BASKET = Basket.getBasket();
 
     private final List<View> onClickSubscribers = new ArrayList<>();
     private class ActivityChanger implements View.OnClickListener {
@@ -103,8 +103,8 @@ public class MainActivity extends AppCompatActivity
 
         fillActivityWithPreviews();
 		
-		HashMap<Integer, PizzaORM> pizza  = DatabaseService.getPizza(this);
-		for (HashMap.Entry<Integer, PizzaORM> entry : pizza.entrySet()) {
+		Map<Integer, PizzaORM> pizza  = DatabaseService.getPizza(this);
+		for (Map.Entry<Integer, PizzaORM> entry : pizza.entrySet()) {
             BASKET.put(Basket.ProductType.PIZZA, entry.getValue());
             int key = entry.getKey();
             String name = entry.getValue().getName();
@@ -132,9 +132,9 @@ public class MainActivity extends AppCompatActivity
         final ViewGroup previewListView = (ViewGroup) getLayoutInflater().inflate(R.layout.preview_list_content, null);
         final ViewGroup previewListContainer = (ViewGroup) previewListView.findViewById(R.id.preview_list);
 
-        HashMap<Integer, PizzaORM> pizzas  = DatabaseService.getPizza(this);
+        Map<Integer, PizzaORM> pizzas  = DatabaseService.getPizza(this);
 
-        for (final HashMap.Entry<Integer, PizzaORM> entry : pizzas.entrySet()) {
+        for (final Map.Entry<Integer, PizzaORM> entry : pizzas.entrySet()) {
             final PizzaORM value = entry.getValue();
             LOGGER.info("Pizzas " + entry.getValue().getImagePath());
 
@@ -151,7 +151,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStop() {
         super.onStop();
-
         for (View subscriber : onClickSubscribers)
             subscriber.setOnClickListener(null);
     }
