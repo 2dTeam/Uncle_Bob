@@ -9,7 +9,7 @@ import org.team2d.uncle_bob.Database.ORM.PizzaORM;
 
 import java.util.HashMap;
 
-public class BasketActivity extends MainActivity {
+public class BasketActivity extends MainActivityOld {
     private final HashMap<Basket.ProductType, Object> basket  = Basket.getBasket();
     private static final String TAG = BasketActivity.class.getSimpleName();
 
