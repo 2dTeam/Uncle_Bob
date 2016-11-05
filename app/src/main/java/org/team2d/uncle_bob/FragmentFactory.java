@@ -23,7 +23,7 @@ final public class FragmentFactory {
 
     @NonNull
     public static Fragment getItemListFragment(/* TODO: enum Category or int categoryID? */) {
-        return null;
+        return new FragmentItemList();
     }
 
     @NonNull

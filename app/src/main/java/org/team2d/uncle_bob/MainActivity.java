@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
 
     // TODO: make some proper logging?
-    private static final Logger LOGGER = LoggerFactory.getLogger(MainActivityOld.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MainActivity.class);
     private final int PERMISSION_REQUEST_PHONE_CODE = 1;
     private Fragment currentContent = null;
 
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity
                 setContent(FragmentFactory.getCategoryListFragment());
             }
         }
-        
+
         return true;
     }
 
