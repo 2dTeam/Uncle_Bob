@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ToggleButton xmlns:android="http://schemas.android.com/apk/res/android"
+    android:textOff="@string/report_as_a_bug"
+    android:textOn="@string/report_as_a_bug"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"/>

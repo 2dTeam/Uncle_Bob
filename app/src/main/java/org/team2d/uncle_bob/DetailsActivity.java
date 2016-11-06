@@ -1,18 +1,13 @@
 package org.team2d.uncle_bob;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringDef;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -22,7 +17,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,9 +27,7 @@ import org.team2d.uncle_bob.Basket.Basket;
 import org.team2d.uncle_bob.Database.DatabaseService;
 import org.team2d.uncle_bob.Database.ORM.PizzaORM;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class DetailsActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
@@ -85,7 +77,7 @@ public class DetailsActivity extends AppCompatActivity
 
     private void fillActivityWithItemDetails() {
         final ViewGroup contentWrapper = (ViewGroup) findViewById(R.id.app_bar_wrapper_content_container);
-        final ViewGroup detailsView = (ViewGroup) getLayoutInflater().inflate(R.layout.activity_item_details, null);
+        final ViewGroup detailsView = (ViewGroup) getLayoutInflater().inflate(R.layout.fragment_item_details, null);
 
         PizzaORM pizza = DatabaseService.getPizza(this).get(itemID);
 
