@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity
                                            @NonNull int[] grantResults) {
         if (requestCode == PERMISSION_REQUEST_PHONE_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                callUncleBob();
+                callUncleBob(null);
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity
 
     // TODO: Consider moving into utility class
     // Again, without breaking Activity.startActivity()...
-    public void callUncleBob() {
+    public void callUncleBob(MenuItem menuItem) {
         final Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse("tel:" +  getString(R.string.pizza_shop_tel)));
         callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -185,8 +185,7 @@ public class DetailsActivity extends AppCompatActivity
         int id = item.getItemId();
         switch (id) {
             case R.id.nav_basket : {
-                Intent intent = new Intent(this, BasketActivity.class);
-                startActivity(intent);
+
             }
         }
 
