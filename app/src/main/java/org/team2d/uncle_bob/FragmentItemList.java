@@ -57,9 +57,11 @@ public class FragmentItemList extends Fragment {
         this.container = container;
         this.savedInstanceState = savedInstanceState;
 
-        fillFragmentWithPreviews();
+        final View fragment = inflater.inflate(R.layout.preview_list_content, null);
 
-        return super.onCreateView(inflater, container, savedInstanceState);
+        fillFragmentWithPreviews((ViewGroup) fragment);
+
+        return fragment;
     }
 
     private View getItemPreview(String title, String price, String imagePath, @Nullable ViewGroup parent) {
@@ -77,16 +79,14 @@ public class FragmentItemList extends Fragment {
         return previewLayout;
     }
 
-    private void fillFragmentWithPreviews() {
-        final ViewGroup previewListView = (ViewGroup) inflater.inflate(R.layout.preview_list_content, null);
-        final ViewGroup previewListContainer = (ViewGroup) previewListView.findViewById(R.id.preview_list);
+    private void fillFragmentWithPreviews(ViewGroup fragment) {
+        final ViewGroup previewListContainer = (ViewGroup) fragment.findViewById(R.id.preview_list);
 
         // TODO: rewrite
-        final Map<Integer, PizzaORM> pizzas  = DatabaseService.getPizza(null);
+        final Map<Integer, PizzaORM> pizzas  = DatabaseService.getPizza(getActivity());
 
         for (final Map.Entry<Integer, PizzaORM> entry : pizzas.entrySet()) {
             final PizzaORM value = entry.getValue();
-            LOGGER.info("Pizzas " + entry.getValue().getImagePath());
 
             final View itemPreview = getItemPreview(value.getName(), "Not implemented", value.getImagePath(), null);
 
