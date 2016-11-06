@@ -18,12 +18,12 @@ final public class FragmentFactory {
 
     @NonNull
     public static Fragment getItemDetailsFragment(int itemID) {
-        return null;
+        return FragmentItemDetails.newInstance(itemID);
     }
 
     @NonNull
     public static Fragment getItemListFragment(/* TODO: enum Category or int categoryID? */) {
-        return new FragmentItemList();
+        return FragmentItemList.newInstance(0);
     }
 
     @NonNull

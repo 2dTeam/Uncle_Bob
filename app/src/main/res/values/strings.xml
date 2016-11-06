@@ -47,6 +47,6 @@
     <string name="category_drinks">Напитки</string>
 
     <string name="title_activity_basket">Корзина</string>
-    <string name="title_activity_details">REPORT AS A BUG</string>
+    <string name="report_as_a_bug">REPORT AS A BUG</string>
 
 </resources>

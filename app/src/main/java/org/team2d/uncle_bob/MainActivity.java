@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity
     // TODO: make some proper logging?
     private static final Logger LOGGER = LoggerFactory.getLogger(MainActivity.class);
     private final int PERMISSION_REQUEST_PHONE_CODE = 1;
-    private Fragment currentContent = null;
+    private static final String PRIMARY_FRAGMENT_TAG = "org.team2d.uncle_bob.MainActivity.PRIMARY_FRAGMENT_TAG";
 
     // TODO: Consider moving into utility class
     // Oops! How to move non-static AppCompatActivity.getResources() method?
@@ -57,16 +57,17 @@ public class MainActivity extends AppCompatActivity
         setupDrawer();
 
         setContent(FragmentFactory.getDefaultFragment());
-
     }
 
-    private void setContent(Fragment content) {
+    public void setContent(Fragment content) {
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 
+        final Fragment currentContent = getSupportFragmentManager().findFragmentByTag(PRIMARY_FRAGMENT_TAG);
         if (currentContent != null)
             transaction.remove(currentContent);
 
-        transaction.add(R.id.app_bar_wrapper_content_container, content);
+        transaction.add(R.id.app_bar_wrapper_content_container, content, PRIMARY_FRAGMENT_TAG);
         // TODO: change title, etc according to new content and backstack.
 
         transaction.addToBackStack(null).commit();
@@ -142,6 +143,9 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            // TODO: closing app? You are doing it wrong.
+            if (getSupportFragmentManager().getBackStackEntryCount() == 1)
+                getSupportFragmentManager().popBackStack();
             super.onBackPressed();
         }
     }
