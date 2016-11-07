@@ -23,6 +23,10 @@ public class FragmentItemDetails extends Fragment {
     private static final Logger LOGGER = LoggerFactory.getLogger(FragmentItemDetails.class);
     private static final String ARG_ITEM_ID = "org.team2d.uncle_bob.FragmentItemDetails.ITEM_ID";
 
+    private ViewGroup fragment = null;
+    private int itemID = 0;
+    private ItemObject item = null;
+
     private final List<View> onClickSubscribers = new ArrayList<>();
     private class QuantityChanger implements View.OnClickListener {
         private final int delta;
@@ -56,10 +60,7 @@ public class FragmentItemDetails extends Fragment {
         return fragment;
     }
 
-    private ViewGroup fragment = null;
 
-    private int itemID = 0;
-    private ItemObject item = null;
 
     @Nullable
     @Override
@@ -67,7 +68,7 @@ public class FragmentItemDetails extends Fragment {
         fragment = (ViewGroup) inflater.inflate(R.layout.fragment_item_details, null);
 
         itemID = getArguments().getInt(ARG_ITEM_ID, 0);
-        item = DatabaseService.getPizza(getContext()).get(itemID);
+        item = DatabaseService.getPizzaSortedByCost().get(itemID);
 
         fillFragmentWithItemDetails(fragment);
 

@@ -76,7 +76,7 @@ public class DetailsActivity extends AppCompatActivity
         final ViewGroup contentWrapper = (ViewGroup) findViewById(R.id.app_bar_wrapper_content_container);
         final ViewGroup detailsView = (ViewGroup) getLayoutInflater().inflate(R.layout.fragment_item_details, null);
 
-        ItemObject pizza = DatabaseService.getPizza(this).get(itemID);
+        ItemObject pizza = DatabaseService.getPizzaSortedByCost().get(itemID);
 
         setTitle(pizza.getName());
 

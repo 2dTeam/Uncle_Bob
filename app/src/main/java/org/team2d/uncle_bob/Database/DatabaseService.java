@@ -3,23 +3,40 @@ package org.team2d.uncle_bob.Database;
 import android.content.Context;
 
 import org.team2d.uncle_bob.Database.ORM.Items.ItemObject;
+import org.team2d.uncle_bob.Database.ORM.ItemsCollection;
+import org.team2d.uncle_bob.Database.ORM.MapOfItems;
 
-import java.util.HashMap;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created by nikolaev on 03.11.16.
  */
-
+//TODO i think we need refactor here
 public class DatabaseService {
-    private static HashMap<Integer, ItemObject> pizza = null;
+    private static List<ItemObject> pizza = null;
 
-    public  static HashMap<Integer, ItemObject> getPizza(Context context) {
+    public static synchronized void loadPizza(Context context) {
         if (pizza == null) {
             DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
             databaseAccess.open();
-            pizza = databaseAccess.loadPizzaFromDb();
+            databaseAccess.loadPizzaFromDb();
+           getPizzaSortedByCost();
+        }
+    }
+
+    public static List <ItemObject>  getPizzaSortedByCost () {
+        if (pizza == null) {
+            MapOfItems pizzaObj = ItemsCollection.getListOfItem(ProductsEnum.PIZZA);
+
+            pizza = pizzaObj.getSortedListOfItems(new Comparator<ItemObject>() {
+                public int compare(ItemObject o1, ItemObject o2) {
+                    return o1.getCheapestItem().getCost() < o2.getCheapestItem().getCost() ? -1
+                            : o1.getCheapestItem().getCost() > o2.getCheapestItem().getCost() ? 1
+                            : 0;
+                }
+            });
         }
         return pizza;
     }
-
 }

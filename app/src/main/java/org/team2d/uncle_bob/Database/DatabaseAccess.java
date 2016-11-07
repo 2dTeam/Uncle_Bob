@@ -42,16 +42,15 @@ class DatabaseAccess {
         }
     }
 
-    HashMap<Integer, ItemObject> loadPizzaFromDb() {
+    void loadPizzaFromDb() {
         HashMap <Integer, ItemObject> pizzaMap = ItemsCollection.getListOfItem(ProductsEnum.PIZZA).getItemMap();
-
         String query = "SELECT * FROM pizza JOIN pizza_cost ON pizza.id = pizza_cost.id";
         Cursor cursor = database.rawQuery(query, null);
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
             int id = cursor.getInt(cursor.getColumnIndex("id"));
-            //TODO I think there is better way to handle weight/cost params (make 2 queries for pizza, and its costs)
+            //TODO I think there is a better way to handle weight/cost params (make 2 queries: for pizza and its costs)
             if (pizzaMap.containsKey(id)) {
                 Float weight = cursor.getFloat(cursor.getColumnIndex("weight"));
                 Float cost = cursor.getFloat(cursor.getColumnIndex("cost"));
@@ -70,6 +69,6 @@ class DatabaseAccess {
             cursor.moveToNext();
         }
         cursor.close();
-        return pizzaMap;
     }
+
 }

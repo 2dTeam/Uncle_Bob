@@ -16,7 +16,6 @@ import org.team2d.uncle_bob.Database.ORM.Items.ItemObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 public class FragmentItemList extends Fragment {
@@ -87,14 +86,13 @@ public class FragmentItemList extends Fragment {
         final ViewGroup previewListContainer = (ViewGroup) fragment.findViewById(R.id.preview_list);
 
         // TODO: rewrite
-        final Map<Integer, ItemObject> pizzas  = DatabaseService.getPizza(getActivity());
+        DatabaseService.loadPizza(getActivity());
+        final List <ItemObject> pizzas  = DatabaseService.getPizzaSortedByCost();
 
-        for (final Map.Entry<Integer, ItemObject> entry : pizzas.entrySet()) {
-            final ItemObject value = entry.getValue();
+        for (ItemObject entry : pizzas) {
+            final View itemPreview = getItemPreview(entry.getName(), "Not implemented", entry.getImagePath());
 
-            final View itemPreview = getItemPreview(value.getName(), "Not implemented", value.getImagePath());
-
-            itemPreview.setOnClickListener(new ActivityChanger(value.getId()));
+            itemPreview.setOnClickListener(new ActivityChanger(pizzas.indexOf(entry)));
 
             previewListContainer.addView(itemPreview);
         }
