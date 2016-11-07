@@ -12,7 +12,7 @@ import android.widget.TextView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.team2d.uncle_bob.Database.DatabaseService;
-import org.team2d.uncle_bob.Database.ORM.PizzaORM;
+import org.team2d.uncle_bob.Database.ORM.Items.ItemObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +59,7 @@ public class FragmentItemDetails extends Fragment {
     private ViewGroup fragment = null;
 
     private int itemID = 0;
-    private PizzaORM item = null;
+    private ItemObject item = null;
 
     @Nullable
     @Override
@@ -77,7 +77,7 @@ public class FragmentItemDetails extends Fragment {
     private void fillFragmentWithItemDetails(ViewGroup fragment) {
         getActivity().setTitle(item.getName());
 
-        // Item has weight specified
+        // ItemParams has weight specified
         if (true) {
             final ViewGroup weightButtonsContainer = (ViewGroup) fragment.findViewById(R.id.item_details_weight);
 
@@ -89,7 +89,7 @@ public class FragmentItemDetails extends Fragment {
             /// weightButtonsContainer.addView(weightButton);
         }
 
-        // Item has sauces specified
+        // ItemParams has sauces specified
         if (true) {
             final ViewGroup sauceCheckBoxesContainer = (ViewGroup) fragment.findViewById(R.id.item_details_sauces);
 
@@ -101,7 +101,7 @@ public class FragmentItemDetails extends Fragment {
             /// sauceCheckBoxesContainer.addView(sauceCheckBox);
         }
 
-        // Item has contains specified
+        // ItemParams has contains specified
         if (true) {
             final TextView containsText = (TextView) fragment.findViewById(R.id.item_details_contains);
 

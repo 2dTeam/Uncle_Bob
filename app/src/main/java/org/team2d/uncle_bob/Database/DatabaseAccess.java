@@ -9,10 +9,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import org.team2d.uncle_bob.Database.ORM.PizzaORM;
+import org.team2d.uncle_bob.Database.ORM.Items.ItemObject;
+import org.team2d.uncle_bob.Database.ORM.Items.ItemParams;
+import org.team2d.uncle_bob.Database.ORM.ItemsCollection;
 
 import java.util.HashMap;
-import java.util.List;
 
 class DatabaseAccess {
     private static final String TAG = DatabaseAccess.class.getSimpleName();
@@ -41,24 +42,20 @@ class DatabaseAccess {
         }
     }
 
-    HashMap<Integer, PizzaORM> getAllPizzaFromDb() {
-        HashMap<Integer, PizzaORM> pizzaMap = new HashMap<>();
-        Cursor cursor = database.rawQuery("SELECT * FROM pizza JOIN pizza_cost ON pizza.id = pizza_cost.id", null);
+    HashMap<Integer, ItemObject> loadPizzaFromDb() {
+        HashMap <Integer, ItemObject> pizzaMap = ItemsCollection.getListOfItem(ProductsEnum.PIZZA).getItemMap();
+
+        String query = "SELECT * FROM pizza JOIN pizza_cost ON pizza.id = pizza_cost.id";
+        Cursor cursor = database.rawQuery(query, null);
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
             int id = cursor.getInt(cursor.getColumnIndex("id"));
+            //TODO I think there is better way to handle weight/cost params (make 2 queries for pizza, and its costs)
             if (pizzaMap.containsKey(id)) {
                 Float weight = cursor.getFloat(cursor.getColumnIndex("weight"));
                 Float cost = cursor.getFloat(cursor.getColumnIndex("cost"));
-
-                HashMap<String, String> weightCosts = new HashMap<>();
-                weightCosts.put(weight.toString(), cost.toString());
-                PizzaORM pizza = pizzaMap.get(id);
-
-                List<HashMap<String, String>> objPizzaList =  pizza.getCostParams();
-                objPizzaList.add(weightCosts);
-
+                pizzaMap.get(id).addItemParams(new ItemParams(cost, weight));
             } else {
                 String pizzaName = cursor.getString(cursor.getColumnIndex("name"));
                 String pizzaImage = cursor.getString(cursor.getColumnIndex("pizza_image"));
@@ -66,10 +63,8 @@ class DatabaseAccess {
                 Float weight = cursor.getFloat(cursor.getColumnIndex("weight"));
                 Float cost = cursor.getFloat(cursor.getColumnIndex("cost"));
 
-                HashMap<String, String> weightCosts = new HashMap<>();
-                weightCosts.put(weight.toString(), cost.toString());
-
-                PizzaORM pizza = new PizzaORM(id, onlineId, pizzaName, pizzaImage, weightCosts);
+                ItemObject pizza = new ItemObject(id, onlineId, pizzaName, pizzaImage);
+                pizza.addItemParams(new ItemParams(cost, weight));
                 pizzaMap.put(id, pizza); // id - Pizza object
             }
             cursor.moveToNext();

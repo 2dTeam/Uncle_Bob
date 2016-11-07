@@ -7,15 +7,15 @@ import java.util.List;
 /**
  * Created by nikolaev on 03.11.16.
  */
-
-public class PizzaORM {
+@Deprecated
+public class ItemORM {
     private int id;
     private int onlineId;
     private String name;
     private String imagePath;
     private List<HashMap<String, String>> costParams = new ArrayList<>();
 
-    public PizzaORM(int id, int onlineId, String name, String imagePath, HashMap<String, String> costs) {
+    public ItemORM(int id, int onlineId, String name, String imagePath, HashMap<String, String> costs) {
         this.id = id;
         this.onlineId = onlineId;
         this.name = name;

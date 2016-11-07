@@ -12,7 +12,7 @@ import android.widget.TextView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.team2d.uncle_bob.Database.DatabaseService;
-import org.team2d.uncle_bob.Database.ORM.PizzaORM;
+import org.team2d.uncle_bob.Database.ORM.Items.ItemObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,10 +87,10 @@ public class FragmentItemList extends Fragment {
         final ViewGroup previewListContainer = (ViewGroup) fragment.findViewById(R.id.preview_list);
 
         // TODO: rewrite
-        final Map<Integer, PizzaORM> pizzas  = DatabaseService.getPizza(getActivity());
+        final Map<Integer, ItemObject> pizzas  = DatabaseService.getPizza(getActivity());
 
-        for (final Map.Entry<Integer, PizzaORM> entry : pizzas.entrySet()) {
-            final PizzaORM value = entry.getValue();
+        for (final Map.Entry<Integer, ItemObject> entry : pizzas.entrySet()) {
+            final ItemObject value = entry.getValue();
 
             final View itemPreview = getItemPreview(value.getName(), "Not implemented", value.getImagePath());
 

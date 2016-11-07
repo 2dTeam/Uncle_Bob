@@ -23,11 +23,8 @@ import android.widget.TextView;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.team2d.uncle_bob.Basket.Basket;
 import org.team2d.uncle_bob.Database.DatabaseService;
-import org.team2d.uncle_bob.Database.ORM.PizzaORM;
-
-import java.util.HashMap;
+import org.team2d.uncle_bob.Database.ORM.Items.ItemObject;
 
 public class DetailsActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
@@ -37,7 +34,7 @@ public class DetailsActivity extends AppCompatActivity
     private static final String TAG = DetailsActivity.class.getSimpleName();
     private static final Logger LOGGER = LoggerFactory.getLogger(DetailsActivity.class);
     private final int PERMISSION_REQUEST_PHONE_CODE = 1;
-    private static final HashMap<Basket.ProductType, Object> BASKET = Basket.getBasket();
+//    private static final HashMap<Basket.ProductType, Object> BASKET = Basket.getBasket();
     private int itemID = 0;
 
     public int getResourceId(String pVariableName, String pResourcename, String pPackageName) {
@@ -79,7 +76,7 @@ public class DetailsActivity extends AppCompatActivity
         final ViewGroup contentWrapper = (ViewGroup) findViewById(R.id.app_bar_wrapper_content_container);
         final ViewGroup detailsView = (ViewGroup) getLayoutInflater().inflate(R.layout.fragment_item_details, null);
 
-        PizzaORM pizza = DatabaseService.getPizza(this).get(itemID);
+        ItemObject pizza = DatabaseService.getPizza(this).get(itemID);
 
         setTitle(pizza.getName());
 
