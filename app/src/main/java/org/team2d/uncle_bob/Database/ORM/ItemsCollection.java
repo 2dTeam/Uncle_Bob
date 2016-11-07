@@ -10,11 +10,11 @@ import java.util.HashMap;
 
 public class ItemsCollection {
 
-    private static HashMap<ProductsEnum, ListOfItems> products = new HashMap<>();
+    private static HashMap<ProductsEnum, MapOfItems> products = new HashMap<>();
 
-    public static ListOfItems getListOfItem(ProductsEnum product) {
+    public static MapOfItems getListOfItem(ProductsEnum product) {
         if (!products.containsKey(product)) {
-            ListOfItems list = new ListOfItems();
+            MapOfItems list = new MapOfItems();
             products.put(product, list);
         }
         return products.get(product);

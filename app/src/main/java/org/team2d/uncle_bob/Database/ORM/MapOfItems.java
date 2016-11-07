@@ -8,15 +8,14 @@ import java.util.HashMap;
  * Created by nikolaev on 06.11.16.
  */
 
-public class ListOfItems {
+public class MapOfItems {
     private HashMap<Integer, ItemObject> itemMap;
 
-    ListOfItems() {
+    MapOfItems() {
         itemMap = new HashMap<>();
     }
 
     public HashMap<Integer, ItemObject> getItemMap() {
         return itemMap;
     }
-
 }
