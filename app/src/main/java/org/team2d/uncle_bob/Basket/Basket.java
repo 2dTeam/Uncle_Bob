@@ -6,6 +6,7 @@ package org.team2d.uncle_bob.Basket;
 
 public class Basket {
 
+
 //    private static HashMap<ItemsCollection.ProductType, ?> basket = null;
 //
 //    public static HashMap<ItemsCollection.ProductType, ?> getBasket() {
