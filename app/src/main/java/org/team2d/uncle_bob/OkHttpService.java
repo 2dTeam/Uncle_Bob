@@ -23,10 +23,11 @@ import okhttp3.Response;
  */
 
 public class OkHttpService extends IntentService {
+    OkHttpClient client = new OkHttpClient();;
+    Request request = null;
 
     public OkHttpService() {
         super("OkHttpService");
-
     }
     @Override
     protected void onHandleIntent(Intent intent) {
