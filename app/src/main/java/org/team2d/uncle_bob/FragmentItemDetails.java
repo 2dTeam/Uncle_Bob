@@ -10,9 +10,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.slf4j.Logger;
+import android.util.Log;
 import org.slf4j.LoggerFactory;
 import org.team2d.uncle_bob.Database.DatabaseService;
 import org.team2d.uncle_bob.Database.ORM.Items.ItemObject;
+
+import okhttp3.OkHttpClient;
+import java.io.IOException;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.Headers;
+import okhttp3.Callback;
+import okhttp3.Call;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +42,7 @@ public class FragmentItemDetails extends Fragment {
         private final int delta;
 
         QuantityChanger(int deltaQuantity) {
+            //Log.d("kek", Integer.toString(deltaQuantity));
             this.delta = itemID;
         }
 
@@ -124,8 +135,36 @@ public class FragmentItemDetails extends Fragment {
 
     private void setOnClickSubscribers() {
         final View buttonBuy = fragment.findViewById(R.id.item_details_buy);
-        buttonBuy.setOnClickListener(new QuantityChanger(+1));
-        onClickSubscribers.add(buttonBuy);
+        buttonBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("INFO", "run");
+
+                OkHttpClient client = new OkHttpClient();
+                Log.d("INFO", client.toString());
+                Request request = new Request.Builder()
+                        .url("http://publicobject.com/helloworld.txt")
+                        .build();
+
+                client.newCall(request).enqueue(new Callback() {
+                    @Override public void onFailure(Call call, IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override public void onResponse(Call call, Response response) throws IOException {
+                        if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                        Headers responseHeaders = response.headers();
+                        for (int i = 0, size = responseHeaders.size(); i < size; i++) {
+                            System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
+                        }
+
+                        System.out.println(response.body().string());
+                    }
+                });
+            }
+        });
+        //onClickSubscribers.add(buttonBuy);
 
         final View buttonInc = fragment.findViewById(R.id.item_details_quantity_increase);
         buttonInc.setOnClickListener(new QuantityChanger(+1));
