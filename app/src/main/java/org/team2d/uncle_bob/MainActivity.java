@@ -205,8 +205,6 @@ public class MainActivity extends AppCompatActivity
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    // TODO: Consider moving into utility class
-    // Again, without breaking Activity.startActivity()...
     public void callUncleBob(MenuItem menuItem) {
         final Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse("tel:" +  getString(R.string.pizza_shop_tel)));

@@ -14,9 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.team2d.uncle_bob.Database.DatabaseService;
 import org.team2d.uncle_bob.Database.ORM.Items.ItemObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class FragmentItemDetails extends Fragment {
 
@@ -27,7 +24,6 @@ public class FragmentItemDetails extends Fragment {
     private int itemID = 0;
     private ItemObject item = null;
 
-    private final List<View> onClickSubscribers = new ArrayList<>();
     private class QuantityChanger implements View.OnClickListener {
         private final int delta;
 
@@ -125,15 +121,12 @@ public class FragmentItemDetails extends Fragment {
     private void setOnClickSubscribers() {
         final View buttonBuy = fragment.findViewById(R.id.item_details_buy);
         buttonBuy.setOnClickListener(new QuantityChanger(+1));
-        onClickSubscribers.add(buttonBuy);
 
         final View buttonInc = fragment.findViewById(R.id.item_details_quantity_increase);
         buttonInc.setOnClickListener(new QuantityChanger(+1));
-        onClickSubscribers.add(buttonInc);
 
         final View buttonDec = fragment.findViewById(R.id.item_details_quantity_decrease);
         buttonDec.setOnClickListener(new QuantityChanger(-1));
-        onClickSubscribers.add(buttonDec);
     }
 
     private void clearQuantityButtons() {
@@ -164,8 +157,6 @@ public class FragmentItemDetails extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
 
-        for (final View subscriber : onClickSubscribers)
-            subscriber.setOnClickListener(null);
     }
 
 }

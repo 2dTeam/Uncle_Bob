@@ -25,7 +25,7 @@ public class DatabaseService {
         }
     }
 
-    public static List <ItemObject>  getPizzaSortedByCost () {
+    public static List <ItemObject> getPizzaSortedByCost () {
         if (pizza == null) {
             MapOfItems pizzaObj = ItemsCollection.getListOfItem(ProductsEnum.PIZZA);
 
