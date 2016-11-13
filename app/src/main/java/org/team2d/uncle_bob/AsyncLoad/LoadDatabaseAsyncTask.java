@@ -2,14 +2,13 @@ package org.team2d.uncle_bob.AsyncLoad;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import org.team2d.uncle_bob.Database.DatabaseService;
 
 /**
  * Created by nikolaev on 13.11.16.
  */
-
+@Deprecated
 public class LoadDatabaseAsyncTask extends AsyncTask<Void, Void, Void> {
     private Context mContext;
     public  LoadDatabaseAsyncTask(Context cnt){
@@ -24,7 +23,5 @@ public class LoadDatabaseAsyncTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void result) {
-        Toast.makeText(mContext, "DOne", Toast.LENGTH_SHORT).show();
-
     }
 }

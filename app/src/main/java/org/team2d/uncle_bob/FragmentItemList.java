@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.team2d.uncle_bob.AsyncLoad.LoadDatabaseAsyncTask;
 import org.team2d.uncle_bob.Database.DatabaseService;
 import org.team2d.uncle_bob.Database.ORM.Items.ItemObject;
 
@@ -58,9 +57,10 @@ public class FragmentItemList extends Fragment {
         this.savedInstanceState = savedInstanceState;
 
         final View fragment = inflater.inflate(R.layout.fragment_item_preview_list, null);
-
         // TODO: make title according to category
         getActivity().setTitle("Not implemented");
+
+        UBIntentService.startActionLoadDB(getActivity());
         fillFragmentWithPreviews((ViewGroup) fragment);
 
         return fragment;
@@ -84,8 +84,6 @@ public class FragmentItemList extends Fragment {
     private void fillFragmentWithPreviews(ViewGroup fragment) {
         final ViewGroup previewListContainer = (ViewGroup) fragment.findViewById(R.id.preview_list);
 
-        // TODO: rewrite
-        new LoadDatabaseAsyncTask(getActivity()).execute();
         final List <ItemObject> pizzas  = DatabaseService.getPizzaSortedByCost();
 
         for (ItemObject entry : pizzas) {
