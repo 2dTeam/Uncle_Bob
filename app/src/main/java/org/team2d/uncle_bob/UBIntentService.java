@@ -10,7 +10,7 @@ import org.team2d.uncle_bob.Database.DatabaseService;
 
 public class UBIntentService extends IntentService {
     private static final String ACTION_LOAD_DB = "org.team2d.uncle_bob.action.LOAD_DB";
-    private static final String DB_LOADED = "org.team2d.uncle_bob.action.DB_LOADED";
+    public static final String DB_LOADED = "org.team2d.uncle_bob.action.DB_LOADED";
 
 
     LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(this);
@@ -39,8 +39,8 @@ public class UBIntentService extends IntentService {
 
     private void handleActionLoadDB() {
         DatabaseService.loadPizza(this);
-        Intent weatherIntent = new Intent();
-        broadcastManager.sendBroadcast(weatherIntent);
+        Intent dbIntent = new Intent(DB_LOADED);
+        broadcastManager.sendBroadcast(dbIntent);
 
     }
 
