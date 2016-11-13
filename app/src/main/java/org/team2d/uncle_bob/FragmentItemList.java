@@ -68,7 +68,6 @@ public class FragmentItemList extends Fragment {
         getActivity().setTitle("Not implemented");
 
         UBIntentService.startActionLoadDB(getActivity());
-//        fillFragmentWithPreviews((ViewGroup) fragment);
 
         return fragment;
     }

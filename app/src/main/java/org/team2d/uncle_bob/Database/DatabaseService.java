@@ -12,17 +12,22 @@ import java.util.List;
 /**
  * Created by nikolaev on 03.11.16.
  */
-//TODO i think we need refactor here
+//TODO i think we need refactor here @Xobotun ?
 public class DatabaseService {
     private static List<ItemObject> pizza = null;
+    private static boolean  mLoaded = false;
 
-    public static synchronized void loadPizza(Context context) {
-        if (pizza == null) {
-            DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
-            databaseAccess.open();
-            databaseAccess.loadPizzaFromDb();
-           getPizzaSortedByCost();
+    public static synchronized void loadDB(Context context) {
+        if (!mLoaded) {
+           loadPizzaFromDB(context);
+            mLoaded = true;
         }
+    }
+    private static synchronized void loadPizzaFromDB(Context context){
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
+        databaseAccess.open();
+        databaseAccess.loadPizzaFromDb();
+        getPizzaSortedByCost();
     }
 
     public static List <ItemObject> getPizzaSortedByCost () {

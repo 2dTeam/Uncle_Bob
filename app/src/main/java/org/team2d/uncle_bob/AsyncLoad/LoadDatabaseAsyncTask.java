@@ -17,7 +17,7 @@ public class LoadDatabaseAsyncTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
-        DatabaseService.loadPizza(mContext);
+        DatabaseService.loadDB(mContext);
         return null;
     }
 

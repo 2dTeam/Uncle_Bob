@@ -36,13 +36,9 @@ public class UBIntentService extends IntentService {
         }
     }
 
-
     private void handleActionLoadDB() {
-        DatabaseService.loadPizza(this);
+        DatabaseService.loadDB(this);
         Intent dbIntent = new Intent(DB_LOADED);
         broadcastManager.sendBroadcast(dbIntent);
-
     }
-
-
 }
