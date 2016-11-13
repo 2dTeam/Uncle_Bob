@@ -11,10 +11,10 @@ import android.widget.TextView;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.team2d.uncle_bob.AsyncLoad.LoadDatabaseAsyncTask;
 import org.team2d.uncle_bob.Database.DatabaseService;
 import org.team2d.uncle_bob.Database.ORM.Items.ItemObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,8 +22,10 @@ public class FragmentItemList extends Fragment {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FragmentItemList.class);
     private static final String ARG_CATEGORY_ID = "org.team2d.uncle_bob.FragmentItemList.CATEGORY_ID";
+    private LayoutInflater inflater = null;
+    private ViewGroup container = null;
+    private Bundle savedInstanceState = null;
 
-    private final List<View> onClickSubscribers = new ArrayList<>();
     private class ActivityChanger implements View.OnClickListener {
         private final int iID;
 
@@ -47,9 +49,6 @@ public class FragmentItemList extends Fragment {
         return fragment;
     }
 
-    private LayoutInflater inflater = null;
-    private ViewGroup container = null;
-    private Bundle savedInstanceState = null;
 
     @Nullable
     @Override
@@ -86,7 +85,7 @@ public class FragmentItemList extends Fragment {
         final ViewGroup previewListContainer = (ViewGroup) fragment.findViewById(R.id.preview_list);
 
         // TODO: rewrite
-        DatabaseService.loadPizza(getActivity());
+        new LoadDatabaseAsyncTask(getActivity()).execute();
         final List <ItemObject> pizzas  = DatabaseService.getPizzaSortedByCost();
 
         for (ItemObject entry : pizzas) {
@@ -102,8 +101,6 @@ public class FragmentItemList extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
 
-        for (final View subscriber : onClickSubscribers)
-            subscriber.setOnClickListener(null);
     }
 
 }
