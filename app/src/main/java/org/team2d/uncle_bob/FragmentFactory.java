@@ -30,7 +30,7 @@ final public class FragmentFactory {
 
     @NonNull
     public static Fragment getCategoryListFragment() {
-        return null;
+        return FragmentCategoryList.newInstance();
     }
 
     @NonNull

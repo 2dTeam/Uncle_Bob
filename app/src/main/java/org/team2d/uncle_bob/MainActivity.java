@@ -193,7 +193,10 @@ public class MainActivity extends AppCompatActivity
             }
             case R.id.nav_menu : {
                 //setContent(FragmentFactory.getCategoryListFragment());
-                getSupportFragmentManager().popBackStackImmediate(INITIAL_BACKSTACK_ID, 0); // Not sure what "flags" are for.
+                getSupportFragmentManager().popBackStack(INITIAL_BACKSTACK_ID, 0); // Not sure what "flags" are for.
+                getSupportFragmentManager().popBackStack();
+                setContent(FragmentFactory.getCategoryListFragment(), INITIAL_BACKSTACK_ID);
+
             }
         }
 
