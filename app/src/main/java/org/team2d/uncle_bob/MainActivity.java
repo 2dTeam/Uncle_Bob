@@ -33,12 +33,13 @@ public class MainActivity extends AppCompatActivity
     private static final Logger LOGGER = LoggerFactory.getLogger(MainActivity.class);
     private final int PERMISSION_REQUEST_PHONE_CODE = 1;
     private static final String PRIMARY_FRAGMENT_TAG = "org.team2d.uncle_bob.MainActivity.PRIMARY_FRAGMENT_TAG";
+    private static final String INITIAL_BACKSTACK_ID = "org.team2d.uncle_bob.MainActivity.INITIAL_BACKSTACK_ID";
 
     // TODO: Consider moving into utility class
     // Oops! How to move non-static AppCompatActivity.getResources() method?
-    public int getResourceId(String VariableName, String Resourcename, String PackageName) {
+    public int getResourceId(String VariableName, String ResourceName, String PackageName) {
         try {
-            return getResources().getIdentifier(VariableName, Resourcename, PackageName);
+            return getResources().getIdentifier(VariableName, ResourceName, PackageName);
         } catch (final Exception e) {
             e.printStackTrace();
             return -1;
@@ -54,10 +55,14 @@ public class MainActivity extends AppCompatActivity
         setupFAB();
         setupDrawer();
 
-        setContent(FragmentFactory.getDefaultFragment());
+        setContent(FragmentFactory.getDefaultFragment(), INITIAL_BACKSTACK_ID);
     }
 
     public void setContent(Fragment content) {
+        setContent(content, null);
+    }
+
+    public void setContent(Fragment content, String backStackID) {
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 
@@ -68,7 +73,7 @@ public class MainActivity extends AppCompatActivity
         transaction.add(R.id.app_bar_wrapper_content_container, content, PRIMARY_FRAGMENT_TAG);
         // TODO: change title, etc according to new content and backstack.
 
-        transaction.addToBackStack(null).commit();
+        transaction.addToBackStack(backStackID).commit();
     }
 
     private void setupFAB() {
@@ -187,7 +192,8 @@ public class MainActivity extends AppCompatActivity
                 setContent(FragmentFactory.getHistoryFragment());
             }
             case R.id.nav_menu : {
-                setContent(FragmentFactory.getCategoryListFragment());
+                //setContent(FragmentFactory.getCategoryListFragment());
+                getSupportFragmentManager().popBackStackImmediate(INITIAL_BACKSTACK_ID, 0); // Not sure what "flags" are for.
             }
         }
 

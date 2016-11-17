@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.team2d.uncle_bob.Database.DatabaseService;
 import org.team2d.uncle_bob.Database.ORM.Items.ItemObject;
+import org.team2d.uncle_bob.Database.ProductsEnum;
 
 import java.util.List;
 
@@ -51,11 +52,11 @@ public class FragmentItemList extends Fragment {
         }
     }
 
-    public static FragmentItemList newInstance(int categoryID) {
+    public static FragmentItemList newInstance(ProductsEnum category) {
         final FragmentItemList fragment = new FragmentItemList();
 
         final Bundle categoryType = new Bundle();
-        categoryType.putInt(ARG_CATEGORY_ID, categoryID);
+        categoryType.putInt(ARG_CATEGORY_ID, category.toInt());
         fragment.setArguments(categoryType);
 
         return fragment;
@@ -71,12 +72,25 @@ public class FragmentItemList extends Fragment {
 
         final View fragment = inflater.inflate(R.layout.fragment_item_preview_list, null);
         mFragment = fragment;
-        // TODO: make title according to category
-        getActivity().setTitle("Not implemented");
+
+        getActivity().setTitle(getTitleForCategory(ProductsEnum.fromInt(getArguments().getInt(ARG_CATEGORY_ID, 0)))); // Aww, LISP.
 
         UBIntentService.startActionLoadDB(getActivity());
 
         return fragment;
+    }
+
+    // TODO If this is used somewhere else, move the code to ProductsEnum
+    private String getTitleForCategory(ProductsEnum category) {
+        if (category == ProductsEnum.PIZZA)
+            return getString(R.string.category_pizza);
+        if (category == ProductsEnum.DRINK)
+            return getString(R.string.category_drinks);
+        if (category == ProductsEnum.SALAD)
+            return getString(R.string.category_salads);
+        if (category == ProductsEnum.REFRESHMENT)
+            return getString(R.string.category_refreshments);
+        return getString(R.string.report_as_a_bug);
     }
 
     private View getItemPreview(String title, String price, String imagePath) {

@@ -2,6 +2,8 @@ package org.team2d.uncle_bob.Database.ORM.Items;
 
 import android.support.annotation.Nullable;
 
+import org.team2d.uncle_bob.Database.ProductsEnum;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,13 +18,16 @@ public class ItemObject {
     private int onlineId;
     private String name;
     private String imagePath;
+    @Nullable
+    private ProductsEnum category;
 
-    public ItemObject(int id, int onlineId, String name, String imagePath) {
+    public ItemObject(int id, int onlineId, String name, String imagePath, @Nullable ProductsEnum category) {
         itemParams = new ArrayList<>();
         this.id = id;
         this.onlineId = onlineId;
         this.name = name;
         this.imagePath = imagePath;
+        this.category = category;
     }
 
     public void addItemParams(ItemParams it) {
@@ -33,7 +38,7 @@ public class ItemObject {
         }
     }
 
-    public List getAllItems() {
+    public List<ItemParams> getAllItems() {
         return itemParams;
     }
 
@@ -56,5 +61,10 @@ public class ItemObject {
 
     public String getImagePath() {
         return imagePath;
+    }
+
+    @Nullable
+    public ProductsEnum getCategory() {
+        return category;
     }
 }

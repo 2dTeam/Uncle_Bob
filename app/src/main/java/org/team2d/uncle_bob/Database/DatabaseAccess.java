@@ -62,7 +62,7 @@ class DatabaseAccess {
                 Float weight = cursor.getFloat(cursor.getColumnIndex("weight"));
                 Float cost = cursor.getFloat(cursor.getColumnIndex("cost"));
 
-                ItemObject pizza = new ItemObject(id, onlineId, pizzaName, pizzaImage);
+                ItemObject pizza = new ItemObject(id, onlineId, pizzaName, pizzaImage, ProductsEnum.PIZZA); // I hardcoded PIZZA here because we query 'pizza' DB.
                 pizza.addItemParams(new ItemParams(cost, weight));
                 pizzaMap.put(id, pizza); // id - Pizza object
             }

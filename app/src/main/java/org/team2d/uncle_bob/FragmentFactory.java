@@ -3,12 +3,14 @@ package org.team2d.uncle_bob;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
+import org.team2d.uncle_bob.Database.ProductsEnum;
+
 final public class FragmentFactory {
     private FragmentFactory() {}
 
     @NonNull
     public static Fragment getDefaultFragment() {
-        return getItemListFragment();
+        return getItemListFragment(ProductsEnum.PIZZA);
     }
 
     @NonNull
@@ -22,8 +24,8 @@ final public class FragmentFactory {
     }
 
     @NonNull
-    public static Fragment getItemListFragment(/* TODO: enum Category or int categoryID? */) {
-        return FragmentItemList.newInstance(0);
+    public static Fragment getItemListFragment(ProductsEnum category) {
+        return FragmentItemList.newInstance(category);
     }
 
     @NonNull
