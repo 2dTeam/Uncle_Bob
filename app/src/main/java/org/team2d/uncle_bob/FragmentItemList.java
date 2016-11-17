@@ -31,6 +31,13 @@ public class FragmentItemList extends Fragment {
     private Bundle savedInstanceState = null;
     private View mFragment;
 
+    private final BroadcastReceiver UBBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            fillFragmentWithPreviews((ViewGroup) mFragment);
+        }
+    };
+
     private class ActivityChanger implements View.OnClickListener {
         private final int iID;
 
@@ -120,10 +127,4 @@ public class FragmentItemList extends Fragment {
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(UBBroadcastReceiver);
     }
 
-    BroadcastReceiver UBBroadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            fillFragmentWithPreviews((ViewGroup) mFragment);
-        }
-    };
 }
