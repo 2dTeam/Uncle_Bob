@@ -1,5 +1,7 @@
 package org.team2d.uncle_bob.Network;
 
+import android.util.Log;
+
 import java.io.IOException;
 
 /**
@@ -10,7 +12,7 @@ public class Actions {
     private static OkHTTP okHTTPClient = new OkHTTP();
     static void addToBasket () {
         try {
-            okHTTPClient.run("test");
+            Log.d("response", "is"+okHTTPClient.run("http://vk.com/"));
         } catch (IOException e) {
             e.printStackTrace();
         }
