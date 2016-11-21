@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity
         setupFAB();
         setupDrawer();
 
-        setContent(FragmentFactory.getDefaultFragment(), INITIAL_BACKSTACK_ID);
+        setContent(FragmentFactory.getCurrentFragment(), INITIAL_BACKSTACK_ID);
     }
 
     public void setContent(Fragment content) {
@@ -189,12 +189,13 @@ public class MainActivity extends AppCompatActivity
                 setContent(FragmentFactory.getHistoryFragment());
             }
             case R.id.nav_menu : {
-                //setContent(FragmentFactory.getCategoryListFragment());
                 getSupportFragmentManager().popBackStack(INITIAL_BACKSTACK_ID, 0); // Not sure what "flags" are for.
                 getSupportFragmentManager().popBackStack();
                 setContent(FragmentFactory.getCategoryListFragment(), INITIAL_BACKSTACK_ID);
             }
             case R.id.nav_about : {
+                getSupportFragmentManager().popBackStack(INITIAL_BACKSTACK_ID, 0); // Not sure what "flags" are for.
+                getSupportFragmentManager().popBackStack();
                 setContent(FragmentFactory.getDeliveryInfo(), INITIAL_BACKSTACK_ID);
             }
         }

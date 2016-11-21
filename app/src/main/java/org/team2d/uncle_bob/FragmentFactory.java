@@ -6,6 +6,11 @@ import android.support.v4.app.Fragment;
 import org.team2d.uncle_bob.Database.ProductsEnum;
 
 final public class FragmentFactory {
+    public static Fragment getCurrentFragment() {
+        return currentFragment;
+    }
+
+    private static Fragment currentFragment = getDefaultFragment();
     private FragmentFactory() {}
 
     @NonNull
@@ -20,12 +25,16 @@ final public class FragmentFactory {
 
     @NonNull
     public static Fragment getItemDetailsFragment(int itemID) {
-        return FragmentItemDetails.newInstance(itemID);
+        Fragment frg = FragmentItemDetails.newInstance(itemID);
+        currentFragment = frg;
+        return frg;
     }
 
     @NonNull
     public static Fragment getItemListFragment(ProductsEnum category) {
-        return FragmentItemList.newInstance(category);
+        Fragment frg = FragmentItemList.newInstance(category);
+        currentFragment = frg;
+        return frg;
     }
 
     @NonNull
@@ -54,6 +63,8 @@ final public class FragmentFactory {
     }
     @NonNull
     public static Fragment getDeliveryInfo() {
-        return FragmentDeliveryInfo.newInstance();
+        Fragment frg = FragmentDeliveryInfo.newInstance();
+        currentFragment = frg;
+        return frg;
     }
 }
