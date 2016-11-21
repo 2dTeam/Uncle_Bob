@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity
                 setContent(FragmentFactory.getCategoryListFragment(), INITIAL_BACKSTACK_ID);
             }
             case R.id.nav_about : {
-                setContent(FragmentFactory.getDeliveryInfo(), INITIAL_BACKSTACK_ID);
+                setContent(FragmentFactory.getDeliveryInfo());
             }
         }
 

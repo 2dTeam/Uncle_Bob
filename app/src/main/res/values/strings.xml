@@ -39,6 +39,9 @@
     <string name="item_details_sauces">Соусы</string>
     <string name="item_details_buy">Купить!</string>
     <string name="item_details_contains">Состав</string>
+    <string name="item_price_prefix">от\u0020</string>
+    <string name="item_price_postfix_unicode">\u20bd</string>
+    <string name="item_price_postfix">\u0020руб.</string>
 
     <string name="category_pizza">Пицца</string>
     <string name="category_pizza_cat1">Рекомендованные</string>
@@ -52,5 +55,6 @@
     <string name="title_activity_basket">Корзина</string>
     <string name="title_fragment_category_list">Категории</string>
     <string name="report_as_a_bug">REPORT AS A BUG</string>
+
 
 </resources>
