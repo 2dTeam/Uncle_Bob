@@ -6,13 +6,20 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.team2d.uncle_bob.Basket.Basket;
+import org.team2d.uncle_bob.Basket.BasketItem;
 import org.team2d.uncle_bob.Database.DatabaseService;
 import org.team2d.uncle_bob.Database.ORM.Items.ItemObject;
+import org.team2d.uncle_bob.Database.ORM.Items.ItemParams;
 
 
 public class FragmentItemDetails extends Fragment {
@@ -23,26 +30,27 @@ public class FragmentItemDetails extends Fragment {
     private ViewGroup fragment = null;
     private int itemID = 0;
     private ItemObject item = null;
+    private BasketItem basketItem = null;
 
     private class QuantityChanger implements View.OnClickListener {
         private final int delta;
 
         QuantityChanger(int deltaQuantity) {
-            this.delta = itemID;
+            this.delta = deltaQuantity;
         }
 
         @Override
         public void onClick(View v) {
-            final TextView priceTextView = (TextView) fragment.findViewById(R.id.item_details_quantity);
-
-            // This should be ItemORMBasketAdapter.quantity
-            final int newQuantity = Integer.decode(priceTextView.getText().toString()) + delta;
-
-            priceTextView.setText(newQuantity);
-            if (newQuantity <= 0)
-                clearQuantityButtons();
-            else
-                createQuantityButtons();
+            Basket.getInstance().addItem(basketItem);
+//            final TextView priceTextView = (TextView) fragment.findViewById(R.id.item_details_quantity);
+//
+//            final int newQuantity = Integer.decode(priceTextView.getText().toString()) + delta;
+//
+//            priceTextView.setText(newQuantity);
+//            if (newQuantity <= 0)
+//                clearQuantityButtons();
+//            else
+//                createQuantityButtons();
         }
     }
 
@@ -66,6 +74,8 @@ public class FragmentItemDetails extends Fragment {
         itemID = getArguments().getInt(ARG_ITEM_ID, 0);
         item = DatabaseService.getPizzaSortedByCost().get(itemID);
 
+        basketItem = new BasketItem(item, item.getCheapestItem());
+
         fillFragmentWithItemDetails(fragment);
 
         return fragment;
@@ -75,15 +85,19 @@ public class FragmentItemDetails extends Fragment {
         getActivity().setTitle(item.getName());
 
         // ItemParams has weight specified
-        if (true) {
+        if (!item.getAllItems().isEmpty()) {
             final ViewGroup weightButtonsContainer = (ViewGroup) fragment.findViewById(R.id.item_details_weight);
 
             weightButtonsContainer.setVisibility(View.VISIBLE);
             fragment.findViewById(R.id.item_details_weight_label).setVisibility(View.VISIBLE);
 
-            /// foreach weight position:
-            /// final View weightButton = fragment.inflate(getActivity(), R.layout.fragment_item_details_toggle_button_weight, null);
-            /// weightButtonsContainer.addView(weightButton);
+            for (final ItemParams params : item.getAllItems()) {
+                final RadioButton weightButton = (RadioButton) fragment.inflate(getActivity(), R.layout.fragment_item_details_toggle_button_weight, null);
+                final String buttonText = String.valueOf((int) params.getWeight()) + getString(R.string.item_details_weight_postfix);
+                weightButton.setText(buttonText);
+                weightButton.setLayoutParams(new RadioGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)); // Somewhy these parameters in .xml are ignored
+                weightButtonsContainer.addView(weightButton);
+            }
         }
 
         // ItemParams has sauces specified
@@ -93,9 +107,13 @@ public class FragmentItemDetails extends Fragment {
             sauceCheckBoxesContainer.setVisibility(View.VISIBLE);
             fragment.findViewById(R.id.item_details_sauces_label).setVisibility(View.VISIBLE);
 
-            /// foreach sauce position:
-            /// final View sauceCheckBox = fragment.inflate(getActivity(), R.layout.fragment_item_details_checkbox_sauce, null);
-            /// sauceCheckBoxesContainer.addView(sauceCheckBox);
+            // TODO: Replace with sauces iterator
+            for (final ItemParams params : item.getAllItems()) {
+                final CheckBox sauceCheckBox = (CheckBox) fragment.inflate(getActivity(), R.layout.fragment_item_details_checkbox_sauce, null);
+                final String buttonText = String.valueOf((int) params.getWeight()) + getString(R.string.item_details_weight_postfix);
+                sauceCheckBox.setText(item.getName());
+                sauceCheckBoxesContainer.addView(sauceCheckBox);
+            }
         }
 
         // ItemParams has contains specified
@@ -105,12 +123,12 @@ public class FragmentItemDetails extends Fragment {
             containsText.setVisibility(View.VISIBLE);
             fragment.findViewById(R.id.item_details_contains_label).setVisibility(View.VISIBLE);
 
-            /// containsText.setText(item.text);
+            containsText.setText(item.getName());
         }
 
         // Minimal price for the first time
         final TextView priceTextView = (TextView) fragment.findViewById(R.id.item_details_price);
-        priceTextView.setText("" + item.getId() + ' ' + item.getOnlineId());
+        priceTextView.setText(item.getLeastPrice(this));
 
         final ImageView imageView = (ImageView) fragment.findViewById(R.id.item_details_image);
         imageView.setImageResource(getResources().getIdentifier(item.getImagePath(), "drawable", getActivity().getPackageName()));

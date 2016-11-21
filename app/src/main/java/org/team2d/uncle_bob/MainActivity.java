@@ -25,6 +25,7 @@ import android.view.View;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.team2d.uncle_bob.Basket.Basket;
 
 
 public class MainActivity extends AppCompatActivity
@@ -53,8 +54,11 @@ public class MainActivity extends AppCompatActivity
         setupFAB();
         setupDrawer();
 
-        if (savedInstanceState == null)
+        if (savedInstanceState == null) {
             setContent(FragmentFactory.getDefaultFragment(), INITIAL_BACKSTACK_ID);
+            // deserialize basket
+        }
+
     }
 
     public void setContent(Fragment content) {
@@ -104,14 +108,39 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    private void setFABCallbacks() {
+        Basket.getInstance().setOnBasketEmptyCallback(new Basket.Callback() {
+            @Override
+            public void call() {
+                final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+                fab.setVisibility(View.GONE);
+            }
+        });
+
+        Basket.getInstance().setOnBasketNotEmptyCallback(new Basket.Callback() {
+            @Override
+            public void call() {
+                final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+                fab.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    private void removeFABCallbacks() {
+        Basket.getInstance().setOnBasketEmptyCallback(null);
+        Basket.getInstance().setOnBasketNotEmptyCallback(null);
+    }
+
     @Override
     protected void onStop() {
         super.onStop();
+        removeFABCallbacks();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        setFABCallbacks();
     }
 
     @Override

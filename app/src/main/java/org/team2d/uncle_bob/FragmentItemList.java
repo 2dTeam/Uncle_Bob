@@ -114,15 +114,7 @@ public class FragmentItemList extends Fragment {
         final List <ItemObject> pizzas  = DatabaseService.getPizzaSortedByCost();
 
         for (ItemObject entry : pizzas) {
-            String priceString = "";
-            if (entry.getCheapestItem() != null) {
-                priceString = getString(R.string.item_price_prefix) + String.valueOf((int)Math.floor(entry.getCheapestItem().getCost()));
-                if (Character.isDefined(getString(R.string.item_price_postfix_unicode).charAt(0)))
-                    priceString += getString(R.string.item_price_postfix_unicode);
-                else
-                    priceString += getString(R.string.item_price_postfix);
-            }
-            final View itemPreview = getItemPreview(entry.getName(), priceString, entry.getImagePath());
+            final View itemPreview = getItemPreview(entry.getName(), entry.getLeastPrice(this), entry.getImagePath());
 
             itemPreview.setOnClickListener(new ActivityChanger(pizzas.indexOf(entry)));
 

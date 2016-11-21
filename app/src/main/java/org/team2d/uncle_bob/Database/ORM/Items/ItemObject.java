@@ -1,8 +1,10 @@
 package org.team2d.uncle_bob.Database.ORM.Items;
 
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 
 import org.team2d.uncle_bob.Database.ProductsEnum;
+import org.team2d.uncle_bob.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +48,19 @@ public class ItemObject {
     @Nullable
     public ItemParams getCheapestItem() {
         return cheapestItem;
+    }
+
+    public String getLeastPrice(Fragment thingToGetResources) {
+        String priceString = "";
+        if (getCheapestItem() != null) {
+            priceString = thingToGetResources.getString(R.string.item_price_prefix) + String.valueOf((int)Math.floor(getCheapestItem().getCost()));
+            if (Character.isDefined(thingToGetResources.getString(R.string.item_price_postfix_unicode).charAt(0)))
+                priceString += thingToGetResources.getString(R.string.item_price_postfix_unicode);
+            else
+                priceString += thingToGetResources.getString(R.string.item_price_postfix);
+        }
+
+        return priceString;
     }
 
     public int getId() {

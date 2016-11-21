@@ -39,9 +39,14 @@
     <string name="item_details_sauces">Соусы</string>
     <string name="item_details_buy">Купить!</string>
     <string name="item_details_contains">Состав</string>
+    <string name="item_details_weight_postfix">\u0020г.</string>
     <string name="item_price_prefix">от\u0020</string>
     <string name="item_price_postfix_unicode">\u20bd</string>
     <string name="item_price_postfix">\u0020руб.</string>
+
+    <string name="sauce_basil">Масло на базилике</string>
+    <string name="sauce_thyme_and_onion">Масло на тимьяне и чесноке</string>
+    <string name="sauce_onion_and_red_pepper">Масло на чесноке и красном перце</string>
 
     <string name="category_pizza">Пицца</string>
     <string name="category_pizza_cat1">Рекомендованные</string>
