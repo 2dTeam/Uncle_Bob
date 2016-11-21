@@ -18,6 +18,7 @@ public class ItemObject {
     private int onlineId;
     private String name;
     private String imagePath;
+    private String composition;
     @Nullable
     private ProductsEnum category;
 

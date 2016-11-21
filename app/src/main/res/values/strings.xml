@@ -1,28 +1,31 @@
 <resources>
+    <!--COMON-->
     <string name="app_name">Uncle Bob</string>
     <string name="menu_header_name">Пицерия Uncle Bob</string>
-
-
+    
     <string name="pizza_shop_name">Uncle Bob</string>
     <string name="pizza_shop_greeting">Доставка вкусной пиццы в Казани</string>
     <string name="pizza_shop_default_city">Казань</string>
     <string name="pizza_shop_tel">89033071935</string>
+    <string name="delivery_info">Пиццерия "Uncle Bob" осуществляет доставку пиццы с 11.00 до 22.00.
+При заказе от 500р. доставка бесплатно в Приволжский, Советский, Вахитовский, Ново-Савиновский районы. В другие районы доставка 100р.
+При заказе до 500р. доставка будет стоить - 100р.</string>
 
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="navigation_drawer_contacts">Контакты</string>
-
+    <!--Navigation Drawer-->
     <string name="navigation_drawer_option_menu">Меню</string>
     <string name="navigation_drawer_option_sales">Акции</string>
     <string name="navigation_drawer_option_basket">Корзина</string>
     <string name="navigation_drawer_option_account">Аккаунт</string>
     <string name="navigation_drawer_option_history">История заказов</string>
-    <string name="navigation_drawer_option_about">О компании</string>
+    <string name="navigation_drawer_option_about">Условия доставки</string>
     <string name="navigation_drawer_option_call">Позвонить нам</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_contacts">Контакты</string>
 
     <string name="action_settings">Settings</string>
-
+    
+    <!--MOCKS-->
     <string name="pizza_placeholder_title">Неополитано классик нео (с грибами) (закрытая)</string>
     <string name="pizza_placeholder_price">до 1 000 000 ₽</string>
     <string name="pizza_placeholder_contains">Ветчина, охотничьи колбаски, грибы шампиньоны, помидоры, маслины, сыр, соус.</string>

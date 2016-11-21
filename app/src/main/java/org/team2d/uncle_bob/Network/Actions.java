@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class Actions {
     private static OkHTTP okHTTPClient = new OkHTTP();
-    static void addToBasket () {
+    public static void addToBasket () {
         try {
             Log.d("response", "is"+okHTTPClient.run("http://vk.com/"));
         } catch (IOException e) {

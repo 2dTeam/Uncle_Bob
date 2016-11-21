@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity
     private static final String PRIMARY_FRAGMENT_TAG = "org.team2d.uncle_bob.MainActivity.PRIMARY_FRAGMENT_TAG";
     private static final String INITIAL_BACKSTACK_ID = "org.team2d.uncle_bob.MainActivity.INITIAL_BACKSTACK_ID";
 
-    // TODO: Consider moving into utility class
-    // Oops! How to move non-static AppCompatActivity.getResources() method?
     public int getResourceId(String VariableName, String ResourceName, String PackageName) {
         try {
             return getResources().getIdentifier(VariableName, ResourceName, PackageName);
@@ -79,7 +77,6 @@ public class MainActivity extends AppCompatActivity
     private void setupFAB() {
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        // TODO: will this lead to memory leakage?
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -196,7 +193,9 @@ public class MainActivity extends AppCompatActivity
                 getSupportFragmentManager().popBackStack(INITIAL_BACKSTACK_ID, 0); // Not sure what "flags" are for.
                 getSupportFragmentManager().popBackStack();
                 setContent(FragmentFactory.getCategoryListFragment(), INITIAL_BACKSTACK_ID);
-
+            }
+            case R.id.nav_about : {
+                setContent(FragmentFactory.getDeliveryInfo(), INITIAL_BACKSTACK_ID);
             }
         }
 
@@ -230,12 +229,9 @@ public class MainActivity extends AppCompatActivity
         startActivity(callIntent);
     }
 
-    // TODO: Consider moving into utility class
-    // Maybe inner class?
     private void showExplanation(CharSequence title, CharSequence message, final String permission, final int permissionRequestCode) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        // TODO: will this lead to memory leakage?
         builder.setTitle(title).setMessage(message).setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         requestPermission(permission, permissionRequestCode);

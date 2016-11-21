@@ -52,4 +52,8 @@ final public class FragmentFactory {
     public static Fragment getSalesFragment() {
         return null;
     }
+    @NonNull
+    public static Fragment getDeliveryInfo() {
+        return FragmentDeliveryInfo.newInstance();
+    }
 }
