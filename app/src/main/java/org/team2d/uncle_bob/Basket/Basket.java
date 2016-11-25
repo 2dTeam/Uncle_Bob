@@ -1,5 +1,10 @@
 package org.team2d.uncle_bob.Basket;
 
+import android.support.annotation.Nullable;
+
+import org.team2d.uncle_bob.Database.ORM.Items.ItemObject;
+import org.team2d.uncle_bob.Database.ORM.Items.ItemParams;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -35,6 +40,15 @@ public class Basket {
 
         if (onBasketEmpty != null && items.isEmpty())
             onBasketEmpty.call();
+    }
+
+    @Nullable
+    public BasketItem getItem(ItemObject item, ItemParams params) {
+        for (BasketItem basketItem: items)
+            if (basketItem.getItem() == item && basketItem.getDetails() == params)
+                return basketItem;
+
+        return null;
     }
 
     public int getTotalPrice() {

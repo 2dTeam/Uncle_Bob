@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.Checkable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -19,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.team2d.uncle_bob.Basket.Basket;
 import org.team2d.uncle_bob.Basket.BasketItem;
 import org.team2d.uncle_bob.Basket.QuantityButtonsWidget;
+import org.team2d.uncle_bob.Basket.Sauce;
 import org.team2d.uncle_bob.Database.DatabaseService;
 import org.team2d.uncle_bob.Database.ORM.Items.ItemObject;
 import org.team2d.uncle_bob.Database.ORM.Items.ItemParams;
@@ -81,6 +83,7 @@ public class FragmentItemDetails extends Fragment {
                 weightButton.setText(buttonText);
                 weightButton.setLayoutParams(new RadioGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)); // Somewhy these parameters in .xml are ignored
                 weightButtonsContainer.addView(weightButton);
+                weightButton.setOnClickListener(new DetailsChanger(params));
             }
         }
 
@@ -91,12 +94,11 @@ public class FragmentItemDetails extends Fragment {
             sauceCheckBoxesContainer.setVisibility(View.VISIBLE);
             fragment.findViewById(R.id.item_details_sauces_label).setVisibility(View.VISIBLE);
 
-            // TODO: Replace with sauces iterator
-            for (final ItemParams params : item.getAllItems()) {
+            for (final Sauce sauce : Sauce.getSauces()) {
                 final CheckBox sauceCheckBox = (CheckBox) fragment.inflate(getActivity(), R.layout.fragment_item_details_checkbox_sauce, null);
-                final String buttonText = String.valueOf((int) params.getWeight()) + getString(R.string.item_details_weight_postfix);
-                sauceCheckBox.setText(item.getName());
+                sauceCheckBox.setText(sauce.getTitle());
                 sauceCheckBoxesContainer.addView(sauceCheckBox);
+                sauceCheckBox.setOnClickListener(new SauceChanger(sauce));
             }
         }
 
@@ -118,7 +120,7 @@ public class FragmentItemDetails extends Fragment {
         imageView.setImageResource(getResources().getIdentifier(item.getImagePath(), "drawable", getActivity().getPackageName()));
 
         final LinearLayout buttonsContainer = (LinearLayout) fragment.findViewById(R.id.item_buttons_container);
-        buyButtons = new QuantityButtonsWidget(getLayoutInflater(null), buttonsContainer, item, itemDetails);
+        buyButtons = new QuantityButtonsWidget(getLayoutInflater(null), buttonsContainer, item, itemDetails, new Recalculator());
 
         basketItem = buyButtons.refresh();
     }
@@ -130,12 +132,61 @@ public class FragmentItemDetails extends Fragment {
         outState.putInt(ARG_ITEM_DETAILS_ID, itemDetails.toInt());
     }
 
-
-
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onStop() {
+        super.onStop();
 
+        buyButtons.destroyListeners();
+        // remove other listeners
+    }
+
+    private void calculatePrice() {
+        final TextView priceTextView = (TextView) fragment.findViewById(R.id.item_details_price);
+        if (basketItem.getQuantity() > 0)
+            priceTextView.setText(basketItem.getPrice(this));
+        else
+            priceTextView.setText(basketItem.getItem().getLeastPrice(this));
+    }
+
+    private class Recalculator implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            calculatePrice();
+        }
+    }
+
+    private class SauceChanger implements View.OnClickListener {
+        private final Sauce sauce;
+
+        public SauceChanger(Sauce sauce) {
+            this.sauce = sauce;
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (((Checkable) v).isChecked())
+                basketItem.addSauce(sauce);
+            else
+                basketItem.removeSauce(sauce);
+
+            calculatePrice();
+        }
+    }
+
+    private class DetailsChanger implements View.OnClickListener {
+        private final ItemParams params;
+
+        public DetailsChanger(ItemParams params) {
+            this.params = params;
+        }
+
+        @Override
+        public void onClick(View v) {
+            buyButtons.changeItemParameters(params);
+
+            basketItem = buyButtons.refresh();
+            calculatePrice();
+        }
     }
 
 }

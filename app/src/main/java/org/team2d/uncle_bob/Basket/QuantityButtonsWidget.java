@@ -13,6 +13,7 @@ import org.team2d.uncle_bob.R;
 
 public class QuantityButtonsWidget {
     private final LinearLayout container;
+    private final View.OnClickListener onClick;
     private BasketItem item;
     private View buttonBuy;
     private View buttonIncrease;
@@ -20,9 +21,10 @@ public class QuantityButtonsWidget {
     private EditText textQuantity;
     private QuantityWatcher quantityWatcher;
 
-    public QuantityButtonsWidget(LayoutInflater inflater, LinearLayout container, ItemObject item, ItemParams details) {
+    public QuantityButtonsWidget(LayoutInflater inflater, LinearLayout container, ItemObject item, ItemParams details, View.OnClickListener onClick) {
         this.container = container;
-        this.item = new BasketItem(item, details);
+        this.onClick = onClick;
+        setBasketItem(item, details);
 
         inflater.inflate(R.layout.quantity_buttons_details_fragment, container);
 
@@ -49,12 +51,11 @@ public class QuantityButtonsWidget {
         }
 
         textQuantity.setText(String.valueOf(item.getQuantity()));
-
         return item;
     }
 
     public void changeItemParameters(ItemParams details) {
-
+        setBasketItem(item.getItem(), details);
         refresh();
     }
 
@@ -64,6 +65,13 @@ public class QuantityButtonsWidget {
         buttonDecrease.setOnClickListener(null);
         textQuantity.setOnClickListener(null);
         textQuantity.removeTextChangedListener(quantityWatcher);
+        //onClick = null;
+    }
+
+    private void setBasketItem(ItemObject itemObject, ItemParams details) {
+        this.item = Basket.getInstance().getItem(itemObject, details);
+        if (this.item == null)
+            this.item = new BasketItem(itemObject, details);
     }
 
     private void clearQuantityButtons() {
@@ -97,6 +105,7 @@ public class QuantityButtonsWidget {
 
             item.setQuantity(item.getQuantity() + delta);
             refresh();
+            onClick.onClick(v);
         }
     }
 

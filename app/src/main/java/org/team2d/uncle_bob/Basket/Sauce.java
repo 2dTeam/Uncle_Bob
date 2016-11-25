@@ -2,7 +2,9 @@ package org.team2d.uncle_bob.Basket;
 
 import android.support.annotation.Nullable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -10,16 +12,22 @@ public class Sauce {
     public static final int SAUCE_PRICE = 20;
 
     private static final AtomicInteger ID_GENERATOR = new AtomicInteger(1);
-    private static final Map<Integer, Sauce> ID_MAP = new HashMap<>();
+    private static final Map<Integer, Sauce> ID_MAP = new HashMap<>(3);
+    private static final List<Sauce> SAUCE_LIST = new ArrayList<>(3);
 
     private final int price;
     private final int id = ID_GENERATOR.getAndIncrement();
     private final String title;
 
+    public static List<Sauce> getSauces() {
+        return SAUCE_LIST;
+    }
+
     private Sauce(int price, String title) {
         this.price = price;
         this.title = title;
         ID_MAP.put(id, this);
+        SAUCE_LIST.add(this);
     }
 
     public int getPrice() {
@@ -38,8 +46,6 @@ public class Sauce {
     public String getTitle() {
         return title;
     }
-
-
 
     public static final Sauce OIL_BASIL = new Sauce(SAUCE_PRICE, "Масло на базилике");
     public static final Sauce OIL_THYME_ONION = new Sauce(SAUCE_PRICE, "Масло на тимьяне и чесноке");
