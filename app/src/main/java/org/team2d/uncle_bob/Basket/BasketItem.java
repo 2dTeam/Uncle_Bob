@@ -11,7 +11,7 @@ import java.util.Set;
 public class BasketItem {
     private ItemObject item;
     private ItemParams details;
-    private int quantity = 1;
+    private int quantity = 0;
     private Set<Sauce> sauces = new HashSet<>(3); // Should be a set.
 
     public BasketItem(ItemObject item, ItemParams details) {

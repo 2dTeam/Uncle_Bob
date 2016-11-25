@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.team2d.uncle_bob.Basket.Basket;
 import org.team2d.uncle_bob.Basket.BasketItem;
+import org.team2d.uncle_bob.Basket.QuantityButtonsWidget;
 import org.team2d.uncle_bob.Database.DatabaseService;
 import org.team2d.uncle_bob.Database.ORM.Items.ItemObject;
 import org.team2d.uncle_bob.Database.ORM.Items.ItemParams;
@@ -26,33 +28,14 @@ public class FragmentItemDetails extends Fragment {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FragmentItemDetails.class);
     private static final String ARG_ITEM_ID = "org.team2d.uncle_bob.FragmentItemDetails.ITEM_ID";
+    private static final String ARG_ITEM_DETAILS_ID = "org.team2d.uncle_bob.FragmentItemDetails.ITEM_DETAILS_ID";
 
     private ViewGroup fragment = null;
     private int itemID = 0;
     private ItemObject item = null;
+    private ItemParams itemDetails = null;
     private BasketItem basketItem = null;
-
-    private class QuantityChanger implements View.OnClickListener {
-        private final int delta;
-
-        QuantityChanger(int deltaQuantity) {
-            this.delta = deltaQuantity;
-        }
-
-        @Override
-        public void onClick(View v) {
-            Basket.getInstance().addItem(basketItem);
-//            final TextView priceTextView = (TextView) fragment.findViewById(R.id.item_details_quantity);
-//
-//            final int newQuantity = Integer.decode(priceTextView.getText().toString()) + delta;
-//
-//            priceTextView.setText(newQuantity);
-//            if (newQuantity <= 0)
-//                clearQuantityButtons();
-//            else
-//                createQuantityButtons();
-        }
-    }
+    private QuantityButtonsWidget buyButtons = null;
 
     public static FragmentItemDetails newInstance(int itemID) {
         final FragmentItemDetails fragment = new FragmentItemDetails();
@@ -64,8 +47,6 @@ public class FragmentItemDetails extends Fragment {
         return fragment;
     }
 
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -74,7 +55,10 @@ public class FragmentItemDetails extends Fragment {
         itemID = getArguments().getInt(ARG_ITEM_ID, 0);
         item = DatabaseService.getPizzaSortedByCost().get(itemID);
 
-        basketItem = new BasketItem(item, item.getCheapestItem());
+        if (savedInstanceState != null)
+            itemDetails = ItemParams.fromInt(savedInstanceState.getInt(ARG_ITEM_DETAILS_ID, 0));
+        if (itemDetails == null)
+            itemDetails = item.getCheapestItem();
 
         fillFragmentWithItemDetails(fragment);
 
@@ -133,43 +117,20 @@ public class FragmentItemDetails extends Fragment {
         final ImageView imageView = (ImageView) fragment.findViewById(R.id.item_details_image);
         imageView.setImageResource(getResources().getIdentifier(item.getImagePath(), "drawable", getActivity().getPackageName()));
 
-        setOnClickSubscribers();
+        final LinearLayout buttonsContainer = (LinearLayout) fragment.findViewById(R.id.item_buttons_container);
+        buyButtons = new QuantityButtonsWidget(getLayoutInflater(null), buttonsContainer, item, itemDetails);
+
+        basketItem = buyButtons.refresh();
     }
 
-    private void setOnClickSubscribers() {
-        final View buttonBuy = fragment.findViewById(R.id.item_details_buy);
-        buttonBuy.setOnClickListener(new QuantityChanger(+1));
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
 
-        final View buttonInc = fragment.findViewById(R.id.item_details_quantity_increase);
-        buttonInc.setOnClickListener(new QuantityChanger(+1));
-
-        final View buttonDec = fragment.findViewById(R.id.item_details_quantity_decrease);
-        buttonDec.setOnClickListener(new QuantityChanger(-1));
+        outState.putInt(ARG_ITEM_DETAILS_ID, itemDetails.toInt());
     }
 
-    private void clearQuantityButtons() {
-        final View buttonBuy = fragment.findViewById(R.id.item_details_buy);
-        buttonBuy.setVisibility(View.VISIBLE);
 
-        final View buttonInc = fragment.findViewById(R.id.item_details_quantity_increase);
-        buttonInc.setVisibility(View.GONE);
-        final View textQuantity = fragment.findViewById(R.id.item_details_quantity);
-        textQuantity.setVisibility(View.GONE);
-        final View buttonDec = fragment.findViewById(R.id.item_details_quantity_decrease);
-        buttonDec.setVisibility(View.GONE);
-    }
-
-    private void createQuantityButtons() {
-        final View buttonBuy = fragment.findViewById(R.id.item_details_buy);
-        buttonBuy.setVisibility(View.GONE);
-
-        final View buttonInc = fragment.findViewById(R.id.item_details_quantity_increase);
-        buttonInc.setVisibility(View.VISIBLE);
-        final View textQuantity = fragment.findViewById(R.id.item_details_quantity);
-        textQuantity.setVisibility(View.VISIBLE);
-        final View buttonDec = fragment.findViewById(R.id.item_details_quantity_decrease);
-        buttonDec.setVisibility(View.VISIBLE);
-    }
 
     @Override
     public void onDestroyView() {
