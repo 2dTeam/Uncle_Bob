@@ -14,13 +14,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.team2d.uncle_bob.Database.DatabaseService;
 import org.team2d.uncle_bob.Database.ORM.Items.ItemObject;
 import org.team2d.uncle_bob.Database.ProductsEnum;
+import org.team2d.uncle_bob.Picasso.PicassoImageLoader;
 
 import java.util.List;
 
@@ -105,13 +104,9 @@ public class FragmentItemList extends Fragment {
         priceTextView.setText(price);
 
         final ImageView imageView = (ImageView) previewLayout.findViewById(R.id.item_preview_image);
-//        imageView.setImageResource(getResources().getIdentifier(imagePath, "drawable", getActivity().getPackageName()));
 
-        Picasso.with(getActivity())
-                .load(imagePath)
-                .placeholder(R.drawable.noimage)
-                .error(R.drawable.noimage)
-                .into(imageView);
+        PicassoImageLoader.getInstance()
+                .load(getActivity(), imagePath, R.drawable.noimage, R.drawable.noimage, imageView);
 
         return previewLayout;
     }
