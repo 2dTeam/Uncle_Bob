@@ -31,6 +31,7 @@ import org.team2d.uncle_bob.Basket.Basket;
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
     // TODO: make some proper logging?
+    private static final String TAG = MainActivity.class.getSimpleName();
     private static final Logger LOGGER = LoggerFactory.getLogger(MainActivity.class);
     private final int PERMISSION_REQUEST_PHONE_CODE = 1;
     private static final String PRIMARY_FRAGMENT_TAG = "org.team2d.uncle_bob.MainActivity.PRIMARY_FRAGMENT_TAG";
