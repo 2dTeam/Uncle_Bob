@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_preview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -20,7 +19,8 @@
         android:adjustViewBounds="true"
         android:cropToPadding="false"
         android:minHeight="@dimen/preview_item_image_height"
-        android:maxHeight="@dimen/preview_item_image_height"/>
+        android:maxHeight="@dimen/preview_item_image_height"
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:text="@string/pizza_placeholder_title"
@@ -30,7 +30,9 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/item_preview_image" />
+        android:layout_toEndOf="@+id/item_preview_image"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/item_preview_image" />
 
     <TextView
         android:text="@string/pizza_placeholder_price"
@@ -39,5 +41,6 @@
         android:id="@+id/item_preview_price"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:layout_alignBottom="@+id/item_preview_image"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true" />
 </RelativeLayout>

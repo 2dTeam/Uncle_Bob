@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.team2d.uncle_bob.Database.DatabaseService;
@@ -103,7 +105,13 @@ public class FragmentItemList extends Fragment {
         priceTextView.setText(price);
 
         final ImageView imageView = (ImageView) previewLayout.findViewById(R.id.item_preview_image);
-        imageView.setImageResource(getResources().getIdentifier(imagePath, "drawable", getActivity().getPackageName()));
+//        imageView.setImageResource(getResources().getIdentifier(imagePath, "drawable", getActivity().getPackageName()));
+
+        Picasso.with(getActivity())
+                .load(imagePath)
+                .placeholder(R.drawable.noimage)
+                .error(R.drawable.noimage)
+                .into(imageView);
 
         return previewLayout;
     }

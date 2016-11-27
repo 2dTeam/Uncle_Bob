@@ -20,7 +20,7 @@ public class ItemObject {
     private int onlineId;
     private String name;
     private String imagePath;
-    private String composition;
+    private String description;
     @Nullable
     private ProductsEnum category;
 
