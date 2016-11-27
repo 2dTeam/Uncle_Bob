@@ -13,11 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.team2d.uncle_bob.Basket.Basket;
 import org.team2d.uncle_bob.Basket.BasketItem;
 import org.team2d.uncle_bob.Basket.QuantityButtonsWidget;
 import org.team2d.uncle_bob.Basket.Sauce;
@@ -78,7 +76,7 @@ public class FragmentItemDetails extends Fragment {
             fragment.findViewById(R.id.item_details_weight_label).setVisibility(View.VISIBLE);
 
             for (final ItemParams params : item.getAllItems()) {
-                final RadioButton weightButton = (RadioButton) fragment.inflate(getActivity(), R.layout.fragment_item_details_toggle_button_weight, null);
+                final RadioButton weightButton = (RadioButton) View.inflate(getActivity(), R.layout.fragment_item_details_toggle_button_weight, null);
                 final String buttonText = String.valueOf((int) params.getWeight()) + getString(R.string.item_details_weight_postfix);
                 weightButton.setText(buttonText);
                 weightButton.setLayoutParams(new RadioGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)); // Somewhy these parameters in .xml are ignored

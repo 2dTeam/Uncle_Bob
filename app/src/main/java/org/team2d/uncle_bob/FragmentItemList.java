@@ -106,7 +106,7 @@ public class FragmentItemList extends Fragment {
         final ImageView imageView = (ImageView) previewLayout.findViewById(R.id.item_preview_image);
 
         PicassoImageLoader.getInstance()
-                .load(getActivity(), imagePath, R.drawable.noimage, R.drawable.noimage, imageView);
+                .load(getActivity(), imagePath, R.drawable.progress_animation, R.drawable.noimage, imageView);
 
         return previewLayout;
     }
