@@ -15,7 +15,7 @@ final public class FragmentFactory {
 
     @NonNull
     public static Fragment getBasketFragment(/* TODO: some arguments, maybe? */) {
-        return null;
+        return FragmentItemDetails.newInstance(4);
     }
 
     @NonNull
@@ -35,12 +35,12 @@ final public class FragmentFactory {
 
     @NonNull
     public static Fragment getHistoryFragment() {
-        return null;
+        return FragmentItemDetails.newInstance(1);
     }
 
     @NonNull
     public static Fragment getAccountFragment() {
-        return null;
+        return FragmentItemDetails.newInstance(2);
     }
 
     @NonNull
@@ -50,8 +50,9 @@ final public class FragmentFactory {
 
     @NonNull
     public static Fragment getSalesFragment() {
-        return null;
+        return FragmentItemDetails.newInstance(3);
     }
+
     @NonNull
     public static Fragment getDeliveryInfo() {
         return FragmentDeliveryInfo.newInstance();

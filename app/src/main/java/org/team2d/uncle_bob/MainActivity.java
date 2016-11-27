@@ -67,6 +67,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void setContent(Fragment content, String backStackID) {
+        LOGGER.info("Changing content to " + content.getClass().getName());
+
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 
@@ -206,27 +208,34 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
 
         final int id = item.getItemId();
+        LOGGER.info("Pressed navbar id: " + id);
         switch (id) {
             case R.id.nav_basket : {
                 setContent(FragmentFactory.getBasketFragment());
+                break;
             }
             case R.id.nav_sales  : {
                 setContent(FragmentFactory.getSalesFragment());
+                break;
             }
             case R.id.nav_account : {
                 setContent(FragmentFactory.getAccountFragment());
+                break;
             }
             case R.id.nav_history : {
                 setContent(FragmentFactory.getHistoryFragment());
+                break;
             }
             case R.id.nav_about : {
                 setContent(FragmentFactory.getDeliveryInfo());
+                break;
             }
             case R.id.nav_menu : {
                 //setContent(FragmentFactory.getCategoryListFragment());
                 getSupportFragmentManager().popBackStack(INITIAL_BACKSTACK_ID, 0); // Not sure what "flags" are for.
                 getSupportFragmentManager().popBackStack();
                 setContent(FragmentFactory.getCategoryListFragment(), INITIAL_BACKSTACK_ID);
+                break;
             }
         }
 

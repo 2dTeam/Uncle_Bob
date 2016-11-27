@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 public class FragmentDeliveryInfo extends Fragment {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(FragmentItemDetails.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FragmentDeliveryInfo.class);
 
     public static FragmentDeliveryInfo newInstance() {
         return new FragmentDeliveryInfo();

@@ -64,4 +64,14 @@ public class BasketItem {
 
         return priceString;
     }
+
+    public String getLeastPrice(Fragment thingToGetResources) {
+        String priceString = thingToGetResources.getString(R.string.item_price_prefix) + String.valueOf((int)Math.floor(details.getCost()));
+        if (Character.isDefined(thingToGetResources.getString(R.string.item_price_postfix_unicode).charAt(0)))
+            priceString += thingToGetResources.getString(R.string.item_price_postfix_unicode);
+        else
+            priceString += thingToGetResources.getString(R.string.item_price_postfix);
+
+        return priceString;
+    }
 }

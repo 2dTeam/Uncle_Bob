@@ -102,13 +102,13 @@ public class FragmentItemDetails extends Fragment {
         }
 
         // ItemParams has contains specified
-        if (true) {
+        if (item.getDescription() != null && !item.getDescription().isEmpty()) {
             final TextView containsText = (TextView) fragment.findViewById(R.id.item_details_contains);
 
             containsText.setVisibility(View.VISIBLE);
             fragment.findViewById(R.id.item_details_contains_label).setVisibility(View.VISIBLE);
 
-            containsText.setText(item.getName());
+            containsText.setText(item.getDescription());
         }
 
         // Minimal price for the first time
@@ -145,7 +145,7 @@ public class FragmentItemDetails extends Fragment {
         if (basketItem.getQuantity() > 0)
             priceTextView.setText(basketItem.getPrice(this));
         else
-            priceTextView.setText(basketItem.getItem().getLeastPrice(this));
+            priceTextView.setText(basketItem.getLeastPrice(this));
     }
 
     private class Recalculator implements View.OnClickListener {
