@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * Created by nikolaev on 03.11.16.
  */
-//TODO i think we need refactor here @Xobotun ?
 public class DatabaseService {
     private static List<ItemObject> pizza = null;
     private static boolean  mLoaded = false;

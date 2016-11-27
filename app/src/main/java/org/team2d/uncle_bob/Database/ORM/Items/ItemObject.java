@@ -24,12 +24,14 @@ public class ItemObject {
     @Nullable
     private ProductsEnum category;
 
-    public ItemObject(int id, int onlineId, String name, String imagePath, @Nullable ProductsEnum category) {
+
+    public ItemObject(int id, int onlineId, String name, String imagePath, String description, @Nullable ProductsEnum category) {
         itemParams = new ArrayList<>();
         this.id = id;
         this.onlineId = onlineId;
         this.name = name;
         this.imagePath = imagePath;
+        this.description = description;
         this.category = category;
     }
 
@@ -77,6 +79,10 @@ public class ItemObject {
 
     public String getImagePath() {
         return imagePath;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     @Nullable

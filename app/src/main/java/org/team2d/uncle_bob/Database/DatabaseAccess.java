@@ -61,8 +61,11 @@ class DatabaseAccess {
                 int onlineId = cursor.getInt(cursor.getColumnIndex("online_id"));
                 Float weight = cursor.getFloat(cursor.getColumnIndex("weight"));
                 Float cost = cursor.getFloat(cursor.getColumnIndex("cost"));
+                String description = cursor.getString(cursor.getColumnIndex("description"));
 
-                ItemObject pizza = new ItemObject(id, onlineId, pizzaName, pizzaImage, ProductsEnum.PIZZA); // I hardcoded PIZZA here because we query 'pizza' DB.
+                ItemObject pizza = new ItemObject(id, onlineId, pizzaName,
+                        pizzaImage, description, ProductsEnum.PIZZA); // I hardcoded PIZZA here because we query 'pizza' DB.
+
                 pizza.addItemParams(new ItemParams(cost, weight));
                 pizzaMap.put(id, pizza); // id - Pizza object
             }

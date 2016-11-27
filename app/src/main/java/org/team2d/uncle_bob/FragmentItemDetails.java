@@ -22,6 +22,7 @@ import org.team2d.uncle_bob.Basket.Sauce;
 import org.team2d.uncle_bob.Database.DatabaseService;
 import org.team2d.uncle_bob.Database.ORM.Items.ItemObject;
 import org.team2d.uncle_bob.Database.ORM.Items.ItemParams;
+import org.team2d.uncle_bob.Picasso.PicassoImageLoader;
 
 
 public class FragmentItemDetails extends Fragment {
@@ -115,7 +116,8 @@ public class FragmentItemDetails extends Fragment {
         priceTextView.setText(item.getLeastPrice(this));
 
         final ImageView imageView = (ImageView) fragment.findViewById(R.id.item_details_image);
-        imageView.setImageResource(getResources().getIdentifier(item.getImagePath(), "drawable", getActivity().getPackageName()));
+        PicassoImageLoader.getInstance()
+                .load(getActivity(), item.getImagePath(), R.drawable.noimage, R.drawable.noimage, imageView);
 
         final LinearLayout buttonsContainer = (LinearLayout) fragment.findViewById(R.id.item_buttons_container);
         buyButtons = new QuantityButtonsWidget(getLayoutInflater(null), buttonsContainer, item, itemDetails, new Recalculator());
@@ -133,7 +135,7 @@ public class FragmentItemDetails extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-
+        //@// TODO: 27.11.16 не нужно обнулять лисенеры
         buyButtons.destroyListeners();
         // remove other listeners
     }
