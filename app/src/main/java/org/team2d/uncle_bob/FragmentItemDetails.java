@@ -22,7 +22,10 @@ import org.team2d.uncle_bob.Basket.Sauce;
 import org.team2d.uncle_bob.Database.DatabaseService;
 import org.team2d.uncle_bob.Database.ORM.Items.ItemObject;
 import org.team2d.uncle_bob.Database.ORM.Items.ItemParams;
+import org.team2d.uncle_bob.Database.ProductsEnum;
 import org.team2d.uncle_bob.Picasso.PicassoImageLoader;
+
+import java.util.List;
 
 
 public class FragmentItemDetails extends Fragment {
@@ -30,6 +33,8 @@ public class FragmentItemDetails extends Fragment {
     private static final Logger LOGGER = LoggerFactory.getLogger(FragmentItemDetails.class);
     private static final String ARG_ITEM_ID = "org.team2d.uncle_bob.FragmentItemDetails.ITEM_ID";
     private static final String ARG_ITEM_DETAILS_ID = "org.team2d.uncle_bob.FragmentItemDetails.ITEM_DETAILS_ID";
+    private static final String TAG_WEIGHT_BUTTON = "org.team2d.uncle_bob.FragmentItemDetails.TAG_WEIGHT_BUTTON_";
+    private static final String TAG_SAUCE_BUTTON = "org.team2d.uncle_bob.FragmentItemDetails.TAG_SAUCE_BUTTON_";
 
     private ViewGroup fragment = null;
     private int itemID = 0;
@@ -83,11 +88,12 @@ public class FragmentItemDetails extends Fragment {
                 weightButton.setLayoutParams(new RadioGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)); // Somewhy these parameters in .xml are ignored
                 weightButtonsContainer.addView(weightButton);
                 weightButton.setOnClickListener(new DetailsChanger(params));
+                weightButton.setTag(TAG_WEIGHT_BUTTON + params.toInt());
             }
         }
 
         // ItemParams has sauces specified
-        if (true) {
+        if (item.getCategory() == ProductsEnum.PIZZA) {
             final ViewGroup sauceCheckBoxesContainer = (ViewGroup) fragment.findViewById(R.id.item_details_sauces);
 
             sauceCheckBoxesContainer.setVisibility(View.VISIBLE);
@@ -98,6 +104,8 @@ public class FragmentItemDetails extends Fragment {
                 sauceCheckBox.setText(sauce.getTitle());
                 sauceCheckBoxesContainer.addView(sauceCheckBox);
                 sauceCheckBox.setOnClickListener(new SauceChanger(sauce));
+                sauceCheckBox.setTag(TAG_SAUCE_BUTTON + sauce.toInt());
+
             }
         }
 
@@ -120,7 +128,7 @@ public class FragmentItemDetails extends Fragment {
                 .load(getActivity(), item.getImagePath(), R.drawable.noimage, R.drawable.noimage, imageView);
 
         final LinearLayout buttonsContainer = (LinearLayout) fragment.findViewById(R.id.item_buttons_container);
-        buyButtons = new QuantityButtonsWidget(getLayoutInflater(null), buttonsContainer, item, itemDetails, new Recalculator());
+        buyButtons = new QuantityButtonsWidget(getLayoutInflater(null), buttonsContainer, item, itemDetails, new Recalculator(), new UIStateMatcher());
 
         basketItem = buyButtons.refresh();
     }
@@ -152,6 +160,25 @@ public class FragmentItemDetails extends Fragment {
         @Override
         public void onClick(View v) {
             calculatePrice();
+        }
+    }
+
+    private class UIStateMatcher implements QuantityButtonsWidget.OnStateChangedListener {
+        @Override
+        public void act(BasketItem item) {
+            if (item != null) {
+                ItemParams selectedWeightOption = item.getDetails();
+                Checkable weightButton = (Checkable) fragment.findViewWithTag(TAG_WEIGHT_BUTTON + selectedWeightOption.toInt());
+                weightButton.setChecked(true);
+
+                for (Sauce sauce : Sauce.getSauces()) {
+                    Checkable sauceChecker = (Checkable) fragment.findViewWithTag(TAG_SAUCE_BUTTON + sauce.toInt());
+                    if (item.getSauces().contains(sauce))
+                        sauceChecker.setChecked(true);
+                    else
+                        sauceChecker.setChecked(false);
+                }
+            }
         }
     }
 

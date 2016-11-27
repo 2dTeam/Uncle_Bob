@@ -47,6 +47,10 @@ public class BasketItem {
         sauces.remove(sauce);
     }
 
+    public Set<Sauce> getSauces() {
+        return sauces;
+    }
+
     public int getPrice() {
         int saucesPrice = 0;
         for (Sauce sauce : sauces)

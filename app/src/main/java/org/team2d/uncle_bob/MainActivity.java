@@ -67,8 +67,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void setContent(Fragment content, String backStackID) {
-        LOGGER.info("Changing content to " + content.getClass().getName());
-
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 
@@ -208,7 +206,6 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
 
         final int id = item.getItemId();
-        LOGGER.info("Pressed navbar id: " + id);
         switch (id) {
             case R.id.nav_basket : {
                 setContent(FragmentFactory.getBasketFragment());

@@ -1,5 +1,6 @@
 package org.team2d.uncle_bob.Basket;
 
+import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import org.team2d.uncle_bob.R;
 public class QuantityButtonsWidget {
     private final LinearLayout container;
     private final View.OnClickListener onClick;
+    private final OnStateChangedListener onRefresh;
     private BasketItem item;
     private View buttonBuy;
     private View buttonIncrease;
@@ -21,9 +23,14 @@ public class QuantityButtonsWidget {
     private EditText textQuantity;
     private QuantityWatcher quantityWatcher;
 
-    public QuantityButtonsWidget(LayoutInflater inflater, LinearLayout container, ItemObject item, ItemParams details, View.OnClickListener onClick) {
+    public interface OnStateChangedListener {
+        void act(BasketItem item);
+    }
+
+    public QuantityButtonsWidget(LayoutInflater inflater, LinearLayout container, ItemObject item, ItemParams details, @Nullable View.OnClickListener onClick, @Nullable OnStateChangedListener onRefresh) {
         this.container = container;
         this.onClick = onClick;
+        this.onRefresh = onRefresh;
         setBasketItem(item, details);
 
         inflater.inflate(R.layout.quantity_buttons_details_fragment, container);
@@ -51,6 +58,8 @@ public class QuantityButtonsWidget {
         }
 
         textQuantity.setText(String.valueOf(item.getQuantity()));
+        if (onRefresh != null)
+            onRefresh.act(item);
         return item;
     }
 
@@ -105,7 +114,8 @@ public class QuantityButtonsWidget {
 
             item.setQuantity(item.getQuantity() + delta);
             refresh();
-            onClick.onClick(v);
+            if (onClick != null)
+                onClick.onClick(v);
         }
     }
 
