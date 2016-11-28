@@ -206,6 +206,7 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
 
         final int id = item.getItemId();
+        // I dont get why its not working without id
         switch (id) {
             case R.id.nav_basket : {
                 setContent(FragmentFactory.getBasketFragment());
