@@ -37,14 +37,6 @@ public class MainActivity extends AppCompatActivity
     private static final String PRIMARY_FRAGMENT_TAG = "org.team2d.uncle_bob.MainActivity.PRIMARY_FRAGMENT_TAG";
     private static final String INITIAL_BACKSTACK_ID = "org.team2d.uncle_bob.MainActivity.INITIAL_BACKSTACK_ID";
 
-    public int getResourceId(String VariableName, String ResourceName, String PackageName) {
-        try {
-            return getResources().getIdentifier(VariableName, ResourceName, PackageName);
-        } catch (final Exception e) {
-            e.printStackTrace();
-            return -1;
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -206,7 +198,7 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
 
         final int id = item.getItemId();
-        // I dont get why its not working without id
+        // I dont get why its not working without break
         switch (id) {
             case R.id.nav_basket : {
                 setContent(FragmentFactory.getBasketFragment());
