@@ -5,8 +5,11 @@ package org.team2d.uncle_bob.Picasso;
  */
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 public class PicassoImageLoader {
@@ -18,12 +21,34 @@ public class PicassoImageLoader {
         return INSTANCE;
     }
 
-    public void load(Context context, String url, int placeholder,
-                     int errorPlaceHolder, ImageView target) {
+    public void load(final Context context, final String url, int placeholder,
+                     final int errorPlaceHolder, final ImageView target) {
         Picasso.with(context)
                 .load(url)
+                .networkPolicy(NetworkPolicy.OFFLINE)
                 .placeholder(placeholder)
-                .error(errorPlaceHolder)
-                .into(target);
+                .into(target, new Callback() {
+                    @Override
+                    public void onSuccess() {}
+
+                    @Override
+                    public void onError() {
+                        //Try again online if cache failed
+                        Picasso.with(context)
+                                .load(url)
+                                .error(errorPlaceHolder)
+                                .into(target, new Callback() {
+                                    @Override
+                                    public void onSuccess() {
+                                    }
+
+                                    @Override
+                                    public void onError() {
+                                        Log.d("Picasso","Could not fetch image");
+                                    }
+                                });
+                    }
+                });
+
     }
 }
