@@ -44,14 +44,13 @@ public class MainActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_main);
 
-        setupFAB();
-        setupDrawer();
-
         if (savedInstanceState == null) {
             setContent(FragmentFactory.getDefaultFragment(), INITIAL_BACKSTACK_ID);
-            // deserialize basket
+            // read saved basket from storage
         }
 
+        setupFAB();
+        setupDrawer();
     }
 
     public void setContent(Fragment content) {
@@ -67,7 +66,6 @@ public class MainActivity extends AppCompatActivity
             transaction.remove(currentContent);
 
         transaction.add(R.id.app_bar_wrapper_content_container, content, PRIMARY_FRAGMENT_TAG);
-        // TODO: change title, etc according to new content and backstack.
 
         transaction.addToBackStack(backStackID).commit();
     }
@@ -78,11 +76,12 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LOGGER.info("fab clicked");
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                setContent(FragmentFactory.getBasketFragment());
             }
         });
+
+        if (!Basket.getInstance().getItems().isEmpty())
+            fab.setVisibility(View.VISIBLE);
     }
 
     private void setupDrawer() {

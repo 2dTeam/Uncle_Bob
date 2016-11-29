@@ -14,8 +14,8 @@ final public class FragmentFactory {
     }
 
     @NonNull
-    public static Fragment getBasketFragment(/* TODO: some arguments, maybe? */) {
-        return FragmentItemDetails.newInstance(4);
+    public static Fragment getBasketFragment() {
+        return FragmentBasket.newInstance();
     }
 
     @NonNull

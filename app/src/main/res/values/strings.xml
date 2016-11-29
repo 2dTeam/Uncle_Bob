@@ -58,7 +58,7 @@
     <string name="category_salads">Салаты</string>
     <string name="category_drinks">Напитки</string>
 
-    <string name="title_activity_basket">Корзина</string>
+    <string name="title_fragment_basket">Корзина</string>
     <string name="title_fragment_category_list">Категории</string>
     <string name="report_as_a_bug">REPORT AS A BUG</string>
 

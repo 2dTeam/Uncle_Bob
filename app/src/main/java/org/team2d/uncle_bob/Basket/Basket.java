@@ -51,6 +51,10 @@ public class Basket {
         return null;
     }
 
+    public Set<BasketItem> getItems() {
+        return items;
+    }
+
     public int getTotalPrice() {
         int totalPrice = 0;
         for (BasketItem item : items)
