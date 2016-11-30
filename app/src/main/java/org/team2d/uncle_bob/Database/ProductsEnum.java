@@ -10,6 +10,11 @@ public final class ProductsEnum {
     private static final AtomicInteger COUNTER = new AtomicInteger(1);
     private static final Map<Integer, ProductsEnum> ID_MAP = new HashMap<>();
 
+    public static final ProductsEnum PIZZA = new ProductsEnum();
+    public static final ProductsEnum DRINK = new ProductsEnum();
+    public static final ProductsEnum SALAD = new ProductsEnum();
+    public static final ProductsEnum REFRESHMENT = new ProductsEnum();
+
     private int id = COUNTER.getAndIncrement();
 
     @Nullable
@@ -21,9 +26,4 @@ public final class ProductsEnum {
         ID_MAP.put(id, this);
     }
 
-    // Seems these should be in the end due to static initializing sequence.
-    public static final ProductsEnum PIZZA = new ProductsEnum();
-    public static final ProductsEnum DRINK = new ProductsEnum();
-    public static final ProductsEnum SALAD = new ProductsEnum();
-    public static final ProductsEnum REFRESHMENT = new ProductsEnum();
 }
