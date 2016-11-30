@@ -94,11 +94,14 @@ public class FragmentItemList extends Fragment {
         return getString(R.string.report_as_a_bug);
     }
 
-    private View getItemPreview(String title, String price, String imagePath) {
+    private View getItemPreview(String title, String price, String imagePath, String description) {
         final ViewGroup previewLayout = (ViewGroup) getLayoutInflater(savedInstanceState).inflate(R.layout.item_preview, null);
 
         final TextView titleTextView = (TextView) previewLayout.findViewById(R.id.item_preview_title);
         titleTextView.setText(title);
+
+        final TextView descriptionTextView = (TextView) previewLayout.findViewById(R.id.item_description);
+        descriptionTextView.setText(description);
 
         final TextView priceTextView = (TextView) previewLayout.findViewById(R.id.item_preview_price);
         priceTextView.setText(price);
@@ -117,7 +120,8 @@ public class FragmentItemList extends Fragment {
         final List <ItemObject> pizzas  = DatabaseService.getPizzaSortedByCost();
 
         for (ItemObject entry : pizzas) {
-            final View itemPreview = getItemPreview(entry.getName(), entry.getLeastPrice(this), entry.getImagePath());
+            final View itemPreview = getItemPreview(entry.getName(), entry.getLeastPrice(this),
+                    entry.getImagePath(),entry.getDescription());
 
             itemPreview.setOnClickListener(new ActivityChanger(pizzas.indexOf(entry)));
 
