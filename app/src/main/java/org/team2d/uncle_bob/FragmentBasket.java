@@ -1,13 +1,8 @@
 package org.team2d.uncle_bob;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.team2d.uncle_bob.Basket.Basket;
 import org.team2d.uncle_bob.Basket.BasketItem;
-import org.team2d.uncle_bob.Database.DatabaseService;
-import org.team2d.uncle_bob.Database.ORM.Items.ItemObject;
-import org.team2d.uncle_bob.Database.ProductsEnum;
 import org.team2d.uncle_bob.Picasso.PicassoImageLoader;
 
-import java.util.List;
 import java.util.Set;
 
 
@@ -102,6 +93,5 @@ public class FragmentBasket extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
     }
 }

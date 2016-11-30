@@ -11,5 +11,4 @@
     tools:context="org.team2d.uncle_bob.BasketActivityFragment"
     tools:showIn="@layout/activity_basket">
 
-
 </RelativeLayout>
