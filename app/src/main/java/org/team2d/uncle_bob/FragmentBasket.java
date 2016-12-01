@@ -74,6 +74,7 @@ public class FragmentBasket extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Log.d("Network", "Response: " + response);
+                response.body().close();
             }
         });
         // ENDOFEXAMPLE
