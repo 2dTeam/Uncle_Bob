@@ -53,5 +53,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
         android:layout_below="@+id/item_preview_title"
         android:layout_toRightOf="@+id/item_preview_image"
-        android:layout_toEndOf="@+id/item_preview_image" />
+        android:layout_toEndOf="@+id/item_preview_image"
+        android:maxLines="5"
+        android:ellipsize="end"/>
 </RelativeLayout>
