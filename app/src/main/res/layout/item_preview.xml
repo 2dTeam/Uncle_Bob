@@ -45,7 +45,7 @@
         android:layout_alignParentRight="true" />
 
     <TextView
-        android:text="Здесь будет состав"
+        android:text="@string/report_as_a_bug"
         android:maxLength="90"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
