@@ -18,7 +18,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,13 +25,6 @@ import android.view.View;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.team2d.uncle_bob.Basket.Basket;
-import org.team2d.uncle_bob.Network.Network;
-
-import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 
 
 public class MainActivity extends AppCompatActivity
@@ -56,19 +48,6 @@ public class MainActivity extends AppCompatActivity
             // read saved basket from storage
         }
 
-        Network.sendOrderToServer(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                Log.d("Network", "Response: " + response);
-            }
-        });
-
-        Network.sendOrderToServer(null);
         setupFAB();
         setupDrawer();
     }

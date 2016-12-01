@@ -3,19 +3,28 @@ package org.team2d.uncle_bob;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.team2d.uncle_bob.Basket.Basket;
 import org.team2d.uncle_bob.Basket.BasketItem;
+import org.team2d.uncle_bob.Network.Network;
 import org.team2d.uncle_bob.Picasso.PicassoImageLoader;
 
+import java.io.IOException;
 import java.util.Set;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 
 public class FragmentBasket extends Fragment {
@@ -47,6 +56,27 @@ public class FragmentBasket extends Fragment {
         getActivity().setTitle(getActivity().getString(R.string.title_fragment_basket)); // Aww, LISP.
 
         fillFragmentWithPreviews(fragment);
+
+        //@TODO example of working with network
+        JSONObject mockJson = new JSONObject();
+        try {
+            mockJson.put("username", "Николаев Виталий");
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        Network.sendOrderToServer(mockJson, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.d("Network", "Response: " + response);
+            }
+        });
+        // ENDOFEXAMPLE
 
         return fragment;
     }

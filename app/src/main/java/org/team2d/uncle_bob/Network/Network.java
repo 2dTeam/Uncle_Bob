@@ -1,6 +1,5 @@
 package org.team2d.uncle_bob.Network;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -28,17 +27,10 @@ public class Network {
         client.newCall(request).enqueue(callback);
     }
 
-
-    public static void sendOrderToServer(Callback callback) {
-        JSONObject mockJson = new JSONObject();
+    public static void sendOrderToServer(JSONObject json, Callback callback) {
+        RequestBody body = RequestBody.create(JSON, json.toString());
         try {
-            mockJson.put("username", "Николаев Виталий");
-        } catch (JSONException e){
-            e.printStackTrace();
-        }
-        RequestBody json = RequestBody.create(JSON, mockJson.toString());
-        try {
-            makePostRequest("http://unclebob.ml/order", json, callback);
+            makePostRequest("http://unclebob.ml/order", body, callback);
         } catch (IOException e) {
             e.printStackTrace();
         }
