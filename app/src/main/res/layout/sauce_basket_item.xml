@@ -24,6 +24,6 @@
         android:gravity="center_vertical"
         android:id="@+id/basket_sauce_price"
         android:text="@string/report_as_a_bug"
-        android:layout_toEndOf="@+id/basket_sauce_title"
-        android:layout_toRightOf="@+id/basket_sauce_title" />
+        android:layout_below="@+id/basket_sauce_title"
+        />
 </RelativeLayout>
