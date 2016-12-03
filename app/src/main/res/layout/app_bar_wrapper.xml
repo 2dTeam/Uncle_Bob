@@ -23,6 +23,8 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <!-- Insert your content here -->
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

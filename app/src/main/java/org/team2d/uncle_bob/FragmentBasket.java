@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -16,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.team2d.uncle_bob.Basket.Basket;
 import org.team2d.uncle_bob.Basket.BasketItem;
+import org.team2d.uncle_bob.Basket.QuantityButtonsWidget;
 import org.team2d.uncle_bob.Network.Network;
 import org.team2d.uncle_bob.Picasso.PicassoImageLoader;
 
@@ -50,7 +52,7 @@ public class FragmentBasket extends Fragment {
         this.container = container;
         this.savedInstanceState = savedInstanceState;
 
-        final ViewGroup fragment = (ViewGroup) inflater.inflate(R.layout.fragment_item_preview_list, null);
+        final ViewGroup fragment = (ViewGroup) inflater.inflate(R.layout.fragment_basket, null);
         this.fragment = fragment;
 
         getActivity().setTitle(getActivity().getString(R.string.title_fragment_basket)); // Aww, LISP.
@@ -82,31 +84,35 @@ public class FragmentBasket extends Fragment {
         return fragment;
     }
 
-    private View getItemPreview(String title, String price, String imagePath) {
-        final ViewGroup previewLayout = (ViewGroup) getLayoutInflater(savedInstanceState).inflate(R.layout.item_preview, null);
+    private View getItemPreview(BasketItem item) {
+        final ViewGroup previewLayout = (ViewGroup) getLayoutInflater(savedInstanceState).inflate(R.layout.item_basket, null);
 
-        final TextView titleTextView = (TextView) previewLayout.findViewById(R.id.item_preview_title);
+        final TextView titleTextView = (TextView) previewLayout.findViewById(R.id.item_basket_title);
+        final StringBuilder title = new StringBuilder(item.getItem().getName()).append(' ').append(String.valueOf((int) item.getDetails().getWeight())).append(getString(R.string.item_details_weight_postfix));
         titleTextView.setText(title);
 
-        final TextView priceTextView = (TextView) previewLayout.findViewById(R.id.item_preview_price);
-        priceTextView.setText(price);
+        final TextView priceTextView = (TextView) previewLayout.findViewById(R.id.item_basket_price);
+        priceTextView.setText(item.getPrice(this));
 
-        final ImageView imageView = (ImageView) previewLayout.findViewById(R.id.item_preview_image);
+        final ImageView imageView = (ImageView) previewLayout.findViewById(R.id.item_basket_image);
+
+        final LinearLayout buttonsContainer = (LinearLayout) previewLayout.findViewById(R.id.item_basket_quantity_widget_container);
+        QuantityButtonsWidget buyButtons = new QuantityButtonsWidget(getLayoutInflater(null), buttonsContainer, item.getItem(), item.getDetails(), null, null);
 
         PicassoImageLoader.getInstance()
-                .load(getActivity(), imagePath, R.drawable.noimage, R.drawable.noimage, imageView);
+                .load(getActivity(), item.getItem().getImagePath(), R.drawable.noimage, R.drawable.noimage, imageView);
 
         return previewLayout;
     }
 
     private void fillFragmentWithPreviews(ViewGroup fragment) {
-        final ViewGroup previewListContainer = (ViewGroup) fragment.findViewById(R.id.preview_list);
+        final ViewGroup previewListContainer = (ViewGroup) fragment.findViewById(R.id.content_basket);
 
         final Set<BasketItem> items  = Basket.getInstance().getItems();
 
         if (!items.isEmpty())
             for (BasketItem entry : items) {
-                final View itemPreview = getItemPreview(entry.getItem().getName(), entry.getPrice(this) + " для " + entry.getQuantity(), entry.getItem().getImagePath());
+                final View itemPreview = getItemPreview(entry);
 
                 previewListContainer.addView(itemPreview);
             }

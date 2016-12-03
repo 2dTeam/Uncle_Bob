@@ -137,7 +137,8 @@ public class FragmentItemDetails extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putInt(ARG_ITEM_DETAILS_ID, itemDetails.toInt());
+        if (itemDetails != null)
+            outState.putInt(ARG_ITEM_DETAILS_ID, itemDetails.toInt());
     }
 
     @Override
