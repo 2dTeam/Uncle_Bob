@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:gravity="center"
+    android:gravity="left"
     android:layout_height="match_parent">
     <TextView
+        android:id="@+id/basket_sauce_bullet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:layout_weight="1"
         android:text="@string/bullet" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:id="@+id/basket_sauce_title"
-        android:layout_weight="1"
-        android:text="@string/report_as_a_bug" />
+        android:text="@string/report_as_a_bug"
+        android:layout_toEndOf="@+id/basket_sauce_bullet"
+        android:layout_toRightOf="@+id/basket_sauce_bullet" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:id="@+id/basket_sauce_price"
-        android:layout_weight="1"
-        android:text="@string/report_as_a_bug" />
-</LinearLayout>
+        android:text="@string/report_as_a_bug"
+        android:layout_toEndOf="@+id/basket_sauce_title"
+        android:layout_toRightOf="@+id/basket_sauce_title" />
+</RelativeLayout>
