@@ -38,7 +38,7 @@ public class Sauce {
     }
 
     public String getPrice(Fragment thingToGetResources) {
-        String priceString = thingToGetResources.getString(R.string.item_price_prefix) + String.valueOf(getPrice());
+        String priceString = " " + String.valueOf(getPrice());
         if (Character.isDefined(thingToGetResources.getString(R.string.item_price_postfix_unicode).charAt(0)))
             priceString += thingToGetResources.getString(R.string.item_price_postfix_unicode);
         else
