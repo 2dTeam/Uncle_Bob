@@ -46,6 +46,8 @@ public class QuantityButtonsWidget {
 
         quantityWatcher = new QuantityWatcher();
         textQuantity.addTextChangedListener(quantityWatcher);
+
+        refresh();
     }
 
     public BasketItem refresh() {

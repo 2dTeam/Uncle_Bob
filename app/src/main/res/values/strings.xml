@@ -44,6 +44,7 @@
     <string name="item_price_prefix">от\u0020</string>
     <string name="item_price_postfix_unicode">\u20bd</string>
     <string name="item_price_postfix">\u0020руб.</string>
+    <string name="basket_price_prefix">Итого:\u0020</string>
 
     <string name="sauce_basil">Масло на базилике</string>
     <string name="sauce_thyme_and_onion">Масло на тимьяне и чесноке</string>
