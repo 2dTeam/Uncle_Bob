@@ -25,8 +25,6 @@ import org.team2d.uncle_bob.Database.ORM.Items.ItemParams;
 import org.team2d.uncle_bob.Database.ProductsEnum;
 import org.team2d.uncle_bob.Picasso.PicassoImageLoader;
 
-import java.util.List;
-
 
 public class FragmentItemDetails extends Fragment {
 
@@ -105,7 +103,6 @@ public class FragmentItemDetails extends Fragment {
                 sauceCheckBoxesContainer.addView(sauceCheckBox);
                 sauceCheckBox.setOnClickListener(new SauceChanger(sauce));
                 sauceCheckBox.setTag(TAG_SAUCE_BUTTON + sauce.toInt());
-
             }
         }
 

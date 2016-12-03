@@ -25,5 +25,4 @@ public final class ProductsEnum {
     private ProductsEnum() {
         ID_MAP.put(id, this);
     }
-
 }

@@ -28,20 +28,12 @@ public class TabFragment extends Fragment {
         /**
          *Inflate tab_layout and setup Views.
          */
-        View x =  inflater.inflate(R.layout.tab_layout,null);
-        tabLayout = (TabLayout) x.findViewById(R.id.tabs);
-        viewPager = (ViewPager) x.findViewById(R.id.viewpager);
+        View view =  inflater.inflate(R.layout.tab_layout,null);
+        tabLayout = (TabLayout) view.findViewById(R.id.tabs);
+        viewPager = (ViewPager) view.findViewById(R.id.viewpager);
 
-        /**
-         *Set an Apater for the View Pager
-         */
+
         viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
-
-        /**
-         * Now , this is a workaround ,
-         * The setupWithViewPager dose't works without the runnable .
-         * Maybe a Support Library Bug .
-         */
 
         tabLayout.post(new Runnable() {
             @Override
@@ -50,7 +42,7 @@ public class TabFragment extends Fragment {
             }
         });
 
-        return x;
+        return view;
 
     }
 
@@ -60,42 +52,30 @@ public class TabFragment extends Fragment {
             super(fm);
         }
 
-        /**
-         * Return fragment with respect to Position .
-         */
-
         @Override
         public Fragment getItem(int position)
         {
-            switch (position){
+            switch (position) {
                 case 0 : return FragmentFactory.getItemListFragment(ProductsEnum.PIZZA);
-                case 1 : return FragmentFactory.getBasketFragment();
-                case 2 : return FragmentFactory.getBasketFragment();
+                case 1 : return FragmentFactory.getItemListFragment(ProductsEnum.REFRESHMENT);
+                case 2 : return FragmentFactory.getItemListFragment(ProductsEnum.DRINK);
             }
             return null;
         }
 
         @Override
         public int getCount() {
-
             return int_items;
-
         }
-
-        /**
-         * This method returns the title of the tab according to the position.
-         */
-
         @Override
         public CharSequence getPageTitle(int position) {
-
-            switch (position){
+            switch (position) {
                 case 0 :
-                    return "Primary";
+                    return getString(R.string.category_pizza);
                 case 1 :
-                    return "Social";
+                    return getString(R.string.category_refreshments);
                 case 2 :
-                    return "Updates";
+                    return getString(R.string.category_drinks);
             }
             return null;
         }

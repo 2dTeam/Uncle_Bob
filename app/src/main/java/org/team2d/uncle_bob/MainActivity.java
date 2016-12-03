@@ -53,9 +53,6 @@ public class MainActivity extends AppCompatActivity
             // read saved basket from storage
         }
 
-        mFragmentManager = getSupportFragmentManager();
-        mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.replace(R.id.containerView, new TabFragment()).commit();
 
         setupFAB();
         setupDrawer();
@@ -79,7 +76,12 @@ public class MainActivity extends AppCompatActivity
         if (currentContent != null)
             transaction.remove(currentContent);
 
+//        mFragmentManager = getSupportFragmentManager();
+//        mFragmentTransaction = mFragmentManager.beginTransaction();
+//        mFragmentTransaction.replace(R.id.app_bar_wrapper_content_container, new TabFragment()).commit();
+
         transaction.add(R.id.app_bar_wrapper_content_container, content, PRIMARY_FRAGMENT_TAG);
+
 
         transaction.addToBackStack(backStackID).commit();
     }
@@ -188,7 +190,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
     @Override
     public void onBackPressed() {
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -244,7 +245,7 @@ public class MainActivity extends AppCompatActivity
                 //setContent(FragmentFactory.getCategoryListFragment());
                 getSupportFragmentManager().popBackStack(INITIAL_BACKSTACK_ID, 0); // Not sure what "flags" are for.
                 getSupportFragmentManager().popBackStack();
-                setContent(FragmentFactory.getCategoryListFragment(), INITIAL_BACKSTACK_ID);
+                setContent(FragmentFactory.getDefaultFragment(), INITIAL_BACKSTACK_ID);
                 break;
             }
         }
