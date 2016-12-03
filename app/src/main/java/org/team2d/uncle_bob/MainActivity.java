@@ -166,12 +166,21 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onAttachFragment(Fragment fragment) {
         super.onAttachFragment(fragment);
+        if (fragment.getClass() == FragmentBasket.class) {
+            mayShowFAB = false;
+            findViewById(R.id.fab).setVisibility(View.GONE);
+        } else
+            mayShowFAB = true;
+
+        if (Basket.getInstance().getItems().size() != 0 && mayShowFAB)
+            findViewById(R.id.fab).setVisibility(View.VISIBLE);
     }
 
 
     @Override
     public void onBackPressed() {
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mayShowFAB = true;
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
