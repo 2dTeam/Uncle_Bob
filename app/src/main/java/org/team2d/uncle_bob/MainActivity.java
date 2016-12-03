@@ -58,6 +58,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void setContent(Fragment content, String backStackID) {
+        if (content.getClass() == FragmentBasket.class) {
+            mayShowFAB = false;
+            findViewById(R.id.fab).setVisibility(View.GONE);
+        } else
+            mayShowFAB = true;
+
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 
@@ -80,7 +86,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        if (!Basket.getInstance().getItems().isEmpty())
+        if (!Basket.getInstance().getItems().isEmpty() && mayShowFAB)
             fab.setVisibility(View.VISIBLE);
     }
 
@@ -112,8 +118,10 @@ public class MainActivity extends AppCompatActivity
         Basket.getInstance().setOnBasketNotEmptyCallback(new Basket.Callback() {
             @Override
             public void call() {
+                LOGGER.info("Fab can be shown?" + mayShowFAB);
                 final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-                fab.setVisibility(View.VISIBLE);
+                if (mayShowFAB)
+                    fab.setVisibility(View.VISIBLE);
             }
         });
     }
