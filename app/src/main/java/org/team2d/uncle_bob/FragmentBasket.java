@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.team2d.uncle_bob.Basket.Basket;
 import org.team2d.uncle_bob.Basket.BasketItem;
 import org.team2d.uncle_bob.Basket.QuantityButtonsWidget;
+import org.team2d.uncle_bob.Basket.Sauce;
 import org.team2d.uncle_bob.Network.Network;
 import org.team2d.uncle_bob.Picasso.PicassoImageLoader;
 
@@ -107,6 +108,17 @@ public class FragmentBasket extends Fragment {
         final LinearLayout buttonsContainer = (LinearLayout) basketItemLayout.findViewById(R.id.item_basket_quantity_widget_container);
         final QuantityButtonsWidget buyButtons = new QuantityButtonsWidget(getLayoutInflater(null), buttonsContainer, item.getItem(), item.getDetails(), new TotalRecalculator(), new StateMatcher(basketItemLayout));
 
+        final LinearLayout saucesContainer = (LinearLayout) basketItemLayout.findViewById(R.id.item_basket_sauces_container);
+        for (final Sauce sauce : item.getSauces()) {
+            final ViewGroup sauceListItem = (ViewGroup) inflater.inflate(R.layout.sauce_basket_item, null);
+            final TextView sauceNameView = (TextView) sauceListItem.findViewById(R.id.basket_sauce_title);
+            sauceNameView.setText(sauce.getTitle());
+            final TextView saucePriceView = (TextView) sauceListItem.findViewById(R.id.basket_sauce_price);
+            saucePriceView.setText(sauce.getPrice(this));
+
+            saucesContainer.addView(sauceListItem);
+        }
+
         PicassoImageLoader.getInstance()
                 .load(getActivity(), item.getItem().getImagePath(), R.drawable.noimage, R.drawable.noimage, imageView);
 
@@ -128,6 +140,7 @@ public class FragmentBasket extends Fragment {
             setTotalPrice(Basket.getInstance().getTotalPrice(this));
         } else {
             changeTotalVisibility(true);
+            previewListContainer.removeAllViews();
             previewListContainer.addView(getBasketEmptyMessage());
         }
     }

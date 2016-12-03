@@ -72,4 +72,13 @@
         android:layout_toEndOf="@+id/item_basket_image"
         android:maxLines="5"
         android:ellipsize="end"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_basket_sauces_container"
+        android:layout_below="@+id/item_basket_description"
+        android:layout_toRightOf="@+id/item_basket_image"
+        android:layout_toEndOf="@+id/item_basket_image" />
 </RelativeLayout>

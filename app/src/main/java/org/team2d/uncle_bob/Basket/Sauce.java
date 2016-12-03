@@ -1,6 +1,9 @@
 package org.team2d.uncle_bob.Basket;
 
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+
+import org.team2d.uncle_bob.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +35,16 @@ public class Sauce {
 
     public int getPrice() {
         return price;
+    }
+
+    public String getPrice(Fragment thingToGetResources) {
+        String priceString = thingToGetResources.getString(R.string.item_price_prefix) + String.valueOf(getPrice());
+        if (Character.isDefined(thingToGetResources.getString(R.string.item_price_postfix_unicode).charAt(0)))
+            priceString += thingToGetResources.getString(R.string.item_price_postfix_unicode);
+        else
+            priceString += thingToGetResources.getString(R.string.item_price_postfix);
+
+        return priceString;
     }
 
     public int toInt() {
