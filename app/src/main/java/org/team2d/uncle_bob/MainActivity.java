@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity
     private final int PERMISSION_REQUEST_PHONE_CODE = 1;
     private static final String PRIMARY_FRAGMENT_TAG = "org.team2d.uncle_bob.MainActivity.PRIMARY_FRAGMENT_TAG";
     private static final String INITIAL_BACKSTACK_ID = "org.team2d.uncle_bob.MainActivity.INITIAL_BACKSTACK_ID";
+    private boolean mayShowFAB = true;
 
 
     @Override

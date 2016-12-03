@@ -125,6 +125,7 @@ public class FragmentBasket extends Fragment {
                 previewListContainer.addView(itemPreview, previewListContainer.getChildCount() - 2);
             }
             changeTotalVisibility(false);
+            setTotalPrice(Basket.getInstance().getTotalPrice(this));
         } else {
             changeTotalVisibility(true);
             previewListContainer.addView(getBasketEmptyMessage());
