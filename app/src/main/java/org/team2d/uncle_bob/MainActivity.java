@@ -11,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -37,6 +38,9 @@ public class MainActivity extends AppCompatActivity
     private static final String INITIAL_BACKSTACK_ID = "org.team2d.uncle_bob.MainActivity.INITIAL_BACKSTACK_ID";
     private boolean mayShowFAB = true;
 
+    NavigationView mNavigationView;
+    FragmentManager mFragmentManager;
+    FragmentTransaction mFragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,10 @@ public class MainActivity extends AppCompatActivity
             setContent(FragmentFactory.getDefaultFragment(), INITIAL_BACKSTACK_ID);
             // read saved basket from storage
         }
+
+        mFragmentManager = getSupportFragmentManager();
+        mFragmentTransaction = mFragmentManager.beginTransaction();
+        mFragmentTransaction.replace(R.id.containerView, new TabFragment()).commit();
 
         setupFAB();
         setupDrawer();
@@ -240,7 +248,6 @@ public class MainActivity extends AppCompatActivity
                 break;
             }
         }
-
         return true;
     }
 
