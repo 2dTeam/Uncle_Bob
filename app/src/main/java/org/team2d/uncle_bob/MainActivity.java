@@ -224,16 +224,8 @@ public class MainActivity extends AppCompatActivity
                 setContent(FragmentFactory.getBasketFragment());
                 break;
             }
-            case R.id.nav_sales  : {
-                setContent(FragmentFactory.getSalesFragment());
-                break;
-            }
             case R.id.nav_account : {
                 setContent(FragmentFactory.getAccountFragment());
-                break;
-            }
-            case R.id.nav_history : {
-                setContent(FragmentFactory.getHistoryFragment());
                 break;
             }
             case R.id.nav_about : {

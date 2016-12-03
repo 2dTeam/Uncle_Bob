@@ -70,7 +70,7 @@ public class FragmentBasket extends Fragment {
         JSONObject mockJson = new JSONObject();
         try {
             mockJson.put("username", "Николаев Виталий");
-        } catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
