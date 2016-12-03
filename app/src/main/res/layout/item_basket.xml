@@ -56,7 +56,6 @@
         android:layout_below="@+id/item_basket_description"
         android:layout_toEndOf="@+id/item_basket_image"
         android:layout_toRightOf="@+id/item_basket_image">
-
     </LinearLayout>
 
     <LinearLayout
