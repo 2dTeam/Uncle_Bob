@@ -34,31 +34,6 @@
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/item_basket_image" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:layout_alignBottom="@+id/item_basket_image"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:orientation="vertical"
-        android:gravity="center">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/item_basket_quantity_widget_container"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:orientation="horizontal">
-            <!-- Buy buttons here -->
-        </LinearLayout>
-        <TextView
-            android:text="@string/report_as_a_bug"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/item_basket_price"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-    </LinearLayout>
-
 
     <TextView
         android:text="@string/report_as_a_bug"
@@ -75,10 +50,39 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/item_basket_sauces_container"
         android:layout_below="@+id/item_basket_description"
         android:layout_toRightOf="@+id/item_basket_image"
         android:layout_toEndOf="@+id/item_basket_image" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_below="@+id/item_basket_sauces_container"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="23dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginTop="22dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_basket_quantity_widget_container"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:orientation="horizontal">
+            <!-- Buy buttons here -->
+        </LinearLayout>
+        <TextView
+            android:text="@string/report_as_a_bug"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_basket_price"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+    </LinearLayout>
+
 </RelativeLayout>

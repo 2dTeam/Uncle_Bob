@@ -158,7 +158,11 @@ public class FragmentBasket extends Fragment {
     }
 
     private String getNameForItem(BasketItem item) {
-        final StringBuilder title = new StringBuilder(item.getItem().getName()).append(' ').append(String.valueOf((int) item.getDetails().getWeight())).append(getString(R.string.item_details_weight_postfix));
+        final StringBuilder title = new StringBuilder(item.getItem().getName())
+                .append(' ').append(String.valueOf(
+                        (int) item.getDetails().getWeight()))
+                .append(getString(R.string.item_details_weight_postfix)
+                );
         return title.toString();
     }
 

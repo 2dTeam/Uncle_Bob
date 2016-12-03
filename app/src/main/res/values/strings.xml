@@ -35,7 +35,7 @@
     <string name="pizza_placeholder_sauce3">масло на чесноке и красн. перце (20 ₽)</string>
     <string name="pizza_placeholder_weight1">440 г / 280 ₽</string>
     <string name="pizza_placeholder_weight2">665 г / 400 ₽</string>
-
+    <!--Pizza and Weight-->
     <string name="item_details_weight">Вес</string>
     <string name="item_details_sauces">Соусы</string>
     <string name="item_details_buy">Купить!</string>
