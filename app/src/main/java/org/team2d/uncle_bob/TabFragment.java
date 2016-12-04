@@ -22,16 +22,14 @@ public class TabFragment extends Fragment {
     public static ViewPager viewPager;
     public static int int_items = 3 ;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        /**
-         *Inflate tab_layout and setup Views.
-         */
+
         View view =  inflater.inflate(R.layout.tab_layout,null);
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
-
 
         viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
 
@@ -47,16 +45,14 @@ public class TabFragment extends Fragment {
     }
 
     class MyAdapter extends FragmentPagerAdapter{
-
         public MyAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
-        public Fragment getItem(int position)
-        {
+        public Fragment getItem(int position) {
             switch (position) {
-                case 0 : return FragmentFactory.getItemListFragment(ProductsEnum.PIZZA);
+                case 0 :return FragmentFactory.getDefaultFragment();
                 case 1 : return FragmentFactory.getItemListFragment(ProductsEnum.REFRESHMENT);
                 case 2 : return FragmentFactory.getItemListFragment(ProductsEnum.DRINK);
             }
