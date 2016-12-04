@@ -3,6 +3,7 @@ package org.team2d.uncle_bob;
 /**
  * Created by nikolaev on 04.12.16.
  */
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -44,6 +45,7 @@ public class TabFragment extends Fragment {
 
     }
 
+
     class MyAdapter extends FragmentPagerAdapter{
         public MyAdapter(FragmentManager fm) {
             super(fm);
@@ -52,11 +54,15 @@ public class TabFragment extends Fragment {
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                case 0 :return FragmentFactory.getDefaultFragment();
+                case 0 : return FragmentFactory.getDefaultFragment();
                 case 1 : return FragmentFactory.getItemListFragment(ProductsEnum.REFRESHMENT);
                 case 2 : return FragmentFactory.getItemListFragment(ProductsEnum.DRINK);
             }
             return null;
+        }
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
         }
 
         @Override

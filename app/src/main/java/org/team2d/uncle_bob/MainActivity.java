@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity
     private static final String PRIMARY_FRAGMENT_TAG = "org.team2d.uncle_bob.MainActivity.PRIMARY_FRAGMENT_TAG";
     private static final String INITIAL_BACKSTACK_ID = "org.team2d.uncle_bob.MainActivity.INITIAL_BACKSTACK_ID";
     private boolean mayShowFAB = true;
-    private TabFragment tabFragment;
 
 
     @Override
@@ -46,11 +45,10 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null) {
-            initTabFragment();
-//            setContent(FragmentFactory.getDefaultFragment(), INITIAL_BACKSTACK_ID);
+//            initTabFragment(); // I DONT KNOW HOW TO DO IT
+            setContent(FragmentFactory.getDefaultFragment(), INITIAL_BACKSTACK_ID);
             // read saved basket from storage
         }
-
 
         setupFAB();
         setupDrawer();
@@ -61,8 +59,7 @@ public class MainActivity extends AppCompatActivity
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 
-        tabFragment = new TabFragment();
-        transaction.replace(R.id.app_bar_wrapper_content_container, tabFragment)
+        transaction.replace(R.id.app_bar_wrapper_content_container, new TabFragment())
                 .addToBackStack(INITIAL_BACKSTACK_ID)
                 .commit();
     }
@@ -84,7 +81,7 @@ public class MainActivity extends AppCompatActivity
         if (currentContent != null)
             transaction.remove(currentContent);
 
-        transaction.replace(R.id.app_bar_wrapper_content_container, content, PRIMARY_FRAGMENT_TAG);
+        transaction.add(R.id.app_bar_wrapper_content_container, content, PRIMARY_FRAGMENT_TAG);
 
         transaction.addToBackStack(backStackID).commit();
     }
