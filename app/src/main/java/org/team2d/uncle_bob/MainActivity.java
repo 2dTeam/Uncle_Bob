@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity
         if (currentContent != null)
             transaction.remove(currentContent);
 
-        transaction.add(R.id.app_bar_wrapper_content_container, content, PRIMARY_FRAGMENT_TAG);
+        transaction.replace(R.id.app_bar_wrapper_content_container, content, PRIMARY_FRAGMENT_TAG);
 
         transaction.addToBackStack(backStackID).commit();
     }
