@@ -15,6 +15,8 @@ import com.squareup.picasso.Picasso;
 public class PicassoImageLoader {
     private final static PicassoImageLoader INSTANCE = new PicassoImageLoader();
 
+    private Picasso mPicasso = null;
+
 
     public static PicassoImageLoader getInstance() {
         return INSTANCE;
@@ -22,8 +24,18 @@ public class PicassoImageLoader {
 
     public void load(final Context context, final String url, int placeholder,
                      final int errorPlaceHolder, final ImageView target) {
-        Picasso.with(context)
-                .load(url)
+
+        if (mPicasso == null) {
+            try {
+                Picasso.setSingletonInstance(mPicasso);
+            } catch (IllegalStateException ignored) {
+                // Picasso instance was already set
+                // cannot set it after Picasso.with(Context) was already in use
+            }
+            mPicasso = Picasso.with(context);
+        }
+
+        mPicasso.load(url)
                 .networkPolicy(NetworkPolicy.OFFLINE)
                 .placeholder(placeholder)
                 .into(target, new Callback() {

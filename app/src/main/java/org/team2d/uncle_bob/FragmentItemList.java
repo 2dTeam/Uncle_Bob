@@ -35,6 +35,7 @@ public class FragmentItemList extends Fragment {
     private ViewGroup container = null;
     private Bundle savedInstanceState = null;
     private View mFragment;
+    private int categoryID;
 
     private final BroadcastReceiver UBBroadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -77,7 +78,8 @@ public class FragmentItemList extends Fragment {
         final View fragment = inflater.inflate(R.layout.fragment_item_preview_list, container, false);
         mFragment = fragment;
 
-        getActivity().setTitle(getTitleForCategory(ProductsEnum.fromInt(getArguments().getInt(ARG_CATEGORY_ID, 0)))); // Aww, LISP.
+        categoryID = getArguments().getInt(ARG_CATEGORY_ID, 0);
+        getActivity().setTitle(getTitleForCategory(ProductsEnum.fromInt(categoryID))); // Aww, LISP.
 
         UBIntentService.startActionLoadDB(getActivity());
 
@@ -127,15 +129,17 @@ public class FragmentItemList extends Fragment {
     private void fillFragmentWithPreviews(ViewGroup fragment) {
         ViewGroup previewListContainer = (ViewGroup) fragment.findViewById(R.id.preview_list);
 
-        final List <ItemObject> pizzas  = DatabaseService.getPizzaSortedByCost();
+        if (categoryID == ProductsEnum.PIZZA.toInt()) {
+            final List<ItemObject> pizzas = DatabaseService.getPizzaSortedByCost();
 
-        for (ItemObject entry : pizzas) {
-            final View itemPreview = getItemPreview(entry.getName(), entry.getLeastPrice(this),
-                    entry.getImagePath(),entry.getDescription());
+            for (ItemObject entry : pizzas) {
+                final View itemPreview = getItemPreview(entry.getName(), entry.getLeastPrice(this),
+                        entry.getImagePath(), entry.getDescription());
 
-            itemPreview.setOnClickListener(new ActivityChanger(pizzas.indexOf(entry)));
+                itemPreview.setOnClickListener(new ActivityChanger(pizzas.indexOf(entry)));
 
-            previewListContainer.addView(itemPreview);
+                previewListContainer.addView(itemPreview);
+            }
         }
     }
 

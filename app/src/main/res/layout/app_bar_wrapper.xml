@@ -25,7 +25,7 @@
 
     <!-- Insert your content here -->
 
-    <LinearLayout
+    <FrameLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -41,7 +41,7 @@
             <!--android:id="@+id/containerView">-->
         <!--</FrameLayout>-->
 
-    </LinearLayout>
+    </FrameLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

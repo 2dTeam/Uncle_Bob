@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null) {
-//            initTabFragment(); // I DONT KNOW HOW TO DO IT
-            setContent(FragmentFactory.getDefaultFragment(), INITIAL_BACKSTACK_ID);
+            initTabFragment(); // I DONT KNOW HOW TO DO IT
+//            setContent(FragmentFactory.getDefaultFragment(), INITIAL_BACKSTACK_ID);
             // read saved basket from storage
         }
 
@@ -78,10 +78,11 @@ public class MainActivity extends AppCompatActivity
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 
         final Fragment currentContent = getSupportFragmentManager().findFragmentByTag(PRIMARY_FRAGMENT_TAG);
-        if (currentContent != null)
-            transaction.remove(currentContent);
 
-        transaction.add(R.id.app_bar_wrapper_content_container, content, PRIMARY_FRAGMENT_TAG);
+        if (currentContent != null) {
+            transaction.remove(currentContent);
+        }
+        transaction.replace(R.id.app_bar_wrapper_content_container, content, PRIMARY_FRAGMENT_TAG);
 
         transaction.addToBackStack(backStackID).commit();
     }

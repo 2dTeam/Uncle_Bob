@@ -110,13 +110,14 @@ public class FragmentBasket extends Fragment {
 
         final LinearLayout saucesContainer = (LinearLayout) basketItemLayout.findViewById(R.id.item_basket_sauces_container);
         for (final Sauce sauce : item.getSauces()) {
-            final ViewGroup sauceListItem = (ViewGroup) inflater.inflate(R.layout.sauce_basket_item, null);
+            final ViewGroup sauceListItem = (ViewGroup) inflater.inflate(R.layout.sauce_basket_item, saucesContainer, false);
             final TextView sauceNameView = (TextView) sauceListItem.findViewById(R.id.basket_sauce_title);
             sauceNameView.setText(sauce.getTitle());
             final TextView saucePriceView = (TextView) sauceListItem.findViewById(R.id.basket_sauce_price);
             saucePriceView.setText(sauce.getPrice(this));
 
-            saucesContainer.addView(sauceListItem);
+            saucesContainer.addView(sauceListItem, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
         }
 
         PicassoImageLoader.getInstance()

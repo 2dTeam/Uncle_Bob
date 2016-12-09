@@ -22,6 +22,7 @@ public final class ProductsEnum {
         return ID_MAP.get(id);
     }
     public int toInt() {return id;}
+
     private ProductsEnum() {
         ID_MAP.put(id, this);
     }
