@@ -18,28 +18,45 @@ import android.view.ViewGroup;
 import org.team2d.uncle_bob.Database.ProductsEnum;
 
 public class TabFragment extends Fragment {
-
-    public static TabLayout tabLayout;
-    public static ViewPager viewPager;
     public static int int_items = 3 ;
-
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view =  inflater.inflate(R.layout.tab_layout,null);
-        tabLayout = (TabLayout) view.findViewById(R.id.tabs);
-        viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        View view =  inflater.inflate(R.layout.tab_layout, null);
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
+        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
 
         viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
+        tabLayout.setupWithViewPager(viewPager);
 
-        tabLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                tabLayout.setupWithViewPager(viewPager);
-            }
-        });
+
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override
+                    public void onPageSelected(int pos) {
+                      switch (pos) {
+                            case 0:
+                                getActivity().setTitle(getString(R.string.category_pizza));
+                                break;
+                            case 1:
+                                getActivity().setTitle(getString(R.string.category_refreshments));
+                                break;
+                            case 2:
+                                getActivity().setTitle(getString(R.string.category_drinks));
+                                break;
+
+                        }
+                    }
+
+                    @Override
+                    public void onPageScrolled(int arg0, float arg1, int arg2) {}
+
+                    @Override
+                    public void onPageScrollStateChanged(int pos) {}
+
+                });
 
         return view;
 
@@ -47,7 +64,7 @@ public class TabFragment extends Fragment {
 
 
     class MyAdapter extends FragmentPagerAdapter{
-        public MyAdapter(FragmentManager fm) {
+        MyAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -69,6 +86,7 @@ public class TabFragment extends Fragment {
         public int getCount() {
             return int_items;
         }
+
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
@@ -81,6 +99,7 @@ public class TabFragment extends Fragment {
             }
             return null;
         }
+
     }
 
 }

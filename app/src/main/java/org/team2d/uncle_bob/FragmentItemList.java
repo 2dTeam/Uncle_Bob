@@ -79,7 +79,6 @@ public class FragmentItemList extends Fragment {
         mFragment = fragment;
 
         categoryID = getArguments().getInt(ARG_CATEGORY_ID, 0);
-        getActivity().setTitle(getTitleForCategory(ProductsEnum.fromInt(categoryID))); // Aww, LISP.
 
         UBIntentService.startActionLoadDB(getActivity());
 

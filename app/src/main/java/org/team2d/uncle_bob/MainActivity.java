@@ -45,9 +45,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null) {
-            initTabFragment(); // I DONT KNOW HOW TO DO IT
-//            setContent(FragmentFactory.getDefaultFragment(), INITIAL_BACKSTACK_ID);
-            // read saved basket from storage
+            initTabFragment();
         }
 
         setupFAB();
