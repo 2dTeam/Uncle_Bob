@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity
     private static final String PRIMARY_FRAGMENT_TAG = "org.team2d.uncle_bob.MainActivity.PRIMARY_FRAGMENT_TAG";
     private static final String INITIAL_BACKSTACK_ID = "org.team2d.uncle_bob.MainActivity.INITIAL_BACKSTACK_ID";
     private boolean mayShowFAB = true;
+    private TabFragment mTabFragment = new TabFragment();
 
 
     @Override
@@ -57,7 +58,8 @@ public class MainActivity extends AppCompatActivity
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 
-        transaction.replace(R.id.app_bar_wrapper_content_container, new TabFragment())
+
+        transaction.replace(R.id.app_bar_wrapper_content_container, mTabFragment)
                 .addToBackStack(INITIAL_BACKSTACK_ID)
                 .commit();
     }
@@ -245,7 +247,7 @@ public class MainActivity extends AppCompatActivity
                 final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 
-                transaction.replace(R.id.app_bar_wrapper_content_container, new TabFragment())
+                transaction.replace(R.id.app_bar_wrapper_content_container, mTabFragment)
                         .addToBackStack(INITIAL_BACKSTACK_ID)
                         .commit();
 //                setContent(FragmentFactory.getCategoryListFragment());
