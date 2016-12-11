@@ -5,56 +5,35 @@ import android.support.v4.app.Fragment;
 
 import org.team2d.uncle_bob.Database.ProductsEnum;
 
-final public class FragmentFactory {
-    private FragmentFactory() {}
+final class FragmentFactory {
 
     @NonNull
-    public static Fragment getDefaultFragment() {
+    static Fragment getDefaultFragment() {
         return getItemListFragment(ProductsEnum.PIZZA);
     }
 
     @NonNull
-    public static Fragment getBasketFragment() {
+    static Fragment getBasketFragment() {
         return FragmentBasket.newInstance();
     }
 
     @NonNull
-    public static Fragment getItemDetailsFragment(int itemID) {
+    static Fragment getItemDetailsFragment(int itemID) {
         return FragmentItemDetails.newInstance(itemID);
     }
 
     @NonNull
-    public static Fragment getItemListFragment(ProductsEnum category) {
+    static Fragment getItemListFragment(ProductsEnum category) {
         return FragmentItemList.newInstance(category);
     }
 
     @NonNull
-    public static Fragment getCategoryListFragment() {
-        return FragmentCategoryList.newInstance();
-    }
-
-    @NonNull
-    public static Fragment getHistoryFragment() {
-        return FragmentItemDetails.newInstance(1);
-    }
-
-    @NonNull
-    public static Fragment getAccountFragment() {
+    static Fragment getAccountFragment() {
         return FragmentItemDetails.newInstance(2);
     }
 
     @NonNull
-    public static Fragment getContactsFragment() {
-        return null;
-    }
-
-    @NonNull
-    public static Fragment getSalesFragment() {
-        return FragmentItemDetails.newInstance(3);
-    }
-
-    @NonNull
-    public static Fragment getDeliveryInfo() {
+    static Fragment getDeliveryInfo() {
         return FragmentDeliveryInfo.newInstance();
     }
 }

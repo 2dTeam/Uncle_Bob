@@ -62,7 +62,6 @@ public class TabFragment extends Fragment {
 
     }
 
-
     class MyAdapter extends FragmentPagerAdapter{
         MyAdapter(FragmentManager fm) {
             super(fm);

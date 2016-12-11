@@ -54,7 +54,7 @@ public class FragmentItemDetails extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        fragment = (ViewGroup) inflater.inflate(R.layout.fragment_item_details, null);
+        fragment = (ViewGroup) inflater.inflate(R.layout.fragment_item_details, container, false);
 
         itemID = getArguments().getInt(ARG_ITEM_ID, 0);
         item = DatabaseService.getPizzaSortedByCost().get(itemID);

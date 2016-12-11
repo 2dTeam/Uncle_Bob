@@ -7,8 +7,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/delivery_info"
-        android:textSize="22sp"
-        android:fontFamily="sans-serif-smallcaps"
-        android:gravity="center_vertical" />
+        android:textSize="24sp"
+        android:gravity="center_vertical"
+        android:fontFamily="sans-serif-smallcaps" />
 
 </RelativeLayout>

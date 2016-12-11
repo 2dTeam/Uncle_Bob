@@ -7,10 +7,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +64,6 @@ public class FragmentItemList extends Fragment {
         return fragment;
     }
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -87,12 +83,8 @@ public class FragmentItemList extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        ViewPager mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
-//        mViewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
     }
 
-    // TODO If this is used somewhere else, move the code to ProductsEnum
     private String getTitleForCategory(ProductsEnum category) {
         if (category == ProductsEnum.PIZZA)
             return getString(R.string.category_pizza);
@@ -159,23 +151,6 @@ public class FragmentItemList extends Fragment {
     public void onPause() {
         super.onPause();
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(UBBroadcastReceiver);
-    }
-
-    public static class MyAdapter extends FragmentPagerAdapter {
-        ViewGroup innerContainer;
-        public MyAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public int getCount() {
-            return 20;
-        }
-        @Override
-        public Fragment getItem(int position) {
-            return FragmentFactory.getItemDetailsFragment(position);
-        }
-
     }
 
 }
