@@ -71,12 +71,7 @@ public class QuantityButtonsWidget {
     }
 
     public void destroyListeners() {
-        buttonBuy.setOnClickListener(null);
-        buttonIncrease.setOnClickListener(null);
-        buttonDecrease.setOnClickListener(null);
-        textQuantity.setOnClickListener(null);
         textQuantity.removeTextChangedListener(quantityWatcher);
-        //onClick = null;
     }
 
     private void setBasketItem(ItemObject itemObject, ItemParams details) {

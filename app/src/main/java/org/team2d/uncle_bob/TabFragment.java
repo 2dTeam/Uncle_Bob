@@ -31,7 +31,7 @@ public class TabFragment extends Fragment {
         viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
 
-
+        getActivity().setTitle(getString(R.string.category_pizza));
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override

@@ -98,7 +98,7 @@ public class FragmentItemDetails extends Fragment {
             fragment.findViewById(R.id.item_details_sauces_label).setVisibility(View.VISIBLE);
 
             for (final Sauce sauce : Sauce.getSauces()) {
-                final CheckBox sauceCheckBox = (CheckBox) fragment.inflate(getActivity(), R.layout.fragment_item_details_checkbox_sauce, null);
+                final CheckBox sauceCheckBox = (CheckBox) View.inflate(getActivity(), R.layout.fragment_item_details_checkbox_sauce, null);
                 sauceCheckBox.setText(sauce.getTitle());
                 sauceCheckBoxesContainer.addView(sauceCheckBox);
                 sauceCheckBox.setOnClickListener(new SauceChanger(sauce));
@@ -141,9 +141,7 @@ public class FragmentItemDetails extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        //@// TODO: 27.11.16 не нужно обнулять лисенеры
         buyButtons.destroyListeners();
-        // remove other listeners
     }
 
     private void calculatePrice() {

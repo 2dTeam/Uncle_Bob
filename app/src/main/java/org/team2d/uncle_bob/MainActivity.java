@@ -243,17 +243,12 @@ public class MainActivity extends AppCompatActivity
                 break;
             }
             case R.id.nav_menu : {
-
                 final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 
                 transaction.replace(R.id.app_bar_wrapper_content_container, mTabFragment)
                         .addToBackStack(INITIAL_BACKSTACK_ID)
                         .commit();
-//                setContent(FragmentFactory.getCategoryListFragment());
-//                getSupportFragmentManager().popBackStack(INITIAL_BACKSTACK_ID, 0); // Not sure what "flags" are for.
-//                getSupportFragmentManager().popBackStack();
-//                setContent(FragmentFactory.getDefaultFragment(), INITIAL_BACKSTACK_ID);
                 break;
             }
         }
