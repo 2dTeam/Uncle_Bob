@@ -29,7 +29,7 @@ import org.team2d.uncle_bob.Basket.Basket;
 
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
-    // TODO: make some proper logging?
+
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final Logger LOGGER = LoggerFactory.getLogger(MainActivity.class);
     private final int PERMISSION_REQUEST_PHONE_CODE = 1;
@@ -75,11 +75,11 @@ public class MainActivity extends AppCompatActivity
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 
-        final Fragment currentContent = getSupportFragmentManager().findFragmentByTag(PRIMARY_FRAGMENT_TAG);
-
-        if (currentContent != null) {
-            transaction.remove(currentContent);
-        }
+//        final Fragment currentContent = getSupportFragmentManager().findFragmentByTag(PRIMARY_FRAGMENT_TAG);
+//
+//        if (currentContent != null) {
+//            transaction.remove(currentContent);
+//        }
         transaction.replace(R.id.app_bar_wrapper_content_container, content, PRIMARY_FRAGMENT_TAG);
 
         transaction.addToBackStack(backStackID).commit();
@@ -226,8 +226,8 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
 
         final int id = item.getItemId();
-        // I dont get why its not working without break
         switch (id) {
+
             case R.id.nav_basket : {
                 setContent(FragmentFactory.getBasketFragment());
                 break;
@@ -241,10 +241,17 @@ public class MainActivity extends AppCompatActivity
                 break;
             }
             case R.id.nav_menu : {
-                //setContent(FragmentFactory.getCategoryListFragment());
-                getSupportFragmentManager().popBackStack(INITIAL_BACKSTACK_ID, 0); // Not sure what "flags" are for.
-                getSupportFragmentManager().popBackStack();
-                setContent(FragmentFactory.getDefaultFragment(), INITIAL_BACKSTACK_ID);
+
+                final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+
+                transaction.replace(R.id.app_bar_wrapper_content_container, new TabFragment())
+                        .addToBackStack(INITIAL_BACKSTACK_ID)
+                        .commit();
+//                setContent(FragmentFactory.getCategoryListFragment());
+//                getSupportFragmentManager().popBackStack(INITIAL_BACKSTACK_ID, 0); // Not sure what "flags" are for.
+//                getSupportFragmentManager().popBackStack();
+//                setContent(FragmentFactory.getDefaultFragment(), INITIAL_BACKSTACK_ID);
                 break;
             }
         }
