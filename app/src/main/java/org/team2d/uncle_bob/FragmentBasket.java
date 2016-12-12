@@ -73,6 +73,27 @@ public class FragmentBasket extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        final View totalBuyButton = fragment.findViewById(R.id.basket_buy_button);
+
+        totalBuyButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                final Set<BasketItem> items  = Basket.getInstance().getItems();
+                if (!items.isEmpty()) {
+                    for (BasketItem entry : items) {
+                        Log.d("A", "Pizza " + entry.getItem().getName() + " " +
+                                entry.getDetails().getWeight() + " " + entry.getPrice() + " " + entry.getQuantity()
+                        );
+                        final Set<Sauce> sauces  = entry.getSauces();
+                        for (Sauce sauce : sauces){
+                            Log.d("A", "Sauce " + sauce.toInt() + " " + sauce.getPrice());
+                        }
+                    }
+
+                } else {
+                    Log.d("0: ", "0");
+                }
+            }
+        });
 
         Network.sendOrderToServer(mockJson, new Callback() {
             @Override
