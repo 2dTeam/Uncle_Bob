@@ -12,7 +12,6 @@ public final class ProductsEnum {
 
     public static final ProductsEnum PIZZA = new ProductsEnum();
     public static final ProductsEnum DRINK = new ProductsEnum();
-    public static final ProductsEnum SALAD = new ProductsEnum();
     public static final ProductsEnum REFRESHMENT = new ProductsEnum();
 
     private int id = COUNTER.getAndIncrement();

@@ -15,29 +15,30 @@ import java.util.List;
 public class DatabaseService {
     private static List<ItemObject> pizza = null;
     private static List<ItemObject> drinks = null;
+    private static List<ItemObject> refreshments = null;
     private static boolean  mLoaded = false;
 
     public static synchronized void loadDB(Context context) {
         if (!mLoaded) {
-           loadPizzaFromDB(context);
-            loadDrinksFromDB(context);
+            loadObjectsFromDB(context);
             mLoaded = true;
         }
     }
-    private static synchronized void loadPizzaFromDB(Context context){
+    private static synchronized void loadObjectsFromDB(Context context){
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
         databaseAccess.open();
+
         databaseAccess.loadPizzaFromDb();
-        databaseAccess.close();
-        getPizzaSortedByCost();
-    }
-    private static synchronized void loadDrinksFromDB(Context context){
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
-        databaseAccess.open();
         databaseAccess.loadDrinksFromDb();
-        databaseAccess.close();
+        databaseAccess.loadRefreshmentsFromDb();
+
+        getPizzaSortedByCost();
         getDrinksSortedByCost();
+        getRefreshmentsSortedByCost();
+
+        databaseAccess.close();
     }
+
 
 
     public static List <ItemObject> getPizzaSortedByCost () {
@@ -68,6 +69,21 @@ public class DatabaseService {
             });
         }
         return drinks;
+    }
+
+    public static List <ItemObject> getRefreshmentsSortedByCost () {
+        if (refreshments == null) {
+            MapOfItems refreshmentsObj = ItemsCollection.getListOfItem(ProductsEnum.REFRESHMENT);
+
+            refreshments = refreshmentsObj.getSortedListOfItems(new Comparator<ItemObject>() {
+                public int compare(ItemObject o1, ItemObject o2) {
+                    return o1.getCheapestItem().getCost() < o2.getCheapestItem().getCost() ? -1
+                            : o1.getCheapestItem().getCost() > o2.getCheapestItem().getCost() ? 1
+                            : 0;
+                }
+            });
+        }
+        return refreshments;
     }
 
 }

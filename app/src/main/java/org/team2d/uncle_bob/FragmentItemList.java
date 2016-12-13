@@ -90,8 +90,6 @@ public class FragmentItemList extends Fragment {
             return getString(R.string.category_pizza);
         if (category == ProductsEnum.DRINK)
             return getString(R.string.category_drinks);
-        if (category == ProductsEnum.SALAD)
-            return getString(R.string.category_salads);
         if (category == ProductsEnum.REFRESHMENT)
             return getString(R.string.category_refreshments);
         return getString(R.string.report_as_a_bug);
@@ -139,6 +137,17 @@ public class FragmentItemList extends Fragment {
                         entry.getImagePath(), entry.getDescription());
 
                 itemPreview.setOnClickListener(new ActivityChanger(drinks.indexOf(entry)));
+
+                previewListContainer.addView(itemPreview);
+            }
+        }
+        if (categoryID == ProductsEnum.REFRESHMENT.toInt()) {
+            final List<ItemObject> refreshments = DatabaseService.getRefreshmentsSortedByCost();
+            for (ItemObject entry : refreshments) {
+                final View itemPreview = getItemPreview(entry.getName(), entry.getLeastPrice(this),
+                        entry.getImagePath(), entry.getDescription());
+
+                itemPreview.setOnClickListener(new ActivityChanger(refreshments.indexOf(entry)));
 
                 previewListContainer.addView(itemPreview);
             }
