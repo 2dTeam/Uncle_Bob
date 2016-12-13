@@ -74,4 +74,29 @@ class DatabaseAccess {
         cursor.close();
     }
 
+    void loadDrinksFromDb() {
+        HashMap <Integer, ItemObject> pizzaMap = ItemsCollection.getListOfItem(ProductsEnum.DRINK).getItemMap();
+        String query = "SELECT * FROM drinks";
+        Cursor cursor = database.rawQuery(query, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+
+            String drinkName = cursor.getString(cursor.getColumnIndex("name"));
+            String pizzaImage = cursor.getString(cursor.getColumnIndex("image"));
+            int onlineId = cursor.getInt(cursor.getColumnIndex("online_id"));
+            Float cost = cursor.getFloat(cursor.getColumnIndex("cost"));
+            String description = cursor.getString(cursor.getColumnIndex("description"));
+
+            ItemObject drink = new ItemObject(id, onlineId, drinkName,
+                    pizzaImage, description, ProductsEnum.DRINK);
+
+            drink.addItemParams(new ItemParams(cost, 100.0f));
+            pizzaMap.put(id, drink); // id - Pizza object
+            cursor.moveToNext();
+        }
+        cursor.close();
+    }
+
 }

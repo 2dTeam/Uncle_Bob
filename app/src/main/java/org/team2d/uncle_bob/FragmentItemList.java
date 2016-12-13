@@ -132,6 +132,18 @@ public class FragmentItemList extends Fragment {
                 previewListContainer.addView(itemPreview);
             }
         }
+        if (categoryID == ProductsEnum.DRINK.toInt()) {
+            final List<ItemObject> drinks = DatabaseService.getDrinksSortedByCost();
+            for (ItemObject entry : drinks) {
+                final View itemPreview = getItemPreview(entry.getName(), entry.getLeastPrice(this),
+                        entry.getImagePath(), entry.getDescription());
+
+                itemPreview.setOnClickListener(new ActivityChanger(drinks.indexOf(entry)));
+
+                previewListContainer.addView(itemPreview);
+            }
+        }
+
     }
 
     @Override

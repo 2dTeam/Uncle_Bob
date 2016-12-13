@@ -14,11 +14,13 @@ import java.util.List;
  */
 public class DatabaseService {
     private static List<ItemObject> pizza = null;
+    private static List<ItemObject> drinks = null;
     private static boolean  mLoaded = false;
 
     public static synchronized void loadDB(Context context) {
         if (!mLoaded) {
            loadPizzaFromDB(context);
+            loadDrinksFromDB(context);
             mLoaded = true;
         }
     }
@@ -26,8 +28,17 @@ public class DatabaseService {
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
         databaseAccess.open();
         databaseAccess.loadPizzaFromDb();
+        databaseAccess.close();
         getPizzaSortedByCost();
     }
+    private static synchronized void loadDrinksFromDB(Context context){
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
+        databaseAccess.open();
+        databaseAccess.loadDrinksFromDb();
+        databaseAccess.close();
+        getDrinksSortedByCost();
+    }
+
 
     public static List <ItemObject> getPizzaSortedByCost () {
         if (pizza == null) {
@@ -43,4 +54,20 @@ public class DatabaseService {
         }
         return pizza;
     }
+
+    public static List <ItemObject> getDrinksSortedByCost () {
+        if (drinks == null) {
+            MapOfItems drinksObj = ItemsCollection.getListOfItem(ProductsEnum.DRINK);
+
+            drinks = drinksObj.getSortedListOfItems(new Comparator<ItemObject>() {
+                public int compare(ItemObject o1, ItemObject o2) {
+                    return o1.getCheapestItem().getCost() < o2.getCheapestItem().getCost() ? -1
+                            : o1.getCheapestItem().getCost() > o2.getCheapestItem().getCost() ? 1
+                            : 0;
+                 }
+            });
+        }
+        return drinks;
+    }
+
 }
