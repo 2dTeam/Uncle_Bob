@@ -150,7 +150,6 @@ public class FragmentItemList extends Fragment {
                         entry.getImagePath(), entry.getDescription());
 
                 itemPreview.setOnClickListener(new ActivityChanger(refreshments.indexOf(entry)));
-
                 previewListContainer.addView(itemPreview);
             }
         }
