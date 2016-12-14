@@ -9,7 +9,7 @@ public class UserData {
 
     private String name;
     private String address;
-    private Integer tel;
+    private String tel;
 
     public static UserData getInstance() {
         return instance;
@@ -23,7 +23,7 @@ public class UserData {
         return address;
     }
 
-    public Integer getTel() {
+    public String getTel() {
         return tel;
     }
 
@@ -35,7 +35,7 @@ public class UserData {
         this.address = address;
     }
 
-    public void setTel(Integer tel) {
+    public void setTel(String tel) {
         this.tel = tel;
     }
 

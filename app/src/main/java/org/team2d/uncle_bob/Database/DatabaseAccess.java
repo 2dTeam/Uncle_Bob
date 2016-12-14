@@ -8,7 +8,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import org.team2d.uncle_bob.Database.ORM.Items.ItemObject;
 import org.team2d.uncle_bob.Database.ORM.Items.ItemParams;
@@ -51,19 +50,21 @@ class DatabaseAccess {
         Cursor cursor = database.rawQuery(query, null);
         cursor.moveToFirst();
 
-        cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             String name = cursor.getString(cursor.getColumnIndex("name"));
             String address = cursor.getString(cursor.getColumnIndex("address"));
-            Integer tel = cursor.getInt(cursor.getColumnIndex("tel"));
+            String tel = cursor.getString(cursor.getColumnIndex("tel"));
 
             user.setAddress(address);
             user.setName(name);
             user.setTel(tel);
-            Log.d("user", "is"+ user);
             cursor.moveToNext();
         }
         cursor.close();
+    }
+
+    void setUserData(String name, String address, Integer tel) {
+        String query = "SELECT * FROM pizza JOIN pizza_cost ON pizza.id = pizza_cost.id";
     }
 
     void loadPizzaFromDb() {
