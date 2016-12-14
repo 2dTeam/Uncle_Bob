@@ -67,9 +67,17 @@ public class FragmentBasket extends Fragment {
         fillFragmentWithPreviews(fragment);
 
         //@TODO example of working with network
-        JSONObject mockJson = new JSONObject();
+        final JSONObject mockJson = new JSONObject();
+        JSONObject order = new JSONObject();
         try {
             mockJson.put("username", "Николаев Виталий");
+            mockJson.put("number", "88005553535");
+            mockJson.put("address", "213");
+            order.put("pizza", "вкусная");
+            order.put("pizza", "вкусная");
+            mockJson.put("order", order);
+            mockJson.put("suggestions", "оплата картой");
+            Log.d("JSON", " " + mockJson);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -98,13 +106,15 @@ public class FragmentBasket extends Fragment {
         Network.sendOrderToServer(mockJson, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                Log.d("Network", " " + e);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                Log.d("JSON", " " + mockJson);
                 Log.d("Network", "Response: " + response);
                 response.body().close();
+
             }
         });
         // ENDOFEXAMPLE

@@ -29,7 +29,7 @@ final class FragmentFactory {
 
     @NonNull
     static Fragment getAccountFragment() {
-        return FragmentItemDetails.newInstance(2);
+        return FragmentAccount.newInstance();
     }
 
     @NonNull
