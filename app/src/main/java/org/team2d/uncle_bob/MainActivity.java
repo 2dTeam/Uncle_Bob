@@ -26,6 +26,7 @@ import android.view.View;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.team2d.uncle_bob.Basket.Basket;
+import org.team2d.uncle_bob.Database.DatabaseService;
 import org.team2d.uncle_bob.Database.ORM.UserData;
 
 
@@ -51,8 +52,8 @@ public class MainActivity extends AppCompatActivity
         }
         UserData user = UserData.getInstance();
         Log.d("user", "name"+user.getName());
-//        DatabaseService.setUserInfo(this,"name", "xui", "8912");
-//        Log.d("user", "name"+user.getName());
+        DatabaseService.setUserInfo(this,"name", "xui", "8912");
+        Log.d("user", "name"+user.getName());
         setupFAB();
         setupDrawer();
     }
