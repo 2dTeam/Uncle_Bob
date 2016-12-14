@@ -33,9 +33,11 @@ public class FragmentAccount extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup fragment = (ViewGroup) inflater.inflate(R.layout.fragment_account_start, null);
         getActivity().setTitle(getString(R.string.navigation_drawer_option_account));
-        Log.d("user", "name"+user.getName());
-        DatabaseService.setUserInfo(getActivity(),"name", "xui", "8912");
-        Log.d("user", "name"+user.getName());
+
+        Log.d("user", "name"+user.getTel());
+
+        DatabaseService.setUserInfo(getActivity(),"name", "xui", "880553535");
+        Log.d("user", "name"+user.getTel());
         return fragment;
     }
 
