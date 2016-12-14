@@ -66,8 +66,8 @@ class DatabaseAccess {
 
     void setUserData(String name, String address, String tel) {
         String query = String.format("UPDATE user SET name='%s', address='%s', tel='%s' WHERE id=1",  name, address, tel);
-        Cursor cursor = database.rawQuery(query, null);
-        cursor.close();
+
+        database.execSQL(query);
 
         UserData user = UserData.getInstance();
         user.setAddress(address);

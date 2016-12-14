@@ -18,7 +18,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,8 +25,6 @@ import android.view.View;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.team2d.uncle_bob.Basket.Basket;
-import org.team2d.uncle_bob.Database.DatabaseService;
-import org.team2d.uncle_bob.Database.ORM.UserData;
 
 
 public class MainActivity extends AppCompatActivity
@@ -41,6 +38,7 @@ public class MainActivity extends AppCompatActivity
     private boolean mayShowFAB = true;
     private TabFragment mTabFragment = new TabFragment();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,10 +48,7 @@ public class MainActivity extends AppCompatActivity
         if (savedInstanceState == null) {
             initTabFragment();
         }
-        UserData user = UserData.getInstance();
-        Log.d("user", "name"+user.getName());
-        DatabaseService.setUserInfo(this,"name", "xui", "8912");
-        Log.d("user", "name"+user.getName());
+
         setupFAB();
         setupDrawer();
     }
