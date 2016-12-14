@@ -5,6 +5,7 @@ import android.content.Context;
 import org.team2d.uncle_bob.Database.ORM.Items.ItemObject;
 import org.team2d.uncle_bob.Database.ORM.ItemsCollection;
 import org.team2d.uncle_bob.Database.ORM.MapOfItems;
+import org.team2d.uncle_bob.Database.ORM.UserData;
 
 import java.util.Comparator;
 import java.util.List;
@@ -16,6 +17,8 @@ public class DatabaseService {
     private static List<ItemObject> pizza = null;
     private static List<ItemObject> drinks = null;
     private static List<ItemObject> refreshments = null;
+    private static UserData user = null;
+
     private static boolean mLoaded = false;
 
     public static synchronized void loadDB(Context context) {
@@ -24,10 +27,12 @@ public class DatabaseService {
             mLoaded = true;
         }
     }
+
     private static synchronized void loadObjectsFromDB(Context context){
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
         databaseAccess.open();
 
+        databaseAccess.loadUserData();
         databaseAccess.loadPizzaFromDb();
         databaseAccess.loadDrinksFromDb();
         databaseAccess.loadRefreshmentsFromDb();
@@ -36,10 +41,15 @@ public class DatabaseService {
         getDrinksSortedByCost();
         getRefreshmentsSortedByCost();
 
+
         databaseAccess.close();
     }
-
-
+    private static UserData loadUserInfo() {
+        if (user == null) {
+            user = UserData.getInstance();
+        }
+        return user;
+    }
 
     public static List <ItemObject> getPizzaSortedByCost () {
         if (pizza == null) {
