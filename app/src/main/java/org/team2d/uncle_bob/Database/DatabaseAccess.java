@@ -44,6 +44,7 @@ class DatabaseAccess {
     }
 
     void loadUserData() {
+
         UserData user = UserData.getInstance();
 
         String query = "SELECT * FROM user";
@@ -63,8 +64,15 @@ class DatabaseAccess {
         cursor.close();
     }
 
-    void setUserData(String name, String address, Integer tel) {
-        String query = "SELECT * FROM pizza JOIN pizza_cost ON pizza.id = pizza_cost.id";
+    void setUserData(String name, String address, String tel) {
+        String query = String.format("UPDATE user SET name=%s, address=%s, tel=%s WHERE id=1",  name, address, tel);
+        Cursor cursor = database.rawQuery(query, null);
+        cursor.close();
+
+        UserData user = UserData.getInstance();
+        user.setAddress(address);
+        user.setName(name);
+        user.setTel(tel);
     }
 
     void loadPizzaFromDb() {

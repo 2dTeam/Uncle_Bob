@@ -17,7 +17,7 @@ public class DatabaseService {
     private static List<ItemObject> pizza = null;
     private static List<ItemObject> drinks = null;
     private static List<ItemObject> refreshments = null;
-    private static UserData user = null;
+    private static UserData user = UserData.getInstance();
 
     private static boolean mLoaded = false;
 
@@ -44,11 +44,15 @@ public class DatabaseService {
 
         databaseAccess.close();
     }
-    private static UserData loadUserInfo() {
-        if (user == null) {
-            user = UserData.getInstance();
-        }
-        return user;
+
+    public static void setUserInfo(Context context, String name, String address, String tel) {
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
+        databaseAccess.open();
+
+        databaseAccess.setUserData(name, address, tel);
+        databaseAccess.loadUserData();
+
+        databaseAccess.close();
     }
 
     public static List <ItemObject> getPizzaSortedByCost () {
