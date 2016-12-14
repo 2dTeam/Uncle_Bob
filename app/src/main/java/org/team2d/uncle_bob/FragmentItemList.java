@@ -47,7 +47,7 @@ public class FragmentItemList extends Fragment {
         ActivityChanger(int itemID) {
             this.iID = itemID;
         }
-
+        //TODO не работает :(
         @Override
         public void onClick(View v) {
             ((MainActivity) getActivity()).setContent(FragmentFactory.getItemDetailsFragment(iID));
@@ -117,6 +117,7 @@ public class FragmentItemList extends Fragment {
 
     private void fillFragmentWithPreviews(ViewGroup fragment) {
         ViewGroup previewListContainer = (ViewGroup) fragment.findViewById(R.id.preview_list);
+        previewListContainer.removeAllViews();
 
         if (categoryID == ProductsEnum.PIZZA.toInt()) {
             final List<ItemObject> pizzas = DatabaseService.getPizzaSortedByCost();
@@ -143,6 +144,7 @@ public class FragmentItemList extends Fragment {
         }
         if (categoryID == ProductsEnum.REFRESHMENT.toInt()) {
             final List<ItemObject> refreshments = DatabaseService.getRefreshmentsSortedByCost();
+
             for (ItemObject entry : refreshments) {
                 final View itemPreview = getItemPreview(entry.getName(), entry.getLeastPrice(this),
                         entry.getImagePath(), entry.getDescription());

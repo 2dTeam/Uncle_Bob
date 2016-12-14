@@ -16,7 +16,7 @@ public class DatabaseService {
     private static List<ItemObject> pizza = null;
     private static List<ItemObject> drinks = null;
     private static List<ItemObject> refreshments = null;
-    private static boolean  mLoaded = false;
+    private static boolean mLoaded = false;
 
     public static synchronized void loadDB(Context context) {
         if (!mLoaded) {
