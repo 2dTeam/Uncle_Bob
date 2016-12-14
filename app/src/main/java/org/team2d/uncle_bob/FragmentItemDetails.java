@@ -31,21 +31,24 @@ public class FragmentItemDetails extends Fragment {
     private static final Logger LOGGER = LoggerFactory.getLogger(FragmentItemDetails.class);
     private static final String ARG_ITEM_ID = "org.team2d.uncle_bob.FragmentItemDetails.ITEM_ID";
     private static final String ARG_ITEM_DETAILS_ID = "org.team2d.uncle_bob.FragmentItemDetails.ITEM_DETAILS_ID";
+    private static final String ARG_CATEGORY_ID = "org.team2d.uncle_bob.FragmentItemDetails.CATEGORY_ID";
     private static final String TAG_WEIGHT_BUTTON = "org.team2d.uncle_bob.FragmentItemDetails.TAG_WEIGHT_BUTTON_";
     private static final String TAG_SAUCE_BUTTON = "org.team2d.uncle_bob.FragmentItemDetails.TAG_SAUCE_BUTTON_";
 
     private ViewGroup fragment = null;
     private int itemID = 0;
+    private int categoryID = 0;
     private ItemObject item = null;
     private ItemParams itemDetails = null;
     private BasketItem basketItem = null;
     private QuantityButtonsWidget buyButtons = null;
 
-    public static FragmentItemDetails newInstance(int itemID) {
+    public static FragmentItemDetails newInstance(int categoryID, int itemID) {
         final FragmentItemDetails fragment = new FragmentItemDetails();
 
         final Bundle categoryType = new Bundle();
         categoryType.putInt(ARG_ITEM_ID, itemID);
+        categoryType.putInt(ARG_CATEGORY_ID, categoryID);
         fragment.setArguments(categoryType);
 
         return fragment;
@@ -57,7 +60,13 @@ public class FragmentItemDetails extends Fragment {
         fragment = (ViewGroup) inflater.inflate(R.layout.fragment_item_details, container, false);
 
         itemID = getArguments().getInt(ARG_ITEM_ID, 0);
-        item = DatabaseService.getPizzaSortedByCost().get(itemID);
+        categoryID = getArguments().getInt(ARG_CATEGORY_ID, 0);
+        if (ProductsEnum.fromInt(categoryID) == ProductsEnum.PIZZA)
+            item = DatabaseService.getPizzaSortedByCost().get(itemID);
+        else if (ProductsEnum.fromInt(categoryID) == ProductsEnum.DRINK)
+            item = DatabaseService.getDrinksSortedByCost().get(itemID);
+        else if (ProductsEnum.fromInt(categoryID) == ProductsEnum.REFRESHMENT)
+            item = DatabaseService.getRefreshmentsSortedByCost().get(itemID);
 
         if (savedInstanceState != null)
             itemDetails = ItemParams.fromInt(savedInstanceState.getInt(ARG_ITEM_DETAILS_ID, 0));
@@ -165,14 +174,16 @@ public class FragmentItemDetails extends Fragment {
             if (item != null) {
                 ItemParams selectedWeightOption = item.getDetails();
                 Checkable weightButton = (Checkable) fragment.findViewWithTag(TAG_WEIGHT_BUTTON + selectedWeightOption.toInt());
-                weightButton.setChecked(true);
+                if (weightButton != null)
+                    weightButton.setChecked(true);
 
                 for (Sauce sauce : Sauce.getSauces()) {
                     Checkable sauceChecker = (Checkable) fragment.findViewWithTag(TAG_SAUCE_BUTTON + sauce.toInt());
-                    if (item.getSauces().contains(sauce))
-                        sauceChecker.setChecked(true);
-                    else
-                        sauceChecker.setChecked(false);
+                    if (sauceChecker != null)
+                        if (item.getSauces().contains(sauce))
+                            sauceChecker.setChecked(true);
+                        else
+                            sauceChecker.setChecked(false);
                 }
             }
         }

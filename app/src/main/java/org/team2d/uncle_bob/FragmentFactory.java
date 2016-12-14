@@ -18,8 +18,8 @@ final class FragmentFactory {
     }
 
     @NonNull
-    static Fragment getItemDetailsFragment(int itemID) {
-        return FragmentItemDetails.newInstance(itemID);
+    static Fragment getItemDetailsFragment(int categoryID, int itemID) {
+        return FragmentItemDetails.newInstance(categoryID, itemID);
     }
 
     @NonNull

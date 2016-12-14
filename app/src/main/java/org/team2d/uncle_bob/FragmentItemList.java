@@ -50,7 +50,7 @@ public class FragmentItemList extends Fragment {
         //TODO не работает :(
         @Override
         public void onClick(View v) {
-            ((MainActivity) getActivity()).setContent(FragmentFactory.getItemDetailsFragment(iID));
+            ((MainActivity) getActivity()).setContent(FragmentFactory.getItemDetailsFragment(categoryID, iID));
         }
     }
 
