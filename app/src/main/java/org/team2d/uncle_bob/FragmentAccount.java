@@ -37,13 +37,13 @@ public class FragmentAccount extends Fragment {
         getActivity().setTitle(getString(R.string.navigation_drawer_option_account));
 
         final EditText text_name = (EditText) fragment.findViewById(R.id.account_name);
-        text_name.setText(user.getName());
+        //text_name.setText(user.getName());
 
         final EditText text_phone = (EditText) fragment.findViewById(R.id.account_phone);
-        text_phone.setText(user.getTel());
+        //text_phone.setText(user.getTel());
 
         final EditText text_address = (EditText) fragment.findViewById(R.id.account_address);
-        text_address.setText(user.getAddress());
+        //text_address.setText(user.getAddress());
 
         final View accountSaveInfo = fragment.findViewById(R.id.account_save_info);
 
@@ -54,12 +54,12 @@ public class FragmentAccount extends Fragment {
                         text_address.getText().toString().equals("address")) || (text_name.getText().toString().equals("") ||
                         text_phone.getText().toString().equals("") || text_address.getText().toString().equals(""))) {
                     Toast.makeText(getActivity(), "Данные заполненны не полностью",
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
                 } else {
                     DatabaseService.setUserInfo(getActivity(), text_name.getText().toString(),
                             text_address.getText().toString(), text_phone.getText().toString());
                     Toast.makeText(getActivity(), "Данные сохранены",
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         });
