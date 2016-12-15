@@ -39,4 +39,12 @@ public class UserData {
         this.tel = tel;
     }
 
+    public boolean isEmpty(){
+        if (this.getName().isEmpty() || this.getTel().isEmpty()
+                || this.getAddress().isEmpty()){
+            return false;
+        }
+        return true;
+    }
+
 }
