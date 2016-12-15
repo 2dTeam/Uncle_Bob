@@ -44,9 +44,7 @@ class DatabaseAccess {
     }
 
     void loadUserData() {
-
         UserData user = UserData.getInstance();
-
         String query = "SELECT * FROM user";
         Cursor cursor = database.rawQuery(query, null);
         cursor.moveToFirst();
