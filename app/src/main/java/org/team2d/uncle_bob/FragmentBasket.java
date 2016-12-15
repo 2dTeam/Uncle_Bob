@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -198,11 +200,19 @@ public class FragmentBasket extends Fragment {
         }
     }
 
-    // TODO: Make it inflated from xml, moron!
-    private View getBasketEmptyMessage() {
-        final TextView message = new TextView(getActivity());
-        message.setText("Упс! корзина пуста, да и вёрстка поехала...");
-        return message;
+
+    private ViewGroup getBasketEmptyMessage() {
+        final ViewGroup messageLayout = (ViewGroup) inflater.inflate(R.layout.basket_empty, null);
+
+        final View browsePizzas = messageLayout.findViewById(R.id.empty_basket_button);
+        browsePizzas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).setContent(FragmentFactory.getDefaultFragment());
+            }
+        });
+
+        return messageLayout;
     }
 
     @Override

@@ -66,5 +66,9 @@
     <string name="report_as_a_bug">REPORT AS A BUG</string>
     <string name="bullet">\u2022</string>
 
+    <string name="basket_empty_message_part1">Корзина пуста! :(</string>
+    <string name="basket_empty_message_part2">Но вы можете что-нибудь в неё положить!</string>
+    <string name="basket_empty_goto_pizza">Посмотреть на пиццы</string>
+
 
 </resources>
