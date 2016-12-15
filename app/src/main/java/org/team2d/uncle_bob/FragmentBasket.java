@@ -70,7 +70,7 @@ public class FragmentBasket extends Fragment {
         final ViewGroup fragment = (ViewGroup) inflater.inflate(R.layout.fragment_basket, null);
         this.fragment = fragment;
 
-        getActivity().setTitle(getActivity().getString(R.string.title_fragment_basket)); // Aww, LISP.
+        getActivity().setTitle(getActivity().getString(R.string.title_fragment_basket));
 
         fillFragmentWithPreviews(fragment);
 
@@ -81,7 +81,7 @@ public class FragmentBasket extends Fragment {
                 if (user.getName().equals("Имя") || user.getTel().equals("Контактный телефон")
                         || user.getAddress().equals("Адрес")) {
                     Toast.makeText(getActivity(), "Заполните данные аккаунта",
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
                     ((MainActivity) getActivity()).setContent(FragmentFactory.getAccountFragment());
                 } else {
                     final Set<BasketItem> items = Basket.getInstance().getItems();

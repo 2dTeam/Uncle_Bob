@@ -15,4 +15,7 @@
     <dimen name="preview_item_image_height">128dp</dimen>
     <dimen name="details_item_image_height">256dp</dimen>
     <dimen name="details_item_image_width">512dp</dimen>
+
+    <integer name="user_label_ratio">7</integer>
+    <integer name="user_text_field_ratio">3</integer>
 </resources>
