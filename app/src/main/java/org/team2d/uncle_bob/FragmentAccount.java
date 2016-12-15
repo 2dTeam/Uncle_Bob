@@ -24,7 +24,6 @@ public class FragmentAccount extends Fragment {
     private static final Logger LOGGER = LoggerFactory.getLogger(FragmentAccount.class);
     private UserData user = UserData.getInstance();
 
-
     public static FragmentAccount newInstance() {
         return new FragmentAccount();
     }

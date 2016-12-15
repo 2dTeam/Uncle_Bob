@@ -7,6 +7,8 @@ package org.team2d.uncle_bob.Database.ORM;
 public class UserData {
     private static UserData instance = new UserData();
 
+    private UserData(){}
+
     private String name;
     private String address;
     private String tel;
@@ -40,8 +42,6 @@ public class UserData {
     }
 
     public boolean isEmpty(){
-        return this.getName().isEmpty() || this.getTel().isEmpty()
-                || this.getAddress().isEmpty();
+        return this.getName().isEmpty() || this.getTel().isEmpty() || this.getAddress().isEmpty();
     }
-
 }

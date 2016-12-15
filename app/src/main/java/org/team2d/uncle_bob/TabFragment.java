@@ -46,7 +46,6 @@ public class TabFragment extends Fragment {
                             case 2:
                                 getActivity().setTitle(getString(R.string.category_drinks));
                                 break;
-
                         }
                     }
                     @Override
