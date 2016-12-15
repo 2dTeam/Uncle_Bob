@@ -91,10 +91,10 @@ public class FragmentBasket extends Fragment {
                     ((MainActivity) getActivity()).setContent(FragmentFactory.getAccountFragment());
                 } else {
                     final Set<BasketItem> items = Basket.getInstance().getItems();
-                    final LinkedList<LinkedList> order_list = new LinkedList<LinkedList>();
+                    final LinkedList<LinkedList> order_list = new LinkedList<>();
                     if (!items.isEmpty()) {
                         for (BasketItem entry : items) {
-                            LinkedList<String> temp_pizda_list = new LinkedList<String>();
+                            LinkedList<String> temp_pizda_list = new LinkedList<>();
 
                             String pizzaStr = entry.getItem().getName() + " Вес: " + entry.getDetails().getWeight() +
                                     " Цена: " + entry.getPrice() + " Количество: " + entry.getQuantity();

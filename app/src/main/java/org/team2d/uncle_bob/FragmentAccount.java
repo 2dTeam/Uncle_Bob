@@ -37,13 +37,13 @@ public class FragmentAccount extends Fragment {
         getActivity().setTitle(getString(R.string.navigation_drawer_option_account));
 
         final EditText text_name = (EditText) fragment.findViewById(R.id.account_name);
-        //text_name.setText(user.getName());
+        text_name.setText(user.getName());
 
         final EditText text_phone = (EditText) fragment.findViewById(R.id.account_phone);
-        //text_phone.setText(user.getTel());
+        text_phone.setText(user.getTel());
 
         final EditText text_address = (EditText) fragment.findViewById(R.id.account_address);
-        //text_address.setText(user.getAddress());
+        text_address.setText(user.getAddress());
 
         final View accountSaveInfo = fragment.findViewById(R.id.account_save_info);
 
