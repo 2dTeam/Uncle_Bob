@@ -84,8 +84,7 @@ public class FragmentBasket extends Fragment {
             private int price;
 
             public void onClick(View v) {
-                if (user.getName().equals("Имя") || user.getTel().equals("Контактный телефон")
-                        || user.getAddress().equals("Адрес") || user.getName().isEmpty() || user.getTel().isEmpty() || user.getAddress().isEmpty()) {
+                if (user.isEmpty()) {
                     Toast.makeText(getActivity(), "Заполните данные аккаунта",
                             Toast.LENGTH_SHORT).show();
                     ((MainActivity) getActivity()).setContent(FragmentFactory.getAccountFragment());
@@ -145,6 +144,9 @@ public class FragmentBasket extends Fragment {
                             response.body().close();
                         }
                     });
+
+                    Toast.makeText(getActivity(), "Мы начали выполнение заказа",
+                            Toast.LENGTH_LONG).show();
                 }
             }
         });
