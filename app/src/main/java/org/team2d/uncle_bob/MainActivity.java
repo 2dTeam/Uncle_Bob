@@ -22,6 +22,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.flurry.android.FlurryAgent;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.team2d.uncle_bob.Basket.Basket;
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity
     private final int PERMISSION_REQUEST_PHONE_CODE = 1;
     private static final String PRIMARY_FRAGMENT_TAG = "org.team2d.uncle_bob.MainActivity.PRIMARY_FRAGMENT_TAG";
     private static final String INITIAL_BACKSTACK_ID = "org.team2d.uncle_bob.MainActivity.INITIAL_BACKSTACK_ID";
+    private static final String FLURRY_API_KEY = "K9TBMB5W768B5WQ6BBZG";
     private boolean mayShowFAB = true;
     private TabFragment mTabFragment = new TabFragment();
 
@@ -51,6 +54,9 @@ public class MainActivity extends AppCompatActivity
 
         setupFAB();
         setupDrawer();
+
+        FlurryAgent.init(this, FLURRY_API_KEY);
+        FlurryAgent.onStartSession(this, FLURRY_API_KEY);
     }
 
     private void initTabFragment() {
@@ -145,6 +151,7 @@ public class MainActivity extends AppCompatActivity
     protected void onStop() {
         super.onStop();
         removeFABCallbacks();
+        FlurryAgent.onEndSession(this);
     }
 
     @Override
