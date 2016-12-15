@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.flurry.android.FlurryAgent;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -27,7 +29,9 @@ import org.team2d.uncle_bob.Network.Network;
 import org.team2d.uncle_bob.Picasso.PicassoImageLoader;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Set;
 
 import okhttp3.Call;
@@ -39,6 +43,8 @@ public class FragmentBasket extends Fragment {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FragmentBasket.class);
     private static final String ARG_CATEGORY_ID = "org.team2d.uncle_bob.FragmentItemList.CATEGORY_ID";
+    private static final String FLURRY_EVENT_BUY = "Order_Submitted";
+    private static final String FLURRY_EVENT_BUY_PRICE = "Price";
     private LayoutInflater inflater = null;
     private ViewGroup container = null;
     private Bundle savedInstanceState = null;
@@ -77,6 +83,8 @@ public class FragmentBasket extends Fragment {
         final View totalBuyButton = fragment.findViewById(R.id.basket_buy_button);
 
         totalBuyButton.setOnClickListener(new View.OnClickListener() {
+            private int price;
+
             public void onClick(View v) {
                 if (user.getName().equals("Имя") || user.getTel().equals("Контактный телефон")
                         || user.getAddress().equals("Адрес")) {
@@ -109,6 +117,7 @@ public class FragmentBasket extends Fragment {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        price = Basket.getInstance().getTotalPrice();
                     }
 
                     Network.sendOrderToServer(orderJson, new Callback() {
@@ -132,6 +141,7 @@ public class FragmentBasket extends Fragment {
                                     Toast.makeText(getActivity(), "Заказ принят",
                                             Toast.LENGTH_SHORT).show();
                                     acceptOrder();
+                                    flurryEventBuy(price);
                                 }
                             });
                             response.body().close();
@@ -150,6 +160,12 @@ public class FragmentBasket extends Fragment {
         displayOrderAccepted();
     }
 
+    private void flurryEventBuy(int price) {
+        final Map<String, String> eventParams = new HashMap<>(1);
+        eventParams.put(FLURRY_EVENT_BUY_PRICE, String.valueOf(price));
+
+        FlurryAgent.logEvent(FLURRY_EVENT_BUY, eventParams);
+    }
 
     private View getItemPreview(BasketItem item) {
         final ViewGroup basketItemLayout = (ViewGroup) getLayoutInflater(savedInstanceState).inflate(R.layout.item_basket, null);
