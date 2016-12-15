@@ -260,6 +260,14 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    public void setTabViewOnStack(){
+        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        transaction.replace(R.id.app_bar_wrapper_content_container, mTabFragment)
+                .addToBackStack(INITIAL_BACKSTACK_ID)
+                .commit();
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
