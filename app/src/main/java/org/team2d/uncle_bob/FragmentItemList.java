@@ -47,7 +47,6 @@ public class FragmentItemList extends Fragment {
         ActivityChanger(int itemID) {
             this.iID = itemID;
         }
-        //TODO не работает :(
         @Override
         public void onClick(View v) {
             ((MainActivity) getActivity()).setContent(FragmentFactory.getItemDetailsFragment(categoryID, iID));
