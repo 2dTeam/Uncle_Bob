@@ -82,7 +82,6 @@ public class FragmentBasket extends Fragment {
                             Toast.LENGTH_LONG).show();
                     ((MainActivity) getActivity()).setContent(FragmentFactory.getAccountFragment());
                 } else {
-
                     final Set<BasketItem> items = Basket.getInstance().getItems();
                     final LinkedList<LinkedList> order_list = new LinkedList<LinkedList>();
                     if (!items.isEmpty()) {
@@ -108,13 +107,17 @@ public class FragmentBasket extends Fragment {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                    } else {
-                        Log.d("0: ", "0"); // ???
                     }
 
                     Network.sendOrderToServer(orderJson, new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
+                            getActivity().runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(getActivity(), "Сеть не доступна, попробуйте позже",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
                             Log.d("Network!", " " + e);
                         }
 
@@ -122,8 +125,12 @@ public class FragmentBasket extends Fragment {
                         public void onResponse(Call call, Response response) throws IOException {
                             Log.d("JSON", " " + orderJson);
                             Log.d("Network", "Response: " + response);
-//                            Toast.makeText(((MainActivity) getActivity()).getApplicationContext(), "Заказ принят",
-//                                    Toast.LENGTH_LONG).show();
+                            getActivity().runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(getActivity(), "Заказ принят",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
                             response.body().close();
                         }
                     });
@@ -132,6 +139,7 @@ public class FragmentBasket extends Fragment {
         });
         return fragment;
     }
+
 
 
 
