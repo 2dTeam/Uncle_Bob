@@ -11,6 +11,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+import android.widget.EditText;
+import android.widget.Button;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +40,23 @@ public class FragmentAccount extends Fragment {
 
         Log.d("user", "name"+user.getTel());
 
+        EditText text_name = (EditText) fragment.findViewById(R.id.account_name);
+        text_name.setText((CharSequence) user.getName());
+
+        EditText text_phone = (EditText) fragment.findViewById(R.id.account_phone);
+        text_phone.setText((CharSequence) user.getTel());
+
+        EditText text_address = (EditText) fragment.findViewById(R.id.account_address);
+        text_address.setText((CharSequence) user.getAddress());
+
+        final View accountSaveInfo = fragment.findViewById(R.id.account_save_info);
+
+        accountSaveInfo.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 //        DatabaseService.setUserInfo(getActivity(),"name", "xui moskva", "88005553535");
         Log.d("user", "name"+user.getTel());
         return fragment;
