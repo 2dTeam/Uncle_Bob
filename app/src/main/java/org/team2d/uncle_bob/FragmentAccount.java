@@ -40,13 +40,13 @@ public class FragmentAccount extends Fragment {
 
         Log.d("user", "name"+user.getTel());
 
-        EditText text_name = (EditText) fragment.findViewById(R.id.account_name);
+        final EditText text_name = (EditText) fragment.findViewById(R.id.account_name);
         text_name.setText((CharSequence) user.getName());
 
-        EditText text_phone = (EditText) fragment.findViewById(R.id.account_phone);
+        final EditText text_phone = (EditText) fragment.findViewById(R.id.account_phone);
         text_phone.setText((CharSequence) user.getTel());
 
-        EditText text_address = (EditText) fragment.findViewById(R.id.account_address);
+        final EditText text_address = (EditText) fragment.findViewById(R.id.account_address);
         text_address.setText((CharSequence) user.getAddress());
 
         final View accountSaveInfo = fragment.findViewById(R.id.account_save_info);
@@ -54,7 +54,18 @@ public class FragmentAccount extends Fragment {
         accountSaveInfo.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
+                if ((text_name.getText().toString().equals("name") || text_phone.getText().toString().equals("phone_number") ||
+                        text_address.getText().toString().equals("address")) || (text_name.getText().toString().equals("") ||
+                        text_phone.getText().toString().equals("") || text_address.getText().toString().equals("")))
+                {
+                    Toast.makeText(getActivity(), "Данные заполненны не полностью",
+                            Toast.LENGTH_LONG).show();
+                }else{
+                    DatabaseService.setUserInfo(getActivity(),text_name.getText().toString(),
+                            text_address.getText().toString(), text_phone.getText().toString());
+                    Toast.makeText(getActivity(), "Данные сохранены",
+                            Toast.LENGTH_LONG).show();
+                }
             }
         });
 //        DatabaseService.setUserInfo(getActivity(),"name", "xui moskva", "88005553535");
