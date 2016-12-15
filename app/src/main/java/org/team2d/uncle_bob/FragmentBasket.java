@@ -49,15 +49,11 @@ public class FragmentBasket extends Fragment {
     private View fragment;
     private final View.OnClickListener onBuyButtonClicked = new View.OnClickListener() {
         @Override
-        public void onClick(View v) {
-
-        }
+        public void onClick(View v) {}
     };
 
     public static FragmentBasket newInstance() {
-        final FragmentBasket fragment = new FragmentBasket();
-
-        return fragment;
+        return new FragmentBasket();
     }
 
 
@@ -303,7 +299,7 @@ public class FragmentBasket extends Fragment {
             if (item.getQuantity() == 0) {
 //                LOGGER.info(itemContainer.toString());
 //                LOGGER.info(itemContainer.getParent().toString());
-                //((ViewGroup) itemContainer.getParent()).removeView(itemContainer);
+//                ((ViewGroup) itemContainer.getParent()).removeView(itemContainer);
                 itemContainer.setVisibility(View.GONE);
 
                 if (Basket.getInstance().getItems().size() == 0) {

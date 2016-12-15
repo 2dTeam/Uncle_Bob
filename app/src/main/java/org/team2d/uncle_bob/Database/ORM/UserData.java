@@ -40,13 +40,8 @@ public class UserData {
     }
 
     public boolean isEmpty(){
-        if (this.getName().isEmpty() || this.getTel().isEmpty()
-                || this.getAddress().isEmpty()){
-            return true;
-        }
-        else {
-            return false;
-        }
+        return this.getName().isEmpty() || this.getTel().isEmpty()
+                || this.getAddress().isEmpty();
     }
 
 }
