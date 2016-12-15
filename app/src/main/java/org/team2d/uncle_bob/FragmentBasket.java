@@ -23,7 +23,6 @@ import org.team2d.uncle_bob.Basket.Sauce;
 import org.team2d.uncle_bob.Database.ORM.UserData;
 import org.team2d.uncle_bob.Network.Network;
 import org.team2d.uncle_bob.Picasso.PicassoImageLoader;
-import org.team2d.uncle_bob.Database.DatabaseService;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -56,6 +55,7 @@ public class FragmentBasket extends Fragment {
     }
 
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -64,7 +64,7 @@ public class FragmentBasket extends Fragment {
         this.savedInstanceState = savedInstanceState;
 
         final UserData user = UserData.getInstance();
-        final JSONObject mockJson = new JSONObject();
+        final JSONObject orderJson = new JSONObject();
         final ViewGroup fragment = (ViewGroup) inflater.inflate(R.layout.fragment_basket, null);
         this.fragment = fragment;
 
@@ -72,20 +72,19 @@ public class FragmentBasket extends Fragment {
 
         fillFragmentWithPreviews(fragment);
 
-        if (user.getName().equals("name") || user.getTel().equals("phone_number") || user.getAddress().equals("address")){
-            Toast.makeText(getActivity(), "Заполните данные аккаунта",
-                    Toast.LENGTH_LONG).show();
-        }else{
+        final View totalBuyButton = fragment.findViewById(R.id.basket_buy_button);
 
-            //@TODO example of working with network
+        totalBuyButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (user.getName().equals("Имя") || user.getTel().equals("Контактный телефон")
+                        || user.getAddress().equals("Адрес")) {
+                    Toast.makeText(getActivity(), "Заполните данные аккаунта",
+                            Toast.LENGTH_LONG).show();
+                    ((MainActivity) getActivity()).setContent(FragmentFactory.getAccountFragment());
+                } else {
 
-
-            final View totalBuyButton = fragment.findViewById(R.id.basket_buy_button);
-
-            totalBuyButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    final Set<BasketItem> items  = Basket.getInstance().getItems();
-                    final LinkedList<LinkedList> pizda_list = new LinkedList<LinkedList>();
+                    final Set<BasketItem> items = Basket.getInstance().getItems();
+                    final LinkedList<LinkedList> order_list = new LinkedList<LinkedList>();
                     if (!items.isEmpty()) {
                         for (BasketItem entry : items) {
                             LinkedList<String> temp_pizda_list = new LinkedList<String>();
@@ -95,27 +94,25 @@ public class FragmentBasket extends Fragment {
                             temp_pizda_list.add(pizzaStr);
 
                             final Set<Sauce> sauces = entry.getSauces();
-                            for (Sauce sauce : sauces){
-                                String sauseStr =  sauce.getTitle() + " Цена: " + sauce.getPrice();
+                            for (Sauce sauce : sauces) {
+                                String sauseStr = sauce.getTitle() + " Цена: " + sauce.getPrice();
                                 temp_pizda_list.add(sauseStr);
                             }
-                            pizda_list.add(temp_pizda_list);
+                            order_list.add(temp_pizda_list);
                         }
                         try {
-                            mockJson.put("username", user.getName());
-                            mockJson.put("number", user.getTel());
-                            mockJson.put("address", user.getAddress());
-                            mockJson.put("suggestions", "оплата картой");
-                            mockJson.put("order", pizda_list);
-                            Log.d(" JSON ", ""+mockJson);
+                            orderJson.put("username", user.getName());
+                            orderJson.put("number", user.getTel());
+                            orderJson.put("address", user.getAddress());
+                            orderJson.put("order", order_list);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     } else {
-                        Log.d("0: ", "0");
+                        Log.d("0: ", "0"); // ???
                     }
 
-                    Network.sendOrderToServer(mockJson, new Callback() {
+                    Network.sendOrderToServer(orderJson, new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
                             Log.d("Network!", " " + e);
@@ -123,22 +120,20 @@ public class FragmentBasket extends Fragment {
 
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
-                            Log.d("JSON", " " + mockJson);
+                            Log.d("JSON", " " + orderJson);
                             Log.d("Network", "Response: " + response);
+//                            Toast.makeText(((MainActivity) getActivity()).getApplicationContext(), "Заказ принят",
+//                                    Toast.LENGTH_LONG).show();
                             response.body().close();
                         }
                     });
                 }
             }
-            );
-
-
-            // ENDOFEXAMPLE
-
-
-        }
+        });
         return fragment;
     }
+
+
 
     private View getItemPreview(BasketItem item) {
         final ViewGroup basketItemLayout = (ViewGroup) getLayoutInflater(savedInstanceState).inflate(R.layout.item_basket, null);
