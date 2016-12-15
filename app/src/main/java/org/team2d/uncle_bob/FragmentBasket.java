@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,10 +20,13 @@ import org.team2d.uncle_bob.Basket.Basket;
 import org.team2d.uncle_bob.Basket.BasketItem;
 import org.team2d.uncle_bob.Basket.QuantityButtonsWidget;
 import org.team2d.uncle_bob.Basket.Sauce;
+import org.team2d.uncle_bob.Database.ORM.UserData;
 import org.team2d.uncle_bob.Network.Network;
 import org.team2d.uncle_bob.Picasso.PicassoImageLoader;
+import org.team2d.uncle_bob.Database.DatabaseService;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.Set;
 
 import okhttp3.Call;
@@ -59,6 +63,9 @@ public class FragmentBasket extends Fragment {
         this.container = container;
         this.savedInstanceState = savedInstanceState;
 
+        UserData user = UserData.getInstance();
+        DatabaseService.setUserInfo(getActivity(),"name", "address", "phone_number");
+
         final ViewGroup fragment = (ViewGroup) inflater.inflate(R.layout.fragment_basket, null);
         this.fragment = fragment;
 
@@ -66,59 +73,79 @@ public class FragmentBasket extends Fragment {
 
         fillFragmentWithPreviews(fragment);
 
-        //@TODO example of working with network
-        final JSONObject mockJson = new JSONObject();
-        JSONObject order = new JSONObject();
-        try {
-            mockJson.put("username", "Николаев Виталий");
-            mockJson.put("number", "88005553535");
-            mockJson.put("address", "213");
-            order.put("pizza", "вкусная");
-            order.put("pizza", "вкусная");
-            mockJson.put("order", order);
-            mockJson.put("suggestions", "оплата картой");
-            Log.d("JSON", " " + mockJson);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        final View totalBuyButton = fragment.findViewById(R.id.basket_buy_button);
+        Log.d("ABBBBAAAAA", "  " + user.getName() + " " + user.getTel() + " " + user.getAddress());
+        if (user.getName().equals("name") || user.getTel().equals("phone_number") || user.getAddress().equals("address")){
+            Log.d("AAAAAA", "  " + user);
+            Toast.makeText(getActivity(), "Заполните данные аккаунта",
+                    Toast.LENGTH_LONG).show();
+        }else{
 
-        totalBuyButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                final Set<BasketItem> items  = Basket.getInstance().getItems();
-                if (!items.isEmpty()) {
-                    for (BasketItem entry : items) {
-                        Log.d("A", "Pizza " + entry.getItem().getName() + " " +
-                                entry.getDetails().getWeight() + " " + entry.getPrice() + " " + entry.getQuantity()
-                        );
-                        final Set<Sauce> sauces  = entry.getSauces();
-                        for (Sauce sauce : sauces){
-                            Log.d("A", "Sauce " + sauce.toInt() + " " + sauce.getPrice());
+            //@TODO example of working with network
+            final JSONObject mockJson = new JSONObject();
+            JSONObject order = new JSONObject();
+            try {
+                mockJson.put("username", user.getName());
+                mockJson.put("number", user.getTel());
+                mockJson.put("address", user.getAddress());
+//                LinkedList<String> pizda_list = new LinkedList<String>();
+//                pizda_list.add("вкусная");
+//                pizda_list.add("123");
+//                order.put("pizza", pizda_list);
+//                mockJson.put("order", order);
+                mockJson.put("suggestions", "оплата картой");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            final View totalBuyButton = fragment.findViewById(R.id.basket_buy_button);
+
+            totalBuyButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    final Set<BasketItem> items  = Basket.getInstance().getItems();
+                    LinkedList<LinkedList> pizda_list = new LinkedList<LinkedList>();
+                    if (!items.isEmpty()) {
+                        for (BasketItem entry : items) {
+                            LinkedList<String> temp_pizda_list = new LinkedList<String>();
+
+                            String pizzaStr = entry.getItem().getName() + " Вес: " + entry.getDetails().getWeight() +
+                                    " Цена: " + entry.getPrice() + " Количество: " + entry.getQuantity();
+                            temp_pizda_list.add(pizzaStr);
+
+                            final Set<Sauce> sauces = entry.getSauces();
+                            for (Sauce sauce : sauces){
+                                String sauseStr =  sauce.getTitle() + " Цена: " + sauce.getPrice();
+                                temp_pizda_list.add(sauseStr);
+                            }
+                            pizda_list.add(temp_pizda_list);
                         }
+                        try{
+                            mockJson.put("order", pizda_list);
+                            Log.d("JSON", " " + mockJson);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        Log.d("0: ", "0");
                     }
-
-                } else {
-                    Log.d("0: ", "0");
                 }
-            }
-        });
+            });
 
-        Network.sendOrderToServer(mockJson, new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.d("Network", " " + e);
-            }
+//        Network.sendOrderToServer(mockJson, new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                Log.d("Network!", " " + e);
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                Log.d("JSON", " " + mockJson);
+//                Log.d("Network", "Response: " + response);
+//                response.body().close();
+//            }
+//        });
+            // ENDOFEXAMPLE
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                Log.d("JSON", " " + mockJson);
-                Log.d("Network", "Response: " + response);
-                response.body().close();
 
-            }
-        });
-        // ENDOFEXAMPLE
-
+        }
         return fragment;
     }
 
