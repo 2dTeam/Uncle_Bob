@@ -51,8 +51,8 @@ public class FragmentAccount extends Fragment {
             @Override
             public void onClick(View v) {
                 if ((text_name.getText().toString().equals("name") || text_phone.getText().toString().equals("phone_number") ||
-                        text_address.getText().toString().equals("address")) || (text_name.getText().toString().equals("") ||
-                        text_phone.getText().toString().equals("") || text_address.getText().toString().equals(""))) {
+                        text_address.getText().toString().equals("address")) || (text_name.getText().toString().isEmpty() ||
+                        text_phone.getText().toString().isEmpty() || text_address.getText().toString().isEmpty())) {
                     Toast.makeText(getActivity(), "Данные заполненны не полностью",
                             Toast.LENGTH_SHORT).show();
                 } else {

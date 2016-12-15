@@ -87,7 +87,7 @@ public class FragmentBasket extends Fragment {
 
             public void onClick(View v) {
                 if (user.getName().equals("Имя") || user.getTel().equals("Контактный телефон")
-                        || user.getAddress().equals("Адрес")) {
+                        || user.getAddress().equals("Адрес") || user.getName().isEmpty() || user.getTel().isEmpty() || user.getAddress().isEmpty()) {
                     Toast.makeText(getActivity(), "Заполните данные аккаунта",
                             Toast.LENGTH_SHORT).show();
                     ((MainActivity) getActivity()).setContent(FragmentFactory.getAccountFragment());
