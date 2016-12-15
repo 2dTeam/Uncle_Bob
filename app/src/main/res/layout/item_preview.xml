@@ -9,8 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:minHeight="@dimen/preview_item_image_height"
-    android:maxHeight="@dimen/preview_item_image_height">
+    android:minHeight="@dimen/preview_item_image_height" >
 
     <LinearLayout
         android:layout_width="@dimen/preview_item_image_height"
@@ -59,8 +58,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/item_preview_price"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:layout_alignBottom="@+id/item_preview_image_container"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        tools:layout_alignBottom="@+id/item_description" />
+        tools:layout_alignBottom="@+id/item_description"
+        android:layout_below="@+id/item_description"
+        android:layout_alignRight="@+id/item_preview_title"
+        android:layout_alignEnd="@+id/item_preview_title" />
 </RelativeLayout>
