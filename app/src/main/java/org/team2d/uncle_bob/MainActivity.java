@@ -82,11 +82,6 @@ public class MainActivity extends AppCompatActivity
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 
-//        final Fragment currentContent = getSupportFragmentManager().findFragmentByTag(PRIMARY_FRAGMENT_TAG);
-//
-//        if (currentContent != null) {
-//            transaction.remove(currentContent);
-//        }
         transaction.replace(R.id.app_bar_wrapper_content_container, content, PRIMARY_FRAGMENT_TAG);
 
         transaction.addToBackStack(backStackID).commit();
@@ -204,7 +199,6 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            // TODO: closing app? You are doing it wrong.
             if (getSupportFragmentManager().getBackStackEntryCount() == 1)
                 getSupportFragmentManager().popBackStack();
             super.onBackPressed();

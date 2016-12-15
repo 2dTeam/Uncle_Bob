@@ -49,7 +49,6 @@ public class TabFragment extends Fragment {
 
                         }
                     }
-
                     @Override
                     public void onPageScrolled(int arg0, float arg1, int arg2) {}
 
@@ -59,7 +58,6 @@ public class TabFragment extends Fragment {
                 });
 
         return view;
-
     }
 
     class MyAdapter extends FragmentPagerAdapter{

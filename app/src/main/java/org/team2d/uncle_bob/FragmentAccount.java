@@ -39,6 +39,7 @@ public class FragmentAccount extends Fragment {
         final EditText text_name = (EditText) fragment.findViewById(R.id.account_name);
         text_name.setText(user.getName());
 
+
         final EditText text_phone = (EditText) fragment.findViewById(R.id.account_phone);
         text_phone.setText(user.getTel());
 
