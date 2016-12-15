@@ -9,6 +9,8 @@
         android:text="@string/delivery_info"
         android:textSize="24sp"
         android:gravity="center_vertical"
-        android:fontFamily="sans-serif-smallcaps" />
+        android:fontFamily="sans-serif-smallcaps"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" />
 
 </RelativeLayout>
