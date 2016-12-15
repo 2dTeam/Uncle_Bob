@@ -131,6 +131,7 @@ public class FragmentBasket extends Fragment {
                                 public void run() {
                                     Toast.makeText(getActivity(), "Заказ принят",
                                             Toast.LENGTH_SHORT).show();
+                                    acceptOrder();
                                 }
                             });
                             response.body().close();
@@ -142,7 +143,12 @@ public class FragmentBasket extends Fragment {
         return fragment;
     }
 
-
+    private void acceptOrder() {
+        Basket.getInstance().emptyBasket();
+        clearBasketList();
+        changeTotalVisibility(true);
+        displayOrderAccepted();
+    }
 
 
     private View getItemPreview(BasketItem item) {
@@ -180,6 +186,12 @@ public class FragmentBasket extends Fragment {
         return basketItemLayout;
     }
 
+    private void displayOrderAccepted() {
+        final ViewGroup previewListContainer = (ViewGroup) fragment.findViewById(R.id.content_basket);
+        final View message = inflater.inflate(R.layout.basket_order_accepted, null);
+        previewListContainer.addView(message);
+    }
+
     private void fillFragmentWithPreviews(ViewGroup fragment) {
         final ViewGroup previewListContainer = (ViewGroup) fragment.findViewById(R.id.content_basket);
 
@@ -195,11 +207,16 @@ public class FragmentBasket extends Fragment {
             setTotalPrice(Basket.getInstance().getTotalPrice(this));
         } else {
             changeTotalVisibility(true);
-            previewListContainer.removeAllViews();
+            clearBasketList();
             previewListContainer.addView(getBasketEmptyMessage());
         }
     }
 
+    private void clearBasketList() {
+        final ViewGroup previewListContainer = (ViewGroup) fragment.findViewById(R.id.content_basket);
+        if (previewListContainer != null)
+            previewListContainer.removeAllViews();
+    }
 
     private ViewGroup getBasketEmptyMessage() {
         final ViewGroup messageLayout = (ViewGroup) inflater.inflate(R.layout.basket_empty, null);

@@ -44,6 +44,13 @@ public class Basket {
             onBasketEmpty.call();
     }
 
+    public void emptyBasket() {
+        items.clear();
+
+        if (onBasketEmpty != null)
+            onBasketEmpty.call();
+    }
+
     @Nullable
     public BasketItem getItem(ItemObject item, ItemParams params) {
         for (BasketItem basketItem: items)
