@@ -7,7 +7,7 @@ package org.team2d.uncle_bob.Database.ORM;
 public class UserData {
     private static UserData instance = new UserData();
 
-    private UserData(){}
+    private UserData() {}
 
     private String name;
     private String address;

@@ -11,7 +11,7 @@ import com.squareup.picasso.Picasso;
 
 public class PicassoImageLoader {
     private final static PicassoImageLoader INSTANCE = new PicassoImageLoader();
-
+    private PicassoImageLoader(){}
     private Picasso mPicasso = null;
 
     public static PicassoImageLoader getInstance() {
@@ -26,6 +26,9 @@ public class PicassoImageLoader {
         }
 
         mPicasso.load(url)
+                .resize(400, 400)
+                .onlyScaleDown()
+                .centerInside()
                 .placeholder(placeholder)
                 .error(errorPlaceHolder)
                 .into(target);
