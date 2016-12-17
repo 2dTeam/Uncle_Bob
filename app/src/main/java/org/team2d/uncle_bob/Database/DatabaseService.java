@@ -5,7 +5,6 @@ import android.content.Context;
 import org.team2d.uncle_bob.Database.ORM.Items.ItemObject;
 import org.team2d.uncle_bob.Database.ORM.ItemsCollection;
 import org.team2d.uncle_bob.Database.ORM.MapOfItems;
-import org.team2d.uncle_bob.Database.ORM.UserData;
 
 import java.util.Comparator;
 import java.util.List;
@@ -17,7 +16,6 @@ public class DatabaseService {
     private static List<ItemObject> pizza = null;
     private static List<ItemObject> drinks = null;
     private static List<ItemObject> refreshments = null;
-    private static UserData user = UserData.getInstance();
 
     private static boolean mLoaded = false;
 

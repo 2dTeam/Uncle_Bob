@@ -19,6 +19,8 @@ public class Network {
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private static final String orderURL = "http://unclebob.ml/order";
 
+    private Network(){}
+
     private static void makePostRequest(String url, RequestBody requestBody, Callback callback) throws IOException {
         okhttp3.Request request = new okhttp3.Request.Builder()
                 .url(url)

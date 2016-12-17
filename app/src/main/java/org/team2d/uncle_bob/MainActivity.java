@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity
     private boolean mayShowFAB = true;
     private TabFragment mTabFragment = new TabFragment();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -246,11 +245,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             }
             case R.id.nav_menu : {
-                final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                transaction.replace(R.id.app_bar_wrapper_content_container, mTabFragment)
-                        .addToBackStack(INITIAL_BACKSTACK_ID)
-                        .commit();
+                setTabViewOnStack();
                 break;
             }
         }

@@ -192,7 +192,7 @@ public class FragmentItemDetails extends Fragment {
     private class SauceChanger implements View.OnClickListener {
         private final Sauce sauce;
 
-        public SauceChanger(Sauce sauce) {
+        SauceChanger(Sauce sauce) {
             this.sauce = sauce;
         }
 
@@ -210,7 +210,7 @@ public class FragmentItemDetails extends Fragment {
     private class DetailsChanger implements View.OnClickListener {
         private final ItemParams params;
 
-        public DetailsChanger(ItemParams params) {
+        DetailsChanger(ItemParams params) {
             this.params = params;
         }
 

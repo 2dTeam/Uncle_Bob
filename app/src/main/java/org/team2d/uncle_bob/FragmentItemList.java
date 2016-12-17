@@ -69,15 +69,15 @@ public class FragmentItemList extends Fragment {
         this.inflater = inflater;
         this.container = container;
         this.savedInstanceState = savedInstanceState;
+        //TODO check this pls:)
+        if (mFragment == null) {
+            mFragment = inflater.inflate(R.layout.fragment_item_preview_list, container, false);
 
-        final View fragment = inflater.inflate(R.layout.fragment_item_preview_list, container, false);
-        mFragment = fragment;
+            categoryID = getArguments().getInt(ARG_CATEGORY_ID, 0);
 
-        categoryID = getArguments().getInt(ARG_CATEGORY_ID, 0);
-
-        UBIntentService.startActionLoadDB(getActivity());
-
-        return fragment;
+            UBIntentService.startActionLoadDB(getActivity());
+        }
+        return mFragment;
     }
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -158,7 +158,7 @@ public class FragmentItemList extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
+        mFragment = null;
     }
 
     @Override
