@@ -223,4 +223,9 @@ public class FragmentItemDetails extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        buyButtons.refresh();
+    }
 }

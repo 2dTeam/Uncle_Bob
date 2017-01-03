@@ -48,6 +48,7 @@ public class QuantityButtonsWidget {
         textQuantity.addTextChangedListener(quantityWatcher);
 
         refresh();
+        refreshText();
     }
 
     public BasketItem refresh() {
@@ -59,15 +60,19 @@ public class QuantityButtonsWidget {
             Basket.getInstance().addItem(item);
         }
 
-        textQuantity.setText(String.valueOf(item.getQuantity()));
         if (onRefresh != null)
             onRefresh.act(item);
         return item;
     }
 
+
     public void changeItemParameters(ItemParams details) {
         setBasketItem(item.getItem(), details);
-        refresh();
+        refreshText();
+    }
+
+    private void refreshText() {
+        textQuantity.setText(String.valueOf(item.getQuantity()));
     }
 
     public void destroyListeners() {
@@ -110,7 +115,7 @@ public class QuantityButtonsWidget {
                 return;
 
             item.setQuantity(item.getQuantity() + delta);
-            refresh();
+            refreshText();
             if (onClick != null)
                 onClick.onClick(v);
         }
